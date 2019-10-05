@@ -1,0 +1,32 @@
+.loginPage {
+  width: 100%;
+  background: #f8f9fa;
+  padding: 20px auto;
+}
+.loginForm {
+  width: 40%;
+  margin: 0 auto;
+  padding: 40px 0;
+  text-align: right;
+  background: #dfeef2;
+  opacity: 0.9;
+  border: 2px solid #c4dfe5;
+}
+.RegisterForm {
+  width: 80%;
+  margin: 0 auto;
+}
+.formLoginLabel {
+  font-size: 1.5vw;
+}
+.logintitle {
+  color: white;
+  padding-bottom: 40px;
+  text-align: center;
+}
+.loginPageMessage {
+  margin-top: 10px;
+  width: 100%;
+  text-align: start;
+  color: red;
+}

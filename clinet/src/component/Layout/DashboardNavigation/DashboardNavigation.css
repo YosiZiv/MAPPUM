@@ -1,0 +1,10 @@
+.dashboardNavSelect {
+  color: black;
+}
+.dashboardNav a:hover {
+  text-decoration: none !important;
+}
+.dashboardNav svg {
+  padding: 5px;
+  font-size: 40px;
+}

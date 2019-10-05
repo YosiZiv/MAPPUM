@@ -1,0 +1,10 @@
+.navLink {
+  padding: 20px;
+  color: black;
+}
+.navLink:hover {
+  text-decoration: none;
+}
+.NavSelect {
+  color: blue;
+}

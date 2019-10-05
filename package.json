@@ -1,0 +1,49 @@
+{
+  "name": "myKlappa",
+  "version": "1.0.0",
+  "description": "clac app",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "lint": "eslint src -c .eslintrc.json --ext js,jsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katlany/myKlappa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katlany/myKlappa/issues"
+  },
+  "homepage": "https://github.com/katlany/myKlappa#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
+    "express": "^4.17.1",
+    "handlebars": "^4.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.4",
+    "nodemailer": "^6.3.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pdfkit": "^0.10.0",
+    "prettier": "^1.18.2",
+    "puppeteer": "^1.19.0",
+    "validator": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

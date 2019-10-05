@@ -1,0 +1,10 @@
+.trackerContainer {
+}
+.TrackerList {
+}
+.trackerTitle {
+  height: 8vh;
+}
+.trackers {
+  display: flex;
+}

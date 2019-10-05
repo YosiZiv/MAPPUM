@@ -1,0 +1,10 @@
+.saleDetails {
+  width: 100%;
+}
+.userSaleList {
+  display: flex;
+  justify-content: space-around;
+}
+.saleUserCardContainer {
+  width: 30%;
+}

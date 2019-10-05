@@ -1,0 +1,20 @@
+.MainPageBackground {
+  height: 100vh;
+  background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+.MainPageContent {
+  font-family: 'Roboto slab';
+  padding-top: 20px;
+}
+.MainPageContent h2 {
+  text-shadow: 1px 1px white;
+  font-size: 68px;
+}
+.MainPageContent p {
+  text-shadow: 1px 1px white;
+  font-size: 28px;
+}

@@ -1,0 +1,24 @@
+.RegisterPage {
+  background: #f9f5a5;
+  width: 100%;
+}
+
+.Registerform {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #eceff9;
+  gap: 20px;
+  padding-top: 10px;
+}
+.formRegisterLabel {
+  font-size: 1.5vw;
+}
+.formRegisterTitle {
+  font-size: 40px;
+  background: #a6bdf8;
+  color: white;
+  padding-bottom: 10px;
+  font-family: 'David Libre', serif;
+}
