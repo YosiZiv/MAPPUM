@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SearchUser from '../../../../Layout/SearchUser/SeachUser';
 import SignUser from '../../../../Layout/SignUser/SignUser';
 import Input from '../../../../Layout/TextInput/TextInput';
@@ -14,119 +15,6 @@ import {
   setRegisterFields,
 } from '../../../../../redux/actions/register';
 class Register extends Component {
-  // state = {
-  //   register: {
-  //     firstName: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'text',
-  //         placeholder: 'First Name',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minLength: 2,
-  //         maxLength: 30,
-  //       },
-  //     },
-  //     lastName: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'text',
-  //         placeholder: 'Last Name',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minLength: 2,
-  //         maxLength: 30,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //     zahot: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'number',
-  //         placeholder: 'Id',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minLength: 8,
-  //         maxLength: 9,
-  //         isNumeric: true,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //     phone: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'text',
-  //         placeholder: 'Phone',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minLength: 6,
-  //         maxLength: 30,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //     address: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'text',
-  //         placeholder: 'Adress',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         minLength: 2,
-  //         maxLength: 60,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //     email: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'email',
-  //         placeholder: 'Email',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         isEmail: true,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //   },
-  //   searchUser: {
-  //     email: {
-  //       elementType: 'input',
-  //       elementConfig: {
-  //         type: 'email',
-  //         placeholder: 'Email',
-  //       },
-  //       value: '',
-  //       validation: {
-  //         required: true,
-  //         isEmail: true,
-  //       },
-  //       valid: false,
-  //       touched: false,
-  //     },
-  //   },
-  //   mode: 'new',
-  //   formIsValid: false,
-  //   messages: null,
-  //   redirectTo: false,
-  // };
-
   handleInputChange = ({ id, value }) => {
     const { setRegisterFields } = this.props;
     setRegisterFields({ id, value });
@@ -247,6 +135,13 @@ class Register extends Component {
     );
   }
 }
+Register.prototype = {
+  registerForm: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
+  message: PropTypes.string,
+  user: PropTypes.object,
+};
+
 const mapStateToProps = state => {
   return {
     registerForm: state.register.registerForm,
