@@ -7,7 +7,6 @@ import {
   LOGOUT,
   setAuthTime,
   logout,
-  setAuth,
 } from '../actions/auth';
 import { apiRequest } from '../actions/api';
 import {
@@ -39,7 +38,6 @@ export const autoLogin = ({ dispatch }) => next => action => {
         const updateDate =
           (expirationDate.getTime() - new Date().getTime()) / 1000;
         dispatch(setAuthTime(updateDate));
-        dispatch(setAuth(user));
       }
     }
   }
@@ -69,7 +67,6 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(redirectTo('/'));
-      dispatch(setAuth(user));
     }
     if (userToken) {
       const user = {
@@ -81,7 +78,6 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(redirectTo('/'));
-      dispatch(setAuth(user));
     }
 
     // dispatch(redirectTo('/'));
@@ -100,7 +96,6 @@ export const onLogout = ({ dispatch }) => next => action => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('userToken');
     localStorage.removeItem('expirseIn');
-    dispatch(setAuth({ token: null, user: false, admin: false }));
   }
 };
 

@@ -8,7 +8,7 @@ const api = require('./express/api');
 //  Express App initalizing
 const app = express();
 
-//  Body parser middlewar
+//  Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));

@@ -16,10 +16,12 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    const { autoLogin, getLastProduct, getLastUser } = this.props;
+    const { autoLogin, getLastProduct, getLastUser, admin } = this.props;
     autoLogin();
-    getLastProduct();
-    getLastUser();
+    if (admin) {
+      getLastProduct();
+      getLastUser();
+    }
   }
 
   render() {
@@ -47,6 +49,7 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => ({
+  admin: state.auth.admin,
   loading: state.ui.loading,
 });
 export default connect(
