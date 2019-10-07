@@ -1,13 +1,13 @@
 .loginPage {
   width: 100%;
   background: #f8f9fa;
-  padding: 20px auto;
+  
 }
 .loginForm {
-  width: 40%;
+  width: 30vw;
   margin: 0 auto;
   padding: 40px 0;
-  text-align: right;
+  text-align: center;
   background: #dfeef2;
   opacity: 0.9;
   border: 2px solid #c4dfe5;
@@ -18,9 +18,10 @@
 }
 .formLoginLabel {
   font-size: 1.5vw;
+  float: left;
 }
 .logintitle {
-  color: white;
+  color: #02033f;
   padding-bottom: 40px;
   text-align: center;
 }

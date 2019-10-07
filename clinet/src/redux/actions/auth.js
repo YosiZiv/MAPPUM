@@ -5,21 +5,29 @@ export const LOGIN_ERROR = '[auth] Login Error';
 export const SET_AUTH = '[auth] set Auth';
 export const SET_AUTH_TIME = '[auth] set Auth Time';
 export const LOGOUT = '[auth] logout';
+export const SET_LOGIN_FIELDS = '[Auth] Set Login Fields';
+
 export const loginStart = userData => ({
   type: LOGIN_START,
-  payload: userData
+  payload: userData,
 });
 export const autoLogin = () => ({
-  type: AUTO_LOGIN
+  type: AUTO_LOGIN,
 });
 export const logout = () => ({
-  type: LOGOUT
+  type: LOGOUT,
+});
+
+export const setAuth = payload => ({
+  type: SET_AUTH,
+  payload,
 });
 export const setAuthTime = payload => ({
   type: SET_AUTH_TIME,
-  payload
+  payload,
 });
-export const setAuth = payload => ({
-  type: SET_AUTH,
-  payload
+
+export const setLoginFields = payload => ({
+  type: SET_LOGIN_FIELDS,
+  payload,
 });
