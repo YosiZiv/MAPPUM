@@ -7,6 +7,7 @@ import { loginStart, setLoginFields } from '../../../redux/actions/auth';
 import { clearLoginState } from '../../../redux/actions/ui';
 import Input from '../../Layout/TextInput/TextInput';
 import './Login.css';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   componentWillUnmount() {
@@ -80,6 +81,12 @@ class Login extends Component {
     );
   }
 }
+Login.prop = {
+  loading: PropTypes.bool,
+  message: PropTypes.string,
+  loginForm: PropTypes.object.isRequired,
+  redirectPath: PropTypes.string,
+};
 const mapStateToProps = state => {
   return {
     loading: state.ui.loading,
