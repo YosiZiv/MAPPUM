@@ -33,7 +33,7 @@ class Login extends Component {
         {redirectPath && <Redirect to={redirectPath} />}
         <div className="form-group loginForm">
           <h2 className="logintitle">Login</h2>
-          <form className="RegisterForm" onSubmit={this.submitHandler}>
+          <form onSubmit={e => e.preventDefault()}>
             <div className="container">
               <div className="row justify-content-center">
                 <form className="form">

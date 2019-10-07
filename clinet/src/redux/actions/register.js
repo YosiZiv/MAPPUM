@@ -5,6 +5,13 @@ export const SET_USER = '[register] Set User';
 export const SEARCH_USER_START = '[register] Search User Start';
 export const SEARCH_USER_SUCCESS = '[register] Search User Success';
 export const SEARCH_USER_FAIL = '[register] Search User Fail';
+export const SET_REGISTER_FIELDS = '[register] Set Register Fields';
+
+export const setRegisterFields = payload => ({
+  type: SET_REGISTER_FIELDS,
+  payload,
+});
+
 export const registerStart = payload => {
   return {
     type: REGISTER_START,
