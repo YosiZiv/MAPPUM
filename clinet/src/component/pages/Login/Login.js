@@ -20,13 +20,8 @@ class Login extends Component {
   };
 
   submitHandler = async event => {
-    const { email, password } = this.state.login;
-    const { loginStart } = this.props;
-    const formData = {
-      email: email.value,
-      password: password.value,
-    };
-    loginStart(formData);
+    const { loginStart, loginForm } = this.props;
+    loginStart(loginForm);
   };
 
   render() {
@@ -89,7 +84,7 @@ const mapStateToProps = state => {
   return {
     loading: state.ui.loading,
     message: state.ui.message,
-    path: state.ui.redirect,
+    redirectPath: state.ui.redirect,
     loginForm: state.auth.loginForm,
   };
 };

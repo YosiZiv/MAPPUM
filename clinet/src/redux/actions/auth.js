@@ -17,6 +17,11 @@ export const autoLogin = () => ({
 export const logout = () => ({
   type: LOGOUT,
 });
+
+export const setAuth = payload => ({
+  type: SET_AUTH,
+  payload,
+});
 export const setAuthTime = payload => ({
   type: SET_AUTH_TIME,
   payload,

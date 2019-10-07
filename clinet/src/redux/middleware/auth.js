@@ -5,6 +5,7 @@ import {
   AUTO_LOGIN,
   SET_AUTH_TIME,
   LOGOUT,
+  setAuth,
   setAuthTime,
   logout,
 } from '../actions/auth';
@@ -38,6 +39,7 @@ export const autoLogin = ({ dispatch }) => next => action => {
         const updateDate =
           (expirationDate.getTime() - new Date().getTime()) / 1000;
         dispatch(setAuthTime(updateDate));
+        dispatch(setAuth(user));
       }
     }
   }
@@ -66,6 +68,7 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('adminToken', adminToken);
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
+      dispatch(setAuth(user));
       dispatch(redirectTo('/'));
     }
     if (userToken) {
@@ -77,6 +80,7 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('userToken', userToken);
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
+      dispatch(setAuth(user));
       dispatch(redirectTo('/'));
     }
 
