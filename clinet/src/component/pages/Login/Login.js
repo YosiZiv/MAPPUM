@@ -7,6 +7,7 @@ import { loginStart, setLoginFields } from '../../../redux/actions/auth';
 import { clearLoginState } from '../../../redux/actions/ui';
 import Input from '../../Layout/TextInput/TextInput';
 import './Login.css';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   componentWillUnmount() {
@@ -33,7 +34,7 @@ class Login extends Component {
         {redirectPath && <Redirect to={redirectPath} />}
         <div className="form-group loginForm">
           <h2 className="logintitle">Login</h2>
-          <form className="RegisterForm" onSubmit={this.submitHandler}>
+          <form onSubmit={e => e.preventDefault()}>
             <div className="container">
               <div className="row justify-content-center">
                 <form className="form">
@@ -80,6 +81,12 @@ class Login extends Component {
     );
   }
 }
+Login.prop = {
+  loading: PropTypes.bool,
+  message: PropTypes.string,
+  loginForm: PropTypes.object.isRequired,
+  redirectPath: PropTypes.string,
+};
 const mapStateToProps = state => {
   return {
     loading: state.ui.loading,
