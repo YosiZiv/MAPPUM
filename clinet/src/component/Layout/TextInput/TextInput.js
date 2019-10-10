@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './TextInput.css';
 const textInput = props => {
   const {
     id,
@@ -11,19 +11,10 @@ const textInput = props => {
     error,
     showTitle,
     className,
+    validation,
+    isValid,
   } = props;
-  console.log(
-    id,
-    type,
-    name,
-    required,
-    defaultValue,
-    disabled,
-    error,
-    showTitle,
-    className,
-  );
-
+  const isValidClass = !isValid ? ' invalid' : '';
   const handleKeyDown = event => {
     // Preventing from invalid characters to be inserted in the number input.
     if (type === 'number' && ['-', '+', 'e'].includes(event.key)) {
@@ -37,7 +28,7 @@ const textInput = props => {
     const { value } = event.currentTarget;
     const formattedValue = type === 'number' ? Number(value) : value;
     const { id, inputChange } = props;
-    inputChange({ id, value: formattedValue, event });
+    inputChange({ id, value: formattedValue, validation });
   };
 
   return (
@@ -58,7 +49,7 @@ const textInput = props => {
         onKeyDown={handleKeyDown}
         placeholder={`Enter ${name}`}
         autoComplete="off"
-        className={className}
+        className={className + isValidClass}
       />
       <div className="text-input-error-message">
         {error && <small className="text-danger">{error}</small>}

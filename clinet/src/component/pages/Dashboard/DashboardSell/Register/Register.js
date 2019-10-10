@@ -38,6 +38,7 @@ class Register extends Component {
                     className="form-control"
                     id="firstName"
                     name="firstName"
+                    error={message && message.firstName}
                     required
                     disabled={loading}
                     defaultValue={firstName}
@@ -49,6 +50,7 @@ class Register extends Component {
                     className="form-control"
                     id="lastName"
                     name="lastName"
+                    error={message && message.lastName}
                     required
                     disabled={loading}
                     defaultValue={lastName}
@@ -62,6 +64,7 @@ class Register extends Component {
                     className="form-control"
                     id="zahot"
                     name="zahot"
+                    error={message && message.zahot}
                     required
                     disabled={loading}
                     defaultValue={zahot}
@@ -73,6 +76,7 @@ class Register extends Component {
                     className="form-control"
                     id="phone"
                     name="phone"
+                    error={message && message.phone}
                     required
                     disabled={loading}
                     defaultValue={phone}
@@ -86,6 +90,7 @@ class Register extends Component {
                     className="form-control"
                     id="address"
                     name="address"
+                    error={message && message.address}
                     required
                     disabled={loading}
                     defaultValue={address}
@@ -97,6 +102,7 @@ class Register extends Component {
                     className="form-control"
                     id="email"
                     name="email"
+                    error={message && message.email}
                     required
                     disabled={loading}
                     defaultValue={email}
@@ -117,13 +123,13 @@ class Register extends Component {
               </div>
             </form>
             {redirect && <Redirect to={redirect} />}
-            {message && (
-              <div className="loginPageMessage">
-                {Object.values(message).map(msg => (
-                  <p>* {msg.toUpperCase()}</p>
-                ))}
-              </div>
-            )}
+            {message
+              ? message.global && (
+                  <div className="globalError">
+                    <p>* {message.global.toUpperCase()}</p>
+                  </div>
+                )
+              : null}
           </div>
         </div>
         {loading && (

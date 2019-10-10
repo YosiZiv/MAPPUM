@@ -14,10 +14,9 @@ class Login extends Component {
     const { clearLoginState } = this.props;
     clearLoginState();
   }
-  handleInputChange = ({ id, value }) => {
+  handleInputChange = ({ id, value, validation }) => {
     const { setLoginFields } = this.props;
-    console.log('event work', setLoginFields);
-    setLoginFields({ id, value });
+    setLoginFields({ id, value, validation });
   };
 
   submitHandler = async event => {
@@ -28,8 +27,6 @@ class Login extends Component {
   render() {
     const { loading, loginForm, redirectPath, message } = this.props;
     const { email, password } = loginForm;
-    const errorPrint = message ? message.password : undefined;
-    console.log('render work', message, errorPrint);
     return (
       <div className="loginPage">
         {redirectPath && <Redirect to={redirectPath} />}
@@ -41,6 +38,7 @@ class Login extends Component {
                 <form className="form">
                   <div className="col">
                     <Input
+                      isValid={email ? email.isValid : true}
                       className="form-control"
                       id="email"
                       name="email"
@@ -48,10 +46,12 @@ class Login extends Component {
                       error={message && message.email}
                       required
                       disabled={loading}
-                      defaultValue={email}
+                      defaultValue={email && email.value}
                       inputChange={this.handleInputChange}
+                      validation={{ isRequired: true, isEmail: true }}
                     />
                     <Input
+                      isValid={password ? password.isValid : true}
                       className="form-control"
                       id="password"
                       name="password"
@@ -59,8 +59,9 @@ class Login extends Component {
                       error={message && message.password}
                       required
                       disabled={loading}
-                      defaultValue={password}
+                      defaultValue={password && password.value}
                       inputChange={this.handleInputChange}
+                      validation={{ isRequired: true, minLength: 6 }}
                     />
                   </div>
                   <button
@@ -75,7 +76,7 @@ class Login extends Component {
             </div>
             {message
               ? message.global && (
-                  <div className="loginPageMessage">
+                  <div className="globalError">
                     <p>* {message.global.toUpperCase()}</p>
                   </div>
                 )

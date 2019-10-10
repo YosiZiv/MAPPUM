@@ -5,3 +5,9 @@
 .App-header {
   min-height: 20vh;
 }
+.globalError {
+  margin-top: 3vh;
+  width: 100%;
+  text-align: center;
+  color: red;
+}
