@@ -135,8 +135,8 @@ class Register extends Component {
     );
   }
 }
-Register.prototype = {
-  registerForm: PropTypes.object.isRequired,
+Register.prop = {
+  registerForm: PropTypes.object,
   loading: PropTypes.bool,
   message: PropTypes.string,
   user: PropTypes.object,

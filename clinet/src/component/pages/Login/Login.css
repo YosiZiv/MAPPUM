@@ -1,16 +1,13 @@
 .loginPage {
   width: 100%;
   background: #f8f9fa;
-  
 }
 .loginForm {
   width: 30vw;
   margin: 0 auto;
   padding: 40px 0;
   text-align: center;
-  background: #dfeef2;
   opacity: 0.9;
-  border: 2px solid #c4dfe5;
 }
 .RegisterForm {
   width: 80%;

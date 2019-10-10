@@ -28,7 +28,8 @@ class Login extends Component {
   render() {
     const { loading, loginForm, redirectPath, message } = this.props;
     const { email, password } = loginForm;
-    console.log('render work', loginForm);
+    const errorPrint = message ? message.password : undefined;
+    console.log('render work', message, errorPrint);
     return (
       <div className="loginPage">
         {redirectPath && <Redirect to={redirectPath} />}
@@ -43,6 +44,8 @@ class Login extends Component {
                       className="form-control"
                       id="email"
                       name="email"
+                      type="text"
+                      error={message && message.email}
                       required
                       disabled={loading}
                       defaultValue={email}
@@ -52,6 +55,8 @@ class Login extends Component {
                       className="form-control"
                       id="password"
                       name="password"
+                      type="password"
+                      error={message && message.password}
                       required
                       disabled={loading}
                       defaultValue={password}
@@ -68,13 +73,13 @@ class Login extends Component {
                 </form>
               </div>
             </div>
-            {message && (
-              <div className="loginPageMessage">
-                {Object.values(message).map(msg => (
-                  <p>* {msg.toUpperCase()}</p>
-                ))}
-              </div>
-            )}
+            {message
+              ? message.global && (
+                  <div className="loginPageMessage">
+                    <p>* {message.global.toUpperCase()}</p>
+                  </div>
+                )
+              : null}
           </form>
         </div>
       </div>

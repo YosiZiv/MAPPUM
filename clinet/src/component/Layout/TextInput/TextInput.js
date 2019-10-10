@@ -10,7 +10,20 @@ const textInput = props => {
     disabled,
     error,
     showTitle,
+    className,
   } = props;
+  console.log(
+    id,
+    type,
+    name,
+    required,
+    defaultValue,
+    disabled,
+    error,
+    showTitle,
+    className,
+  );
+
   const handleKeyDown = event => {
     // Preventing from invalid characters to be inserted in the number input.
     if (type === 'number' && ['-', '+', 'e'].includes(event.key)) {
@@ -45,6 +58,7 @@ const textInput = props => {
         onKeyDown={handleKeyDown}
         placeholder={`Enter ${name}`}
         autoComplete="off"
+        className={className}
       />
       <div className="text-input-error-message">
         {error && <small className="text-danger">{error}</small>}

@@ -12,6 +12,8 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   const errors = validateLoginInput(req.body);
   if (Object.keys(errors).length) {
+    console.log(errors);
+
     return res.status(400).json({ errors });
   }
   //  Find user by email
@@ -20,19 +22,13 @@ exports.login = async (req, res, next) => {
     if (!dbUser) {
       errors.global = 'email or password incorrect';
       return res.status(400).json({ errors });
-      // const error = new Error('מייל או סיסמא שגויים');
-      // error.status = 400;
-      // return next(error);
-
-      errors.email = 'email or password are incorrenct';
-      return res.status(400).json({ errors });
     }
     return bcrypt
       .compare(password, dbUser.password)
       .then(isMatch => {
         console.log(isMatch);
         if (!isMatch) {
-          errors.email = 'Password is incorrect';
+          errors.global = 'email or password incorrect';
           return res.status(400).json({ errors });
         }
         if (isMatch) {
@@ -75,7 +71,7 @@ exports.login = async (req, res, next) => {
               }),
           );
         }
-        errors.email = 'email or password are incorrenct';
+        errors.global = 'email or password incorrect';
         return res.status(400).json({ errors });
       })
       .catch(err => {
