@@ -10,6 +10,8 @@ const { User } = require('../models');
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
+
   const errors = validateLoginInput(req.body);
   if (Object.keys(errors).length) {
     console.log(errors);
