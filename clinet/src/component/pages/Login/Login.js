@@ -21,7 +21,11 @@ class Login extends Component {
 
   submitHandler = async event => {
     const { loginStart, loginForm } = this.props;
-    loginStart(loginForm);
+    const userData = {
+      email: loginForm.email.value,
+      password: loginForm.password.value,
+    };
+    loginStart(userData);
   };
 
   render() {

@@ -14,8 +14,6 @@ exports.login = async (req, res, next) => {
 
   const errors = validateLoginInput(req.body);
   if (Object.keys(errors).length) {
-    console.log(errors);
-
     return res.status(400).json({ errors });
   }
   //  Find user by email
