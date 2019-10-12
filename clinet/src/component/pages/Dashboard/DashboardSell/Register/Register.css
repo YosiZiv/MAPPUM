@@ -2,7 +2,16 @@
   background: #f9f5a5;
   width: 100%;
 }
-
+.modeContainer {
+  align-content: flex-end;
+  padding-bottom: 20px;
+  margin-top: 3vh;
+  width: 100%;
+  text-align: left;
+}
+.modeContainer h4 {
+  padding: 10px;
+}
 .Registerform {
   width: 80%;
   margin: 0 auto;

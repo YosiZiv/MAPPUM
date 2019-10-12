@@ -6,7 +6,7 @@ export const SEARCH_USER_START = '[register] Search User Start';
 export const SEARCH_USER_SUCCESS = '[register] Search User Success';
 export const SEARCH_USER_FAIL = '[register] Search User Fail';
 export const SET_REGISTER_FIELDS = '[register] Set Register Fields';
-
+export const SWITCH_REGISTER_MODE = '[register] Switch Register Mode';
 export const setRegisterFields = payload => ({
   type: SET_REGISTER_FIELDS,
   payload,
@@ -40,4 +40,7 @@ export const setUser = payload => {
 export const searchUser = payload => ({
   type: SEARCH_USER_START,
   payload,
+});
+export const switchRegisterMode = () => ({
+  type: SWITCH_REGISTER_MODE,
 });

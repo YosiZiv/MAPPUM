@@ -1,8 +1,13 @@
-import { SET_USER, SET_REGISTER_FIELDS } from '../actions/register';
+import {
+  SET_USER,
+  SET_REGISTER_FIELDS,
+  SWITCH_REGISTER_MODE,
+} from '../actions/register';
 import { checkValidity } from '../../shared/utility';
 const initState = {
   user: null,
   registerForm: {},
+  mode: true,
 };
 
 export function registerReducer(state = initState, action) {
@@ -23,6 +28,8 @@ export function registerReducer(state = initState, action) {
           },
         },
       };
+    case SWITCH_REGISTER_MODE:
+      return { ...state, mode: !state.mode };
     default:
       return state;
   }
