@@ -15,13 +15,21 @@ import {
   setRegisterFields,
 } from '../../../../../redux/actions/register';
 class Register extends Component {
-  handleInputChange = ({ id, value }) => {
+  handleInputChange = ({ id, value, validation }) => {
     const { setRegisterFields } = this.props;
-    setRegisterFields({ id, value });
+    setRegisterFields({ id, value, validation });
   };
   submitHandler = async event => {
     const { registerStart, registerForm } = this.props;
-    return registerStart(registerForm);
+    const registerData = {
+      firstName: registerForm.firstName.value,
+      lastName: registerForm.lastName.value,
+      zahot: registerForm.zahot.value,
+      phone: registerForm.phone.value,
+      address: registerForm.address.value,
+      email: registerForm.email.value,
+    };
+    return registerStart(registerData);
   };
   render() {
     const { loading, registerForm, redirect, message } = this.props;
@@ -35,78 +43,106 @@ class Register extends Component {
               <div className="row mt-5">
                 <div className="col-6">
                   <Input
+                    isValid={firstName ? firstName.isValid : true}
                     className="form-control"
                     id="firstName"
                     name="firstName"
                     error={message && message.firstName}
                     required
                     disabled={loading}
-                    defaultValue={firstName}
+                    defaultValue={firstName && firstName.value}
                     inputChange={this.handleInputChange}
+                    validation={{
+                      isRequired: true,
+                      minLength: 2,
+                      maxLength: 256,
+                    }}
                   />
                 </div>
                 <div className="col-6">
                   <Input
+                    isValid={lastName ? lastName.isValid : true}
                     className="form-control"
                     id="lastName"
                     name="lastName"
                     error={message && message.lastName}
                     required
                     disabled={loading}
-                    defaultValue={lastName}
+                    defaultValue={lastName && lastName.value}
                     inputChange={this.handleInputChange}
+                    validation={{
+                      isRequired: true,
+                      minLength: 2,
+                      maxLength: 256,
+                    }}
                   />
                 </div>
               </div>
               <div className="row mt-5">
                 <div className="col-6">
                   <Input
+                    isValid={zahot ? zahot.isValid : true}
                     className="form-control"
                     id="zahot"
                     name="zahot"
                     error={message && message.zahot}
                     required
                     disabled={loading}
-                    defaultValue={zahot}
+                    defaultValue={zahot && zahot.value}
                     inputChange={this.handleInputChange}
+                    validation={{ isRequired: true, isNumeric: true }}
                   />
                 </div>
                 <div className="col-6">
                   <Input
+                    isValid={phone ? phone.isValid : true}
                     className="form-control"
                     id="phone"
                     name="phone"
                     error={message && message.phone}
                     required
                     disabled={loading}
-                    defaultValue={phone}
+                    defaultValue={phone && phone.value}
                     inputChange={this.handleInputChange}
+                    validation={{
+                      isRequired: true,
+                      minLength: 6,
+                      maxLength: 256,
+                    }}
                   />
                 </div>
               </div>
               <div className="row mt-5">
                 <div className="col-6">
                   <Input
+                    isValid={address ? address.isValid : true}
                     className="form-control"
                     id="address"
                     name="address"
                     error={message && message.address}
                     required
                     disabled={loading}
-                    defaultValue={address}
+                    defaultValue={address && address.value}
                     inputChange={this.handleInputChange}
+                    validation={{
+                      isRequired: true,
+                      minLength: 2,
+                      maxLength: 256,
+                    }}
                   />
                 </div>
                 <div className="col-6">
                   <Input
+                    isValid={email ? email.isValid : true}
                     className="form-control"
                     id="email"
                     name="email"
                     error={message && message.email}
                     required
                     disabled={loading}
-                    defaultValue={email}
+                    defaultValue={email && email.value}
                     inputChange={this.handleInputChange}
+                    validation={{ isRequired: true, isEmail: true }}
                   />
                 </div>
               </div>

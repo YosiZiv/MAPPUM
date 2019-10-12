@@ -95,7 +95,7 @@ class FormConfirm extends Component {
   }
 }
 const mapStateToProps = state => ({
-  product: state.product.product,
+  product: state.sell.product,
   user: state.register.user,
   message: state.ui.message,
   loading: state.ui.loading,

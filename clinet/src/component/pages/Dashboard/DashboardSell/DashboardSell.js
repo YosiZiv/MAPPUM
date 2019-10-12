@@ -9,55 +9,8 @@ import FormConfirm from './FormConfirm/FormConfirm';
 import FormSuccess from './FormSuccess/FormSuccess';
 
 class dashboardSell extends Component {
-  state = {
-    stage: 'register',
-  };
-  componentDidMount() {
-    console.log(window.location.href, window.location.hostname, this.props);
-    const host = 'http://localhost:3000/dashboard/sell/';
-    if (window.location.href === host) {
-      return this.setState({ stage: 'register' });
-    }
-    if (window.location.href === host + 'createitem') {
-      return this.setState({ stage: 'createProduct' });
-    }
-    if (window.location.href === host + 'formconfirm') {
-      return this.setState({ stage: 'submit' });
-    }
-    if (window.location.href === host + 'formsuccess') {
-      return this.setState({ stage: 'formsuccess' });
-    }
-    return null;
-  }
-  componentDidUpdate() {
-    console.log(window.location.href, window.location.hostname);
-    const host = 'http://localhost:3000/dashboard/sell/';
-    if (window.location.href === host) {
-      return this.setState({ stage: 'register' });
-    }
-    if (
-      window.location.href === host + 'createitem' &&
-      this.state.stage !== 'createProduct'
-    ) {
-      return this.setState({ stage: 'createProduct' });
-    }
-    if (
-      window.location.href === host + 'formconfirm' &&
-      this.state.stage !== 'submit'
-    ) {
-      return this.setState({ stage: 'submit' });
-    }
-    if (
-      window.location.href === host + 'formsuccess' &&
-      this.state.stage !== 'success'
-    ) {
-      return this.setState({ stage: 'success' });
-    }
-    return null;
-  }
   render() {
-    console.log(window.location.href);
-    const { stage } = this.state;
+    // const { stage } = this.state;
     const routes = (
       <React.Fragment>
         <Switch>
@@ -83,7 +36,7 @@ class dashboardSell extends Component {
     );
     return (
       <div className="SellContainer">
-        <ProgressBar stage={stage} />
+        <ProgressBar />
         {routes}
       </div>
     );
@@ -93,7 +46,7 @@ class dashboardSell extends Component {
 const mapStateToProps = state => {
   return {
     user: state.register.user,
-    item: state.product.product,
+    item: state.sell.product,
   };
 };
 

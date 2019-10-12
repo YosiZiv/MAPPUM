@@ -13,6 +13,7 @@ export function registerReducer(state = initState, action) {
       return {
         ...state,
         registerForm: {
+          ...state.registerForm,
           [action.payload.id]: {
             value: action.payload.value,
             isValid: checkValidity(

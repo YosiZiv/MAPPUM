@@ -27,10 +27,7 @@ export const setAuthTime = payload => ({
   payload,
 });
 
-export const setLoginFields = payload => {
-  console.log(payload);
-  return {
-    type: SET_LOGIN_FIELDS,
-    payload,
-  };
-};
+export const setLoginFields = payload => ({
+  type: SET_LOGIN_FIELDS,
+  payload,
+});

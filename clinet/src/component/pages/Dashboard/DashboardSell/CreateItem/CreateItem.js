@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Input from '../../../../Layout/Input/Input';
 import { updateObject, checkValidity } from '../../../../../shared/utility';
-import { createProductStart } from '../../../../../redux/actions/product';
+import { createProductStart } from '../../../../../redux/actions/sell';
 import './createItem.css';
 
 class createItem extends Component {

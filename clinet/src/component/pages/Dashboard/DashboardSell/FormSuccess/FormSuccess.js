@@ -16,7 +16,7 @@ const formConfirm = props => (
 const mapStateToProps = state => {
   return {
     user: state.register.user,
-    product: state.createItem.product,
+    product: state.sell.product,
   };
 };
 export default connect(

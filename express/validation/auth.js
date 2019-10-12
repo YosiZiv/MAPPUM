@@ -52,42 +52,44 @@ exports.validateRegisterInput = data => {
     email = '',
   } = data;
   //  first name validations
-  if (!Validator.isLength(firstName, { min: 2, max: 30 })) {
-    errors.firstName = 'first name must be between 2 - 30 char ';
+  if (!Validator.isLength(firstName, { min: 2, max: 256 })) {
+    errors.firstName = 'first name must be between 2 - 256 char ';
   }
   if (Validator.isEmpty(firstName)) {
     errors.firstName = 'first name must be fill';
   }
   //  last_name validation
-  if (!Validator.isLength(lastName, { min: 2, max: 30 })) {
-    errors.lastName = 'last name must be between 2 - 30 char ';
+  if (!Validator.isLength(lastName, { min: 2, max: 256 })) {
+    errors.lastName = 'last name must be between 2 - 256 char ';
   }
   if (Validator.isEmpty(lastName)) {
     errors.lastName = 'last name must be fill';
   }
-  if (Validator.isEmpty(zahot)) {
-    errors.zahot = 'id must be fill';
-  }
+
   if (!Validator.isNumeric(zahot)) {
     errors.zahot = 'id must be numbers only';
   }
   if (!IsValidIsrGovId(zahot, 9)) {
     errors.zahot = 'id must be valid israel id';
   }
+  if (Validator.isEmpty(zahot)) {
+    errors.zahot = 'id must be fill';
+  }
+
+  if (!Validator.isLength(phone, { min: 6, max: 256 })) {
+    errors.phone = 'phone must be between 6 - 256 char only';
+  }
   if (Validator.isEmpty(phone)) {
     errors.phone = 'phone must be fill';
   }
 
-  if (!Validator.isLength(phone, { min: 6, max: 30 })) {
-    errors.phone = 'phone must be between 6 - 30 char only';
+  if (!Validator.isLength(address, { min: 2, max: 256 })) {
+    errors.address = 'address must be between 2 - 256 char only';
   }
   if (Validator.isEmpty(address)) {
-    errors.address = 'adress must be fill';
+    errors.address = 'address must be fill';
   }
 
-  if (!Validator.isLength(address, { min: 4, max: 100 })) {
-    errors.address = 'adress must be between 4 - 100 char only';
-  }
   //  Email validation
   if (Validator.isEmpty(email)) {
     errors.email = 'email must be fill';

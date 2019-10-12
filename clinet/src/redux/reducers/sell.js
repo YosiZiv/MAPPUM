@@ -1,9 +1,9 @@
-import { SET_PRODUCT } from '../actions/product';
+import { SET_PRODUCT } from '../actions/sell';
 const initState = {
   product: null,
 };
 
-export function productReducer(state = initState, action) {
+export function sellReducer(state = initState, action) {
   switch (action.type) {
     case SET_PRODUCT:
       return { ...state, product: action.payload };

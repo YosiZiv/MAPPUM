@@ -1,19 +1,47 @@
 import { apiRequest } from '../actions/api';
 import {
+  CREATE_PRODUCT_START,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_FAIL,
+  setProduct,
   SELL_COMPLATE_START,
   SELL_COMPLATE_SUCCESS,
   SELL_COMPLATE_FAIL,
   GET_LAST_USER_START,
   GET_LAST_USER_SUCCESS,
   GET_LAST_USER_FAIL,
-  GET_LAST_PRODUCT_START,
-  GET_LAST_PRODUCT_SUCCESS,
-  GET_LAST_PRODUCT_FAIL,
-} from '../actions/formSubmit';
+} from '../actions/sell';
 import { setMessage, redirectTo } from '../actions/ui';
 import { setUser } from '../actions/register';
-import { setProduct } from '../actions/product';
 
+export const createProductStart = ({ dispatch }) => next => action => {
+  next(action);
+  const URL = 'dashboard/createitem';
+  if (action.type === CREATE_PRODUCT_START) {
+    dispatch(
+      apiRequest(
+        'POST',
+        URL,
+        action.payload,
+        CREATE_PRODUCT_SUCCESS,
+        CREATE_PRODUCT_FAIL,
+      ),
+    );
+  }
+};
+export const createProductSuccess = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === CREATE_PRODUCT_SUCCESS) {
+    dispatch(setProduct(action.payload.product));
+  }
+};
+export const createProductFail = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === CREATE_PRODUCT_FAIL) {
+    console.log(action);
+    dispatch(setMessage(action.payload));
+  }
+};
 export const sellComplateStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'dashboard/sellcomplate';
@@ -70,42 +98,14 @@ export const getLastUserFail = ({ dispatch }) => next => action => {
     dispatch(setMessage(action.payload));
   }
 };
-export const getLastProductStart = ({ dispatch }) => next => action => {
-  next(action);
-  const URL = 'dashboard/getlastproduct';
-  if (action.type === GET_LAST_PRODUCT_START) {
-    dispatch(
-      apiRequest(
-        'GET',
-        URL,
-        null,
-        GET_LAST_PRODUCT_SUCCESS,
-        GET_LAST_PRODUCT_FAIL,
-      ),
-    );
-  }
-};
-export const getLastProductSuccess = ({ dispatch }) => next => action => {
-  next(action);
-  if (action.type === GET_LAST_PRODUCT_SUCCESS) {
-    console.log(action);
-    dispatch(setProduct(action.payload.product));
-  }
-};
-export const getLastProductFail = ({ dispatch }) => next => action => {
-  next(action);
-  if (action.type === GET_LAST_PRODUCT_FAIL) {
-    console.log(action);
-    dispatch(setMessage(action.payload));
-  }
-};
-export const formSubmitMdl = [
+
+export const sellMdl = [
+  createProductStart,
+  createProductSuccess,
+  createProductFail,
   sellComplateSuccess,
   sellComplateFail,
   getLastUserStart,
   getLastUserSuccess,
   getLastUserFail,
-  getLastProductStart,
-  getLastProductSuccess,
-  getLastProductFail,
 ];
