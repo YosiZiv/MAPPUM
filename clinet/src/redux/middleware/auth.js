@@ -10,19 +10,13 @@ import {
   logout,
 } from '../actions/auth';
 import { apiRequest } from '../actions/api';
-import {
-  setMessage,
-  redirectTo,
-  loadingStart,
-  loadingFinish,
-} from '../actions/ui';
+import { setMessage, clearUi, redirectTo, loadingFinish } from '../actions/ui';
 
 export const autoLogin = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === AUTO_LOGIN) {
     const adminToken = localStorage.getItem('adminToken');
     const userToken = localStorage.getItem('userToken');
-    console.log(userToken, adminToken);
 
     if (!adminToken && !userToken) {
       return dispatch(logout());
@@ -48,7 +42,6 @@ export const loginStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'auth/login';
   if (action.type === LOGIN_START) {
-    console.log(action);
     dispatch(
       apiRequest('POST', URL, action.payload, LOGIN_SUCCESS, LOGIN_ERROR),
     );
@@ -69,7 +62,9 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(setAuth(user));
+      dispatch(loadingFinish());
       dispatch(redirectTo('/'));
+      dispatch(clearUi());
     }
     if (userToken) {
       const user = {
@@ -81,7 +76,9 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(setAuth(user));
+      dispatch(loadingFinish());
       dispatch(redirectTo('/'));
+      dispatch(clearUi());
     }
 
     // dispatch(redirectTo('/'));
@@ -90,6 +87,7 @@ export const loginSuccess = ({ dispatch }) => next => action => {
 export const loginFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGIN_ERROR) {
+    dispatch(loadingFinish());
     dispatch(setMessage(action.payload));
   }
 };
@@ -100,13 +98,13 @@ export const onLogout = ({ dispatch }) => next => action => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('userToken');
     localStorage.removeItem('expirseIn');
+    dispatch(setAuth(null));
   }
 };
 
 export const checkAuthTimeout = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === SET_AUTH_TIME) {
-    console.log('inside');
     setTimeout(() => {
       dispatch(logout());
     }, action.payload * 1000);

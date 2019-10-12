@@ -9,11 +9,16 @@ class Logout extends Component {
   }
 
   render() {
-    return <Redirect to="/" />;
+    const { redirectPath } = this.props;
+    return <Redirect to={redirectPath} />;
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    redirectPath: state.ui.redirect,
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   { logout },
 )(Logout);

@@ -27,9 +27,9 @@ export function authReducer(state = initState, action) {
     case SET_AUTH:
       return {
         ...state,
-        token: action.payload.token && action.payload.token,
-        admin: action.payload.admin && action.payload.admin,
-        user: action.payload.user && action.payload.user,
+        token: action.payload ? action.payload.token : null,
+        admin: action.payload ? action.payload.admin : null,
+        user: action.payload ? action.payload.user : null,
       };
     case LOGIN_ERROR:
       return { ...state, message: action.payload.errors };

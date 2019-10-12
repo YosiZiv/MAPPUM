@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Spinner from './component/Layout/Spinners/Spinners';
 import AdminPrivateRoute from './hoc/privateRoute/adminPrivateRoute';
 import UserPrivateRoute from './hoc/privateRoute/userPrivateRoute';
 import Login from './component/pages/Login/Login';
@@ -16,18 +15,21 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    const { autoLogin, getLastProduct, getLastUser, admin } = this.props;
+    const { autoLogin } = this.props;
     autoLogin();
-    if (admin) {
+  }
+  componentDidUpdate(prevProps) {
+    const { getLastProduct, getLastUser, admin } = this.props;
+
+    if (!prevProps.admin && admin) {
       getLastProduct();
       getLastUser();
     }
+    // if (admin) {
+
+    // }
   }
-
   render() {
-    const { loading } = this.props;
-    console.log(loading);
-
     const routes = (
       <React.Fragment>
         <Switch>

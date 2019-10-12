@@ -14,7 +14,6 @@ export const registerStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'dashboard/register';
   if (action.type === REGISTER_START) {
-    dispatch(clearUi());
     dispatch(
       apiRequest('POST', URL, action.payload, REGISTER_SUCCESS, REGISTER_FAIL),
     );
@@ -24,7 +23,6 @@ export const registerSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === REGISTER_SUCCESS) {
     dispatch(setUser(action.payload.user));
-    dispatch(redirectTo('/dashboard/sell/createitem'));
   }
 };
 
@@ -53,14 +51,11 @@ export const searchUserSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === SEARCH_USER_SUCCESS) {
     dispatch(setUser(action.payload.user));
-    dispatch(clearUi());
-    dispatch(redirectTo('/dashboard/sell/createItem'));
   }
 };
 export const searchUserFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === SEARCH_USER_FAIL) {
-    console.log(action.payload);
     dispatch(setMessage(action.payload));
   }
 };

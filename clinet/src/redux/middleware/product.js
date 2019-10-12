@@ -5,13 +5,12 @@ import {
   CREATE_PRODUCT_FAIL,
   setProduct,
 } from '../actions/product';
-import { setMessage, redirectTo, clearUi } from '../actions/ui';
+import { setMessage } from '../actions/ui';
 
 export const createProductStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'dashboard/createitem';
   if (action.type === CREATE_PRODUCT_START) {
-    dispatch(clearUi());
     dispatch(
       apiRequest(
         'POST',
@@ -26,9 +25,7 @@ export const createProductStart = ({ dispatch }) => next => action => {
 export const createProductSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === CREATE_PRODUCT_SUCCESS) {
-    console.log(action);
     dispatch(setProduct(action.payload.product));
-    dispatch(redirectTo('/dashboard/sell/formconfirm'));
   }
 };
 export const createProductFail = ({ dispatch }) => next => action => {
