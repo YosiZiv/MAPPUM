@@ -82,6 +82,7 @@ class Register extends Component {
                       className="form-control"
                       id="firstName"
                       name="firstName"
+                      type="text"
                       error={message && message.firstName}
                       required
                       disabled={loading}
@@ -100,6 +101,7 @@ class Register extends Component {
                       className="form-control"
                       id="lastName"
                       name="lastName"
+                      type="text"
                       error={message && message.lastName}
                       required
                       disabled={loading}
@@ -120,6 +122,7 @@ class Register extends Component {
                       className="form-control"
                       id="zahot"
                       name="zahot"
+                      type="number"
                       error={message && message.zahot}
                       required
                       disabled={loading}
@@ -134,6 +137,7 @@ class Register extends Component {
                       className="form-control"
                       id="phone"
                       name="phone"
+                      type="text"
                       error={message && message.phone}
                       required
                       disabled={loading}
@@ -154,6 +158,7 @@ class Register extends Component {
                       className="form-control"
                       id="address"
                       name="address"
+                      type="text"
                       error={message && message.address}
                       required
                       disabled={loading}
@@ -172,6 +177,7 @@ class Register extends Component {
                       className="form-control"
                       id="email"
                       name="email"
+                      type="email"
                       error={message && message.email}
                       required
                       disabled={loading}

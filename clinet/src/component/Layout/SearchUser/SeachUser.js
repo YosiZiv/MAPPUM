@@ -40,7 +40,6 @@ const searchUser = props => (
                 justifySelf: 'end',
                 gridColumn: 2,
               }}
-              onClick={props.submit}
             >
               continue with {props.user.firstName}
               <i

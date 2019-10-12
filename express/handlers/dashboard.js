@@ -272,8 +272,8 @@ exports.sellComplate = async (req, res, next) => {
 
 //  Register User Handle function
 exports.register = async (req, res, next) => {
+  const errors = validateRegisterInput(req.body);
   try {
-    const errors = validateRegisterInput(req.body);
     console.log('inside register', errors);
 
     if (Object.keys(errors).length) {

@@ -9,7 +9,7 @@ const ProductSchema = new Schema({
     ref: 'user',
     required: false,
   },
-  productName: {
+  name: {
     type: String,
     required: true,
     maxlength: 40,
@@ -20,7 +20,7 @@ const ProductSchema = new Schema({
     maxlength: 256,
   },
   sellPrice: {
-    type: Number,
+    type: String,
     required: true,
   },
   createAt: {

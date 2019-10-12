@@ -42,7 +42,6 @@ function IsValidIsrGovId(sInputId, nCustomIdLen) {
 }
 exports.validateRegisterInput = data => {
   const errors = {};
-  console.log('tessstt', data);
   const {
     firstName = '',
     lastName = '',
@@ -65,17 +64,9 @@ exports.validateRegisterInput = data => {
   if (Validator.isEmpty(lastName)) {
     errors.lastName = 'last name must be fill';
   }
-
-  if (!Validator.isNumeric(zahot)) {
-    errors.zahot = 'id must be numbers only';
-  }
   if (!IsValidIsrGovId(zahot, 9)) {
     errors.zahot = 'id must be valid israel id';
   }
-  if (Validator.isEmpty(zahot)) {
-    errors.zahot = 'id must be fill';
-  }
-
   if (!Validator.isLength(phone, { min: 6, max: 256 })) {
     errors.phone = 'phone must be between 6 - 256 char only';
   }

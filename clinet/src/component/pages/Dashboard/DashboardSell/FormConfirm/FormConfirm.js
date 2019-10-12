@@ -16,29 +16,17 @@ class FormConfirm extends Component {
   };
   render() {
     const { product, user, message, redirect, loading } = this.props;
-    if (Array.isArray(message)) {
-      message.forEach(msg => {
-        return <p>{msg}</p>;
-      });
-    }
     console.log(product, user);
 
     return (
       <div className="formConfirmContainer">
-        {redirect ? <Redirect to="/dashboard/sell/formsuccess" /> : null}
+        {/* {redirect ? <Redirect to="/dashboard/sell/formsuccess" /> : null} */}
 
         {loading ? (
           <Spinner />
         ) : user && product ? (
           <React.Fragment>
             <div className="formConfirmTitle">
-              {message && (
-                <div className="loginPageMessage">
-                  {Object.values(message).map(msg => (
-                    <p>* {msg.toUpperCase()}</p>
-                  ))}
-                </div>
-              )}
               <h1>Sale Summary</h1>
             </div>
             <div className="formConfirmFlex">
@@ -74,7 +62,7 @@ class FormConfirm extends Component {
 
                 <div className="formConfirmWrapper">
                   <label>Product Name</label>
-                  <label>{product.productName}</label>
+                  <label>{product.name}</label>
                 </div>
 
                 <div className="formConfirmWrapper">

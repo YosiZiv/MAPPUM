@@ -11,7 +11,7 @@ import {
   GET_LAST_USER_SUCCESS,
   GET_LAST_USER_FAIL,
 } from '../actions/sell';
-import { setMessage, redirectTo } from '../actions/ui';
+import { setMessage, redirectTo, loadingFinish, clearUi } from '../actions/ui';
 import { setUser } from '../actions/register';
 
 export const createProductStart = ({ dispatch }) => next => action => {
@@ -33,6 +33,8 @@ export const createProductSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === CREATE_PRODUCT_SUCCESS) {
     dispatch(setProduct(action.payload.product));
+    dispatch(redirectTo('/dashboard/sell/formconfirm'));
+    dispatch(clearUi());
   }
 };
 export const createProductFail = ({ dispatch }) => next => action => {
@@ -64,6 +66,7 @@ export const sellComplateSuccess = ({ dispatch }) => next => action => {
     console.log(action);
     // dispatch(setProduct(action.payload.item));
     dispatch(redirectTo('/dashboard/sell/formconfirm'));
+    dispatch(clearUi());
   }
 };
 export const sellComplateFail = ({ dispatch }) => next => action => {
@@ -96,6 +99,7 @@ export const getLastUserFail = ({ dispatch }) => next => action => {
   if (action.type === GET_LAST_USER_FAIL) {
     console.log(action);
     dispatch(setMessage(action.payload));
+    dispatch(loadingFinish());
   }
 };
 
