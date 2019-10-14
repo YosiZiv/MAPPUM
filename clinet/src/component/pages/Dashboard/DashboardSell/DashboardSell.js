@@ -10,7 +10,7 @@ import FormSuccess from './FormSuccess/FormSuccess';
 
 class dashboardSell extends Component {
   render() {
-    // const { stage } = this.state;
+    const { stage } = this.props;
     const routes = (
       <React.Fragment>
         <Switch>
@@ -36,7 +36,7 @@ class dashboardSell extends Component {
     );
     return (
       <div className="SellContainer">
-        <ProgressBar />
+        <ProgressBar stage={stage} />
         {routes}
       </div>
     );
@@ -47,6 +47,7 @@ const mapStateToProps = state => {
   return {
     user: state.register.user,
     item: state.sell.product,
+    stage: state.sell.stage,
   };
 };
 

@@ -1,12 +1,21 @@
-import { SET_PRODUCT, SET_PRODUCT_FIELDS } from '../actions/sell';
+import {
+  SET_PRODUCT,
+  SET_PRODUCT_FIELDS,
+  CHANGE_SELL_STAGE,
+} from '../actions/sell';
 import { checkValidity } from '../../shared/utility';
 const initState = {
   productForm: {},
   product: null,
+  stage: 'register',
 };
 
 export function sellReducer(state = initState, action) {
   switch (action.type) {
+    case CHANGE_SELL_STAGE:
+      console.log(action);
+
+      return { ...state, stage: action.payload };
     case SET_PRODUCT_FIELDS:
       return {
         ...state,

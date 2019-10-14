@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchUser from '../../../../Layout/SearchUser/SeachUser';
-import SignUser from '../../../../Layout/SignUser/SignUser';
 import Input from '../../../../Layout/TextInput/TextInput';
 import Spinner from '../../../../Layout/Spinners/Spinners';
 import './Register.css';
@@ -27,12 +26,12 @@ class Register extends Component {
   submitHandler = async event => {
     const { registerStart, registerForm } = this.props;
     const registerData = {
-      firstName: registerForm.firstName.value,
-      lastName: registerForm.lastName.value,
-      zahot: registerForm.zahot.value,
-      phone: registerForm.phone.value,
-      address: registerForm.address.value,
-      email: registerForm.email.value,
+      firstName: registerForm['firstName'] ? registerForm.firstName.value : '',
+      lastName: registerForm['lastName'] ? registerForm.lastName.value : '',
+      zahot: registerForm['zahot'] ? registerForm.zahot.value : '',
+      phone: registerForm['phone'] ? registerForm.phone.value : '',
+      address: registerForm['address'] ? registerForm.address.value : '',
+      email: registerForm['email'] ? registerForm.email.value : '',
     };
     return registerStart(registerData);
   };

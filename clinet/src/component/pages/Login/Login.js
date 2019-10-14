@@ -21,9 +21,10 @@ class Login extends Component {
 
   submitHandler = async event => {
     const { loginStart, loginForm } = this.props;
+    console.log(loginForm);
     const userData = {
-      email: loginForm.email.value,
-      password: loginForm.password.value,
+      email: loginForm['email'] ? loginForm.email.value : '',
+      password: loginForm['password'] ? loginForm.password.value : '',
     };
     loginStart(userData);
   };
@@ -36,46 +37,44 @@ class Login extends Component {
         {redirectPath && <Redirect to={redirectPath} />}
         <div className="form-group loginForm">
           <h2 className="logintitle">Login</h2>
-          <form onSubmit={e => e.preventDefault()}>
+          <form className="form" onSubmit={e => e.preventDefault()}>
             <div className="container">
               <div className="row justify-content-center">
-                <form className="form">
-                  <div className="col">
-                    <Input
-                      isValid={email ? email.isValid : true}
-                      className="form-control"
-                      id="email"
-                      name="email"
-                      type="text"
-                      error={message && message.email}
-                      required
-                      disabled={loading}
-                      defaultValue={email && email.value}
-                      inputChange={this.handleInputChange}
-                      validation={{ isRequired: true, isEmail: true }}
-                    />
-                    <Input
-                      isValid={password ? password.isValid : true}
-                      className="form-control"
-                      id="password"
-                      name="password"
-                      type="password"
-                      error={message && message.password}
-                      required
-                      disabled={loading}
-                      defaultValue={password && password.value}
-                      inputChange={this.handleInputChange}
-                      validation={{ isRequired: true, minLength: 6 }}
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    className="btn btn-success mt-5 form-control"
-                    onClick={this.submitHandler}
-                  >
-                    Login
-                  </button>
-                </form>
+                <div className="col">
+                  <Input
+                    isValid={email ? email.isValid : true}
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    type="text"
+                    error={message && message.email}
+                    required
+                    disabled={loading}
+                    defaultValue={email && email.value}
+                    inputChange={this.handleInputChange}
+                    validation={{ isRequired: true, isEmail: true }}
+                  />
+                  <Input
+                    isValid={password ? password.isValid : true}
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    type="password"
+                    error={message && message.password}
+                    required
+                    disabled={loading}
+                    defaultValue={password && password.value}
+                    inputChange={this.handleInputChange}
+                    validation={{ isRequired: true, minLength: 6 }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-success mt-5 form-control"
+                  onClick={this.submitHandler}
+                >
+                  Login
+                </button>
               </div>
             </div>
             {message

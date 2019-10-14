@@ -62,7 +62,6 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(setAuth(user));
-      dispatch(loadingFinish());
       dispatch(redirectTo('/'));
       dispatch(clearUi());
     }
@@ -76,18 +75,14 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       localStorage.setItem('expirseIn', expirationDate);
       dispatch(setAuthTime(expiresIn));
       dispatch(setAuth(user));
-      dispatch(loadingFinish());
       dispatch(redirectTo('/'));
       dispatch(clearUi());
     }
-
-    // dispatch(redirectTo('/'));
   }
 };
 export const loginFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGIN_ERROR) {
-    dispatch(loadingFinish());
     dispatch(setMessage(action.payload));
   }
 };

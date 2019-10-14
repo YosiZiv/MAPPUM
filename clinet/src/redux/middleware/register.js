@@ -7,6 +7,7 @@ import {
   SEARCH_USER_FAIL,
   setUser,
 } from '../actions/register';
+import { changeSellStage } from '../actions/sell';
 import { apiRequest } from '../actions/api';
 import { setMessage, redirectTo, clearUi, loadingFinish } from '../actions/ui';
 
@@ -23,6 +24,7 @@ export const registerSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === REGISTER_SUCCESS) {
     dispatch(setUser(action.payload.user));
+    dispatch(changeSellStage('createProduct'));
     dispatch(redirectTo('/dashboard/sell/createitem'));
     dispatch(clearUi());
   }
@@ -59,7 +61,6 @@ export const searchUserFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === SEARCH_USER_FAIL) {
     dispatch(setMessage(action.payload));
-    dispatch(loadingFinish());
   }
 };
 export const registerhMdl = [

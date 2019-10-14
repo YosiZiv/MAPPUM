@@ -4,14 +4,15 @@ import {
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAIL,
   setProduct,
-  SELL_COMPLATE_START,
-  SELL_COMPLATE_SUCCESS,
-  SELL_COMPLATE_FAIL,
+  FORM_SUBMIT_START,
+  FORM_SUBMIT_SUCCESS,
+  FORM_SUBMIT_FAIL,
   GET_LAST_USER_START,
   GET_LAST_USER_SUCCESS,
   GET_LAST_USER_FAIL,
 } from '../actions/sell';
-import { setMessage, redirectTo, loadingFinish, clearUi } from '../actions/ui';
+import { changeSellStage } from '../actions/sell';
+import { setMessage, redirectTo, clearUi } from '../actions/ui';
 import { setUser } from '../actions/register';
 
 export const createProductStart = ({ dispatch }) => next => action => {
@@ -33,6 +34,7 @@ export const createProductSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === CREATE_PRODUCT_SUCCESS) {
     dispatch(setProduct(action.payload.product));
+    dispatch(changeSellStage('submit'));
     dispatch(redirectTo('/dashboard/sell/formconfirm'));
     dispatch(clearUi());
   }
@@ -40,39 +42,36 @@ export const createProductSuccess = ({ dispatch }) => next => action => {
 export const createProductFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === CREATE_PRODUCT_FAIL) {
-    console.log(action);
     dispatch(setMessage(action.payload));
   }
 };
-export const sellComplateStart = ({ dispatch }) => next => action => {
+export const formSubmitStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'dashboard/sellcomplate';
-  if (action.type === SELL_COMPLATE_START) {
+  if (action.type === FORM_SUBMIT_START) {
     dispatch(
       apiRequest(
         'POST',
         URL,
         action.payload,
-        SELL_COMPLATE_SUCCESS,
-        SELL_COMPLATE_FAIL,
+        FORM_SUBMIT_SUCCESS,
+        FORM_SUBMIT_FAIL,
       ),
     );
   }
 };
 
-export const sellComplateSuccess = ({ dispatch }) => next => action => {
+export const formSubmitSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === SELL_COMPLATE_SUCCESS) {
-    console.log(action);
+  if (action.type === FORM_SUBMIT_START) {
     // dispatch(setProduct(action.payload.item));
     dispatch(redirectTo('/dashboard/sell/formconfirm'));
     dispatch(clearUi());
   }
 };
-export const sellComplateFail = ({ dispatch }) => next => action => {
+export const formSubmitFail = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === SELL_COMPLATE_FAIL) {
-    console.log(action);
+  if (action.type === FORM_SUBMIT_FAIL) {
     dispatch(setMessage(action.payload));
   }
 };
@@ -80,7 +79,6 @@ export const getLastUserStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'dashboard/getlastuser';
   if (action.type === GET_LAST_USER_START) {
-    console.log(URL);
     dispatch(
       apiRequest('GET', URL, null, GET_LAST_USER_SUCCESS, GET_LAST_USER_FAIL),
     );
@@ -89,7 +87,6 @@ export const getLastUserStart = ({ dispatch }) => next => action => {
 export const getLastUserSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === GET_LAST_USER_SUCCESS) {
-    console.log(action);
     // dispatch(setProduct(action.payload.item));
     dispatch(setUser(action.payload.user));
   }
@@ -97,9 +94,7 @@ export const getLastUserSuccess = ({ dispatch }) => next => action => {
 export const getLastUserFail = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === GET_LAST_USER_FAIL) {
-    console.log(action);
     dispatch(setMessage(action.payload));
-    dispatch(loadingFinish());
   }
 };
 
@@ -107,8 +102,9 @@ export const sellMdl = [
   createProductStart,
   createProductSuccess,
   createProductFail,
-  sellComplateSuccess,
-  sellComplateFail,
+  formSubmitStart,
+  formSubmitSuccess,
+  formSubmitFail,
   getLastUserStart,
   getLastUserSuccess,
   getLastUserFail,

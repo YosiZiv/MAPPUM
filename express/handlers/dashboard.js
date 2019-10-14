@@ -196,9 +196,7 @@ exports.getLastUser = async (req, res, next) => {
 exports.sellComplate = async (req, res, next) => {
   try {
     const { productId, userId } = req.body;
-    console.log(productId, userId);
-
-    const getUpdateProduct = await Products.findByIdAndUpdate(
+    const getUpdateProduct = await Products.update(
       {
         _id: productId,
       },
@@ -207,35 +205,24 @@ exports.sellComplate = async (req, res, next) => {
           users: userId,
         },
       },
-      { upsert: true },
-      async (err, updateProduct) => {
-        if (err) {
-          const error = new Error('שגיאה לא נמצא מוצר');
-          error.status = 400;
-          return next(error);
-        }
-
-        return await updateProduct.save();
-      },
     );
     const sale = await new Sales({
       user: userId,
-      productName: getUpdateProduct.productName,
+      productName: getUpdateProduct.name,
       description: getUpdateProduct.description,
-      color: getUpdateProduct.color.colorName,
-      size: getUpdateProduct.size,
       sellPrice: getUpdateProduct.sellPrice,
     });
     await sale.save();
-    const updateUser = await User.findByIdAndUpdate(
+    const updateUser = await User.update(
       {
-        _id: userId,
+        _id: productId,
       },
       {
         $push: {
           sales: sale._id,
         },
       },
+    );
       { upsert: true },
       async (err, updateUser) => {
         if (err) {

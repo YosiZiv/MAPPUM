@@ -28,8 +28,6 @@ const textInput = props => {
     const { value } = event.currentTarget;
     const formattedValue = type === 'number' ? Number(value) : value;
     const { id, inputChange } = props;
-    console.log(value, formattedValue);
-
     inputChange({ id, value: formattedValue, validation });
   };
 

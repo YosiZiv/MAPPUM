@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import './FormConfirm.css';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../../../../Layout/Spinners/Spinners';
-
+import { formSubmitStart } from '../../../../../redux/actions/sell';
 class FormConfirm extends Component {
   submitHandler = () => {
-    const { product, user, onSellComplate } = this.props;
-    console.log(product, user);
+    const { product, user, formSubmitStart } = this.props;
     const formData = {
       userId: user._id,
       productId: product._id,
     };
-    return onSellComplate(formData);
+    return formSubmitStart(formData);
   };
   render() {
-    const { product, user, message, redirect, loading } = this.props;
+    const { product, user, loading } = this.props;
     console.log(product, user);
 
     return (
@@ -91,5 +89,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  null,
+  { formSubmitStart },
 )(FormConfirm);
