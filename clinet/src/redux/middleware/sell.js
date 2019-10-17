@@ -63,9 +63,9 @@ export const formSubmitStart = ({ dispatch }) => next => action => {
 
 export const formSubmitSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === FORM_SUBMIT_START) {
+  if (action.type === FORM_SUBMIT_SUCCESS) {
     // dispatch(setProduct(action.payload.item));
-    dispatch(redirectTo('/dashboard/sell/formconfirm'));
+    dispatch(redirectTo('/dashboard/sell/formsuccess'));
     dispatch(clearUi());
   }
 };

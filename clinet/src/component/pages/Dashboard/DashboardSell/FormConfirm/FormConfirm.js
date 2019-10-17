@@ -3,6 +3,7 @@ import './FormConfirm.css';
 import { connect } from 'react-redux';
 import Spinner from '../../../../Layout/Spinners/Spinners';
 import { formSubmitStart } from '../../../../../redux/actions/sell';
+import { Redirect } from 'react-router-dom';
 class FormConfirm extends Component {
   submitHandler = () => {
     const { product, user, formSubmitStart } = this.props;
@@ -13,12 +14,12 @@ class FormConfirm extends Component {
     return formSubmitStart(formData);
   };
   render() {
-    const { product, user, loading } = this.props;
+    const { product, user, loading, redirect } = this.props;
     console.log(product, user);
 
     return (
       <div className="formConfirmContainer">
-        {/* {redirect ? <Redirect to="/dashboard/sell/formsuccess" /> : null} */}
+        {redirect && <Redirect to={redirect} />}
 
         {loading ? (
           <Spinner />
@@ -81,11 +82,12 @@ class FormConfirm extends Component {
   }
 }
 const mapStateToProps = state => ({
+  admin: state.auth.admin,
   product: state.sell.product,
   user: state.register.user,
   message: state.ui.message,
   loading: state.ui.loading,
-  admin: state.auth.admin,
+  redirect: state.ui.redirect,
 });
 export default connect(
   mapStateToProps,

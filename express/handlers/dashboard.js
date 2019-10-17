@@ -273,6 +273,8 @@ exports.register = async (req, res, next) => {
     }
     // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
     const initPassword = Math.floor(100000 + Math.random() * 900000);
+    console.log(initPassword);
+
     //  Create new user
     const newUser = await new User({
       firstName,

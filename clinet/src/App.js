@@ -24,9 +24,6 @@ class App extends Component {
     if (!prevProps.admin && admin) {
       getLastUser();
     }
-    // if (admin) {
-
-    // }
   }
   render() {
     const routes = (

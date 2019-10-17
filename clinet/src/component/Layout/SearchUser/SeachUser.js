@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './SearchUser.css';
 const searchUser = props => (
   <div className="form-group">
-    <h2 className="formRegisterTitle">Search User</h2>
-    <form className="Registerform">
+    <h2 className="searchUserTitle">Search User</h2>
+    <form className="searchUserForm">
       {props.form}
       <button
         type="button"
@@ -23,34 +24,19 @@ const searchUser = props => (
           className="fas fa-chevron-circle-right"
         ></i>
       </button>
-      {props.user ? (
-        <div>
-          <p>
-            last user{' '}
-            <NavLink to="sell/createitem">{props.user.firstName}</NavLink> found
-          </p>
-          <NavLink to="sell/createitem">
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{
-                fontSize: '1.5vw',
-                marginBottom: '15px',
-                alignSelf: 'end',
-                justifySelf: 'end',
-                gridColumn: 2,
-              }}
-            >
-              continue with {props.user.firstName}
-              <i
-                style={{ fontSize: '18px', paddingLeft: '1vw' }}
-                className="fas fa-chevron-circle-right"
-              ></i>
-            </button>
-          </NavLink>
-        </div>
-      ) : null}
     </form>
+    {props.user ? (
+      <div>
+        <div>
+          <h4>OR</h4>
+        </div>
+
+        <p>
+          Use Last User{' '}
+          <NavLink to="sell/createitem">{props.user.firstName}</NavLink>
+        </p>
+      </div>
+    ) : null}
   </div>
 );
 export default searchUser;

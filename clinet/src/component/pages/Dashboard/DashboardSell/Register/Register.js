@@ -1,7 +1,7 @@
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable react/sort-comp */
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchUser from '../../../../Layout/SearchUser/SeachUser';
@@ -65,9 +65,12 @@ class Register extends Component {
     return (
       <div className="container create-user-page" style={{ width: ' 50vw' }}>
         <div className="modeContainer">
-          <button onClick={this.switchMode} className="btn btn-primary">
-            {mode ? 'Search User' : 'Register New'}
-          </button>
+          <p>
+            Switch to{' '}
+            <NavLink onClick={this.switchMode}>
+              {mode ? 'Search User' : 'Register New'}
+            </NavLink>
+          </p>
         </div>
         {mode ? (
           <div className="row justify-content-center">
