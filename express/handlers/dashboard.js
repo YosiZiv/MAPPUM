@@ -196,7 +196,7 @@ exports.getLastUser = async (req, res, next) => {
 exports.sellComplate = async (req, res, next) => {
   try {
     const { productId, userId } = req.body;
-    const getUpdateProduct = await Products.update(
+    const updateProduct = await Products.updateOne(
       {
         _id: productId,
       },
@@ -206,16 +206,18 @@ exports.sellComplate = async (req, res, next) => {
         },
       },
     );
+    const getProduct = await Products.findById({ _id: productId });
+    console.log(getProduct);
     const sale = await new Sales({
       user: userId,
-      productName: getUpdateProduct.name,
-      description: getUpdateProduct.description,
-      sellPrice: getUpdateProduct.sellPrice,
+      productName: getProduct.name,
+      description: getProduct.description,
+      sellPrice: getProduct.sellPrice,
     });
     await sale.save();
-    const updateUser = await User.update(
+    const updateUser = await User.updateOne(
       {
-        _id: productId,
+        _id: userId,
       },
       {
         $push: {
