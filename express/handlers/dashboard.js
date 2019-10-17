@@ -223,16 +223,6 @@ exports.sellComplate = async (req, res, next) => {
         },
       },
     );
-      { upsert: true },
-      async (err, updateUser) => {
-        if (err) {
-          const error = new Error('שגיאה לא נמצא משתמש');
-          error.status = 400;
-          return next(error);
-        }
-        return await updateUser.save();
-      },
-    );
     // const pdfData = {
     //     orderId: sale._id,
     //     firstName: updateUser.firstName,
