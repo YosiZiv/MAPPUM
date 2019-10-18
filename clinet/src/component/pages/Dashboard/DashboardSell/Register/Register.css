@@ -10,9 +10,14 @@
   margin-top: 3vh;
   width: 100%;
 }
-.modeContainer p {
+.modeContainer label {
   text-align: center;
   padding: 10px;
+  color: blue;
+  cursor: pointer;
+}
+.modeContainer label:hover {
+  text-decoration: underline;
 }
 .Registerform {
   width: 80%;

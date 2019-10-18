@@ -7,6 +7,7 @@ import { checkValidity } from '../../shared/utility';
 const initState = {
   user: null,
   registerForm: {},
+  searchForm: {},
   mode: true,
 };
 
