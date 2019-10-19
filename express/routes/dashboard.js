@@ -11,9 +11,10 @@ const {
   getSaleById,
   changeSaleStage,
   getUserByEmail,
+  getAllUserEmails,
 } = require('../handlers/dashboard');
 const { adminCheckToken } = require('../middlewares/admin');
-
+router.get('/getallemails', adminCheckToken, getAllUserEmails);
 router.get('/getsale/:id', adminCheckToken, getSaleById);
 router.get('/getactivesale', adminCheckToken, getAllActiveSells);
 router.get('/getlastproduct', adminCheckToken, getLastProduct);

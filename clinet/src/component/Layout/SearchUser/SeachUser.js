@@ -1,17 +1,17 @@
 import React from 'react';
 import Input from '../TextInput/TextInput';
-import { NavLink } from 'react-router-dom';
 import './SearchUser.css';
+import AutoComplate from '../AutoComplate/AutoComplate';
 const searchUser = props => {
-  const { loading, registerForm, redirect, message } = props;
   const {
-    firstName = '',
-    lastName = '',
-    zahot = '',
-    phone = '',
-    address = '',
-    email = '',
-  } = registerForm;
+    loading,
+    searchForm,
+    message,
+    formSubmit,
+    inputChange,
+    autoComplateResult,
+  } = props;
+  const { email = '' } = searchForm;
   const testFunction = () => {
     const { changeSellStage } = props;
     console.log('i have neeb click ', changeSellStage);
@@ -25,14 +25,14 @@ const searchUser = props => {
         <Input
           isValid={email ? email.isValid : true}
           className="form-control"
-          id="searchUser"
-          name="searchUser"
+          id="email"
+          name="email"
           type="email"
           error={message && message.email}
           required
           disabled={loading}
-          defaultValue={searchUser && searchUser.value}
-          inputChange={this.handleInputChange}
+          defaultValue={email && email.value}
+          inputChange={inputChange}
           validation={{
             isRequired: true,
             isEmail: true,
@@ -48,7 +48,7 @@ const searchUser = props => {
             justifySelf: 'start',
             gridColumn: 2,
           }}
-          onClick={props.submit}
+          onClick={formSubmit}
         >
           Search
           <i
@@ -57,6 +57,7 @@ const searchUser = props => {
           ></i>
         </button>
       </form>
+      <AutoComplate autoComplateResult={autoComplateResult} />
       {props.user ? (
         <div className="searchUserLastUser">
           <div>

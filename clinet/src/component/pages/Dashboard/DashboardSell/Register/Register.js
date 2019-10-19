@@ -10,12 +10,18 @@ import Spinner from '../../../../Layout/Spinners/Spinners';
 import './Register.css';
 import {
   registerStart,
-  searchUser,
   setRegisterFields,
+  setSearchFields,
   switchRegisterMode,
+  getAllEmailsStart,
+  searchUserAutoComplate,
 } from '../../../../../redux/actions/register';
 import { changeSellStage } from '../../../../../redux/actions/sell';
 class Register extends Component {
+  componentDidMount() {
+    const { getAllEmailsStart } = this.props;
+    getAllEmailsStart();
+  }
   switchMode = () => {
     const { switchRegisterMode } = this.props;
     switchRegisterMode();
@@ -25,8 +31,12 @@ class Register extends Component {
     setRegisterFields({ id, value, validation });
   };
   searchInputChange = ({ id, value, validation }) => {
-    const { setRegisterFields } = this.props;
-    setRegisterFields({ id, value, validation });
+    const { setSearchFields, searchUserAutoComplate, searchForm } = this.props;
+    setSearchFields({ id, value, validation });
+    if (searchForm['email']) {
+      const searchFormData = value;
+      searchUserAutoComplate(searchFormData);
+    }
   };
   registerSubmitHandler = async event => {
     const { registerStart, registerForm } = this.props;
@@ -40,22 +50,16 @@ class Register extends Component {
     };
     return registerStart(registerData);
   };
-  searchUserHandler = email => {
-    const { searchUser, registerForm } = this.props;
-    const registerFormData = {
-      email: registerForm.email.value,
-    };
-    searchUser(registerFormData);
-  };
   render() {
     const {
       user,
-      loading,
       registerForm,
+      searchForm,
+      autoComplateResult,
       redirect,
       message,
       mode,
-      searchForm,
+      loading,
     } = this.props;
     return (
       <div className="container create-user-page" style={{ width: ' 50vw' }}>
@@ -70,6 +74,7 @@ class Register extends Component {
         </div>
         {mode ? (
           <RegisterUser
+            loading={loading}
             message={message}
             formSubmit={this.registerSubmitHandler}
             inputChange={this.registerInputChange}
@@ -78,9 +83,11 @@ class Register extends Component {
         ) : (
           <SearchUser
             changeSellStage={changeSellStage}
+            inputChange={this.searchInputChange}
             user={user}
-            submit={this.searchUserHandler}
+            formSubmit={this.searcSubmitHandler}
             searchForm={searchForm}
+            autoComplateResult={autoComplateResult}
           />
         )}
         {message
@@ -105,6 +112,7 @@ const mapStateToProps = state => {
   return {
     registerForm: state.register.registerForm,
     searchForm: state.register.searchForm,
+    autoComplateResult: state.register.autoComplateResult,
     user: state.register.user,
     message: state.ui.message,
     redirect: state.ui.redirect,
@@ -117,8 +125,10 @@ export default connect(
   mapStateToProps,
   {
     registerStart,
-    searchUser,
+    getAllEmailsStart,
+    searchUserAutoComplate,
     setRegisterFields,
+    setSearchFields,
     switchRegisterMode,
     changeSellStage,
   },

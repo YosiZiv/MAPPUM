@@ -2,10 +2,11 @@ import {
   REGISTER_START,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  SEARCH_USER_START,
-  SEARCH_USER_SUCCESS,
-  SEARCH_USER_FAIL,
+  GET_ALL_EMAILS_START,
+  GET_ALL_EMAILS_SUCCESS,
+  GET_ALL_EMAILS_FAIL,
   setUser,
+  setEmails,
 } from '../actions/register';
 import { changeSellStage } from '../actions/sell';
 import { apiRequest } from '../actions/api';
@@ -36,38 +37,33 @@ export const registerFail = ({ dispatch }) => next => action => {
     dispatch(setMessage(action.payload));
   }
 };
-export const searchUserStart = ({ dispatch }) => next => action => {
+export const getAllEmailsStart = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === SEARCH_USER_START) {
-    const URL = 'dashboard/getuserbyemail';
+  if (action.type === GET_ALL_EMAILS_START) {
+    const URL = 'dashboard/getallemails';
     dispatch(
-      apiRequest(
-        'POST',
-        URL,
-        action.payload,
-        SEARCH_USER_SUCCESS,
-        SEARCH_USER_FAIL,
-      ),
+      apiRequest('GET', URL, null, GET_ALL_EMAILS_SUCCESS, GET_ALL_EMAILS_FAIL),
     );
   }
 };
-export const searchUserSuccess = ({ dispatch }) => next => action => {
+export const getAllEmailsSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === SEARCH_USER_SUCCESS) {
-    dispatch(setUser(action.payload.user));
+  if (action.type === GET_ALL_EMAILS_SUCCESS) {
+    dispatch(setEmails(action.payload.emails));
   }
 };
-export const searchUserFail = ({ dispatch }) => next => action => {
+export const getAllEmailsFail = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === SEARCH_USER_FAIL) {
+  if (action.type === GET_ALL_EMAILS_FAIL) {
     dispatch(setMessage(action.payload));
   }
 };
+
 export const registerhMdl = [
   registerStart,
   registerSuccess,
   registerFail,
-  searchUserStart,
-  searchUserSuccess,
-  searchUserFail,
+  getAllEmailsStart,
+  getAllEmailsSuccess,
+  getAllEmailsFail,
 ];

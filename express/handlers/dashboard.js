@@ -334,3 +334,20 @@ exports.getUserByEmail = (req, res, next) => {
       return res.status(400).json({ errors });
     });
 };
+
+exports.getAllUserEmails = async (req, res, next) => {
+  const errors = {};
+  try {
+    const emails = [];
+    const users = await User.find({}).select('email');
+    users.forEach(user => {
+      emails.push(user['email']);
+    });
+    console.log(emails);
+    res.status(200).json({ emails });
+  } catch (err) {
+    console.log(err);
+    errors.global = 'Something went wrong :/';
+    return res.status(400).json({ errors });
+  }
+};
