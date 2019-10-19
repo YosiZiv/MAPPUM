@@ -7,9 +7,6 @@ import {
   FORM_SUBMIT_START,
   FORM_SUBMIT_SUCCESS,
   FORM_SUBMIT_FAIL,
-  GET_LAST_USER_START,
-  GET_LAST_USER_SUCCESS,
-  GET_LAST_USER_FAIL,
 } from '../actions/sell';
 import { changeSellStage } from '../actions/sell';
 import { setMessage, redirectTo, clearUi } from '../actions/ui';
@@ -75,28 +72,6 @@ export const formSubmitFail = ({ dispatch }) => next => action => {
     dispatch(setMessage(action.payload));
   }
 };
-export const getLastUserStart = ({ dispatch }) => next => action => {
-  next(action);
-  const URL = 'dashboard/getlastuser';
-  if (action.type === GET_LAST_USER_START) {
-    dispatch(
-      apiRequest('GET', URL, null, GET_LAST_USER_SUCCESS, GET_LAST_USER_FAIL),
-    );
-  }
-};
-export const getLastUserSuccess = ({ dispatch }) => next => action => {
-  next(action);
-  if (action.type === GET_LAST_USER_SUCCESS) {
-    // dispatch(setProduct(action.payload.item));
-    dispatch(setUser(action.payload.user));
-  }
-};
-export const getLastUserFail = ({ dispatch }) => next => action => {
-  next(action);
-  if (action.type === GET_LAST_USER_FAIL) {
-    dispatch(setMessage(action.payload));
-  }
-};
 
 export const sellMdl = [
   createProductStart,
@@ -105,7 +80,4 @@ export const sellMdl = [
   formSubmitStart,
   formSubmitSuccess,
   formSubmitFail,
-  getLastUserStart,
-  getLastUserSuccess,
-  getLastUserFail,
 ];

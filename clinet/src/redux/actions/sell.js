@@ -6,9 +6,6 @@ export const SET_PRODUCT = '[product] Set Product';
 export const FORM_SUBMIT_START = '[product] Form Submit Start';
 export const FORM_SUBMIT_SUCCESS = '[product] Form Submit Success';
 export const FORM_SUBMIT_FAIL = '[product] Form Submit Fail';
-export const GET_LAST_USER_START = 'GET_LAST_USER_START';
-export const GET_LAST_USER_SUCCESS = 'GET_LAST_USER_SUCCESS';
-export const GET_LAST_USER_FAIL = 'GET_LAST_USER_FAIL';
 export const SET_PRODUCT_FIELDS = '[sell] Set Product Fields';
 
 export const changeSellStage = payload => ({
@@ -22,10 +19,6 @@ export const setProductFields = payload => ({
 export const formSubmitStart = payload => ({
   type: FORM_SUBMIT_START,
   payload,
-});
-
-export const getLastUser = () => ({
-  type: GET_LAST_USER_START,
 });
 
 export const createProductStart = payload => ({

@@ -10,20 +10,12 @@ import Navigation from './component/Layout/Navigation/Navigation';
 import MainPage from './component/pages/MainPage/MainPage';
 import { autoLogin } from './redux/actions/auth';
 import UserArea from './component/pages/UserArea/UserArea';
-import { getLastUser } from './redux/actions/sell';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
     const { autoLogin } = this.props;
     autoLogin();
-  }
-  componentDidUpdate(prevProps) {
-    const { getLastUser, admin } = this.props;
-
-    if (!prevProps.admin && admin) {
-      getLastUser();
-    }
   }
   render() {
     const routes = (
@@ -52,5 +44,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { autoLogin, getLastUser },
+  { autoLogin },
 )(App);

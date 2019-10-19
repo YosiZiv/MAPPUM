@@ -58,17 +58,6 @@ const searchUser = props => {
         </button>
       </form>
       <AutoComplate autoComplateResult={autoComplateResult} />
-      {props.user ? (
-        <div className="searchUserLastUser">
-          <div>
-            <h4>OR</h4>
-          </div>
-          <p>
-            Use Last User
-            <label onClick={testFunction}>{props.user.firstName}</label>
-          </p>
-        </div>
-      ) : null}
     </div>
   );
 };
