@@ -37,13 +37,3 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
 }
-.IconWrapper {
-  margin: 0 auto;
-  margin-top: 5px;
-  border-radius: 50%;
-  border: 1px solid #eee;
-  height: 80%;
-  width: 80%;
-  color: #b5b7b2;
-  background: white;
-}

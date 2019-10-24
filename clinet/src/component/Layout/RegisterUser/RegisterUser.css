@@ -1,0 +1,20 @@
+.newUserContainer {
+  width: 100%;
+  height: 100%;
+}
+.newUserTitle {
+  text-align: left;
+  color: #3d93df;
+}
+.registerForm {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 10px;
+  text-align: left;
+}
+.registerSubmit {
+  padding: 10px;
+  margin-right: 9%;
+}

@@ -313,6 +313,8 @@ exports.register = async (req, res, next) => {
 
 exports.getUserByEmail = (req, res, next) => {
   const { email } = req.body;
+  console.log('function work ', email);
+
   const errors = {};
   // const errors = validateLoginInput(req.body);
   // if (Object.keys(errors).length) {
@@ -343,7 +345,6 @@ exports.getAllUserEmails = async (req, res, next) => {
     users.forEach(user => {
       emails.push(user['email']);
     });
-    console.log(emails);
     res.status(200).json({ emails });
   } catch (err) {
     console.log(err);

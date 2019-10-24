@@ -1,0 +1,33 @@
+.createProductContainer {
+  width: 95%;
+  height: 100%;
+  float: right;
+  margin-top: 10px;
+}
+.productForm {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 10px;
+  text-align: left;
+}
+
+.productDescription textarea {
+  height: 20vh;
+}
+.createItemForm input {
+  width: 70%;
+}
+.productSellPrice {
+  align-self: end;
+}
+.createProductTitle {
+  text-align: left;
+  color: #3d93df;
+}
+.productSubmit {
+  padding: 10px;
+  width: 61%;
+  text-align: right;
+}

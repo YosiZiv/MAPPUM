@@ -45,7 +45,7 @@ class Login extends Component {
                     isValid={email ? email.isValid : true}
                     className="form-control"
                     id="email"
-                    name="email"
+                    name="Email"
                     type="text"
                     error={message && message.email}
                     required
@@ -58,7 +58,7 @@ class Login extends Component {
                     isValid={password ? password.isValid : true}
                     className="form-control"
                     id="password"
-                    name="password"
+                    name="Password"
                     type="password"
                     error={message && message.password}
                     required

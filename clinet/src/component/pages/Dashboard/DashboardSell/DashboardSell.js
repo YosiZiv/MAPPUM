@@ -4,11 +4,15 @@ import { Switch } from 'react-router-dom';
 import AdminPrivateRoute from '../../../../hoc/privateRoute/adminPrivateRoute';
 import ProgressBar from '../../../Layout/ProgressBar/ProgressBar';
 import Register from './Register/Register';
-import DashboardCreateItem from './CreateItem/CreateItem';
+import CreateProduct from './CreateProduct/CreateProduct';
 import FormConfirm from './FormConfirm/FormConfirm';
 import FormSuccess from './FormSuccess/FormSuccess';
-
+import { resetRegisterState } from '../../../../redux/actions/register';
 class dashboardSell extends Component {
+  componentWillUnmount() {
+    const { resetRegisterState } = this.props;
+    resetRegisterState();
+  }
   render() {
     const { stage } = this.props;
     const routes = (
@@ -20,8 +24,8 @@ class dashboardSell extends Component {
             component={Register}
           />
           <AdminPrivateRoute
-            path="/dashboard/sell/createitem"
-            component={DashboardCreateItem}
+            path="/dashboard/sell/createproduct"
+            component={CreateProduct}
           />
           <AdminPrivateRoute
             path="/dashboard/sell/formconfirm"
@@ -53,5 +57,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null,
+  { resetRegisterState },
 )(dashboardSell);

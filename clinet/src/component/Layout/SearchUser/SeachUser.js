@@ -7,26 +7,22 @@ const searchUser = props => {
     loading,
     searchForm,
     message,
-    formSubmit,
+    userSelect,
     inputChange,
     autoComplateResult,
   } = props;
   const { email = '' } = searchForm;
-  const testFunction = () => {
-    const { changeSellStage } = props;
-    console.log('i have neeb click ', changeSellStage);
-
-    changeSellStage('createItem');
-  };
   return (
-    <div className="form-group">
-      <h2 className="searchUserTitle">Search User</h2>
+    <div className="searchUserContainer">
+      <div className="searchUserTitle">
+        <h2>Search User</h2>
+      </div>
       <form className="searchUserForm">
         <Input
           isValid={email ? email.isValid : true}
           className="form-control"
           id="email"
-          name="email"
+          name="Email"
           type="email"
           error={message && message.email}
           required
@@ -35,29 +31,22 @@ const searchUser = props => {
           inputChange={inputChange}
           validation={{
             isRequired: true,
-            isEmail: true,
           }}
         />
-        <button
-          type="button"
-          className="btn btn-primary"
-          style={{
-            fontSize: '1.5vw',
-            height: '50%',
-            marginTop: '40px',
-            justifySelf: 'start',
-            gridColumn: 2,
-          }}
-          onClick={formSubmit}
-        >
-          Search
-          <i
-            style={{ fontSize: '18px', paddingLeft: '1vw' }}
-            className="fas fa-chevron-circle-right"
-          ></i>
-        </button>
+
+        {email['value'] ? (
+          <div className="resultContainer">
+            <AutoComplate
+              searchForm={searchForm}
+              autoComplateResult={autoComplateResult}
+              userSelect={userSelect}
+            />
+          </div>
+        ) : null}
       </form>
-      <AutoComplate autoComplateResult={autoComplateResult} />
+      <button type="button" className="btn btn-success searchButton">
+        Search
+      </button>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   SWITCH_REGISTER_MODE,
   SET_SEARCH_FIELDS,
   SEARCH_USER_AUTO_COMPLATE,
+  RESET_STATE,
   SET_EMAILS,
 } from '../actions/register';
 import { checkValidity } from '../../shared/utility';
@@ -18,6 +19,16 @@ const initState = {
 
 export function registerReducer(state = initState, action) {
   switch (action.type) {
+    case RESET_STATE:
+      return {
+        ...state,
+        user: null,
+        registerForm: {},
+        searchForm: {},
+        emails: [],
+        autoComplateResult: [],
+        mode: true,
+      };
     case SET_USER:
       return { ...state, user: action.payload };
     case SET_EMAILS:
@@ -26,8 +37,10 @@ export function registerReducer(state = initState, action) {
       const autoComplateResult = [];
       if (state.emails.length) {
         state.emails.forEach(email => {
-          console.log(email);
-          if (email.includes(action.payload)) {
+          console.log(action.payload);
+          if (email.includes(action.payload) && action.payload !== '') {
+            console.log('i am inside if check', email.includes(action.payload));
+
             autoComplateResult.push(email);
           }
         });

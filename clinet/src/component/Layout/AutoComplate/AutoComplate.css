@@ -1,19 +1,23 @@
 .AutoComplateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
   padding: 2px;
-  width: 43.5%;
-  height: 100%;
-  text-align: center;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s;
-  margin-left: 92px;
 }
 .AutoComplateContainer p {
+  width: 100%;
+  margin: 0;
+  font-size: 2.3vh;
+  padding: 12px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-left: 1px solid #ced4da;
+  border-right: 1px solid #ced4da;
+  transition: border-color 0.15s;
   cursor: pointer;
   color: #495057;
 }
 .AutoComplateContainer p:hover {
-  background: blue;
+  background: #5aacf3;
 }

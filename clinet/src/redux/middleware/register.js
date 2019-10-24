@@ -5,6 +5,9 @@ import {
   GET_ALL_EMAILS_START,
   GET_ALL_EMAILS_SUCCESS,
   GET_ALL_EMAILS_FAIL,
+  GET_USER_BY_EMAIL_START,
+  GET_USER_BY_EMAIL_SUCCESS,
+  GET_USER_BY_EMAIL_FAIL,
   setUser,
   setEmails,
 } from '../actions/register';
@@ -26,7 +29,7 @@ export const registerSuccess = ({ dispatch }) => next => action => {
   if (action.type === REGISTER_SUCCESS) {
     dispatch(setUser(action.payload.user));
     dispatch(changeSellStage('createProduct'));
-    dispatch(redirectTo('/dashboard/sell/createitem'));
+    dispatch(redirectTo('/dashboard/sell/createproduct'));
     dispatch(clearUi());
   }
 };
@@ -58,7 +61,39 @@ export const getAllEmailsFail = ({ dispatch }) => next => action => {
     dispatch(setMessage(action.payload));
   }
 };
+export const getUserByEmailStart = ({ dispatch }) => next => action => {
+  next(action);
+  const URL = 'dashboard/getuserbyemail';
+  if (action.type === GET_USER_BY_EMAIL_START) {
+    console.log(action.payload);
+    dispatch(
+      apiRequest(
+        'POST',
+        URL,
+        action.payload,
+        GET_USER_BY_EMAIL_SUCCESS,
+        GET_USER_BY_EMAIL_FAIL,
+      ),
+    );
+  }
+};
 
+export const getUserByEmailSuccess = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === GET_USER_BY_EMAIL_SUCCESS) {
+    dispatch(setUser(action.payload.user));
+    dispatch(changeSellStage('createProduct'));
+    dispatch(redirectTo('/dashboard/sell/createproduct'));
+    dispatch(clearUi());
+  }
+};
+
+export const getUserByEmailFail = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === GET_USER_BY_EMAIL_FAIL) {
+    dispatch(setMessage(action.payload));
+  }
+};
 export const registerhMdl = [
   registerStart,
   registerSuccess,
@@ -66,4 +101,7 @@ export const registerhMdl = [
   getAllEmailsStart,
   getAllEmailsSuccess,
   getAllEmailsFail,
+  getUserByEmailStart,
+  getUserByEmailSuccess,
+  getUserByEmailFail,
 ];

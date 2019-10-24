@@ -1,33 +1,23 @@
-.RegisterPage {
-  background: #f9f5a5;
-  width: 100%;
+.registerPage {
+  width: 95%;
+  margin: 0 auto;
 }
 .modeContainer {
   display: flex;
-  padding-bottom: 20px;
   align-items: center;
   justify-content: center;
-  margin-top: 3vh;
+  margin-top: 1vh;
   width: 100%;
 }
 .modeContainer label {
   text-align: center;
-  padding: 10px;
   color: blue;
   cursor: pointer;
 }
 .modeContainer label:hover {
   text-decoration: underline;
 }
-.Registerform {
-  width: 80%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #eceff9;
-  gap: 20px;
-  padding-top: 10px;
-}
+
 .formRegisterLabel {
   font-size: 1.5vw;
 }

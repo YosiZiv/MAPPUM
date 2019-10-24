@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 // const passport = require('passport');
 const cors = require('cors');
 require('dotenv').config();
+
 const api = require('./express/api');
 //  Express App initalizing
 const app = express();
@@ -17,7 +18,6 @@ app.use(cors());
 app.use('/api', api);
 
 const port = process.env.PORT || 5001;
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {

@@ -1,11 +1,22 @@
 import React from 'react';
 import './AutoComplate.css';
 const autoComplate = props => {
+  const { autoComplateResult, userSelect } = props;
   return (
     <div className="AutoComplateContainer">
-      {props.autoComplateResult.map(email => {
-        return <p>{email}</p>;
-      })}
+      {autoComplateResult.length ? (
+        autoComplateResult.map(email => {
+          console.log(email);
+
+          return (
+            <p key={email} onClick={() => userSelect(email)}>
+              {email}
+            </p>
+          );
+        })
+      ) : (
+        <p>result didnt found</p>
+      )}
     </div>
   );
 };

@@ -1,6 +1,19 @@
+.searchUserContainer {
+  height: 72vh;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.searchUserTitle {
+  align-self: center;
+}
 .searchUserForm {
   display: flex;
-  align-items: center;
+  align-self: center;
+  width: 50%;
+  flex-direction: column;
   justify-content: center;
 }
 .searchUserLastUser label {
@@ -11,4 +24,12 @@
 }
 .searchUserLastUser label:hover {
   text-decoration: underline;
+}
+.resultContainer {
+  margin-top: 1px;
+}
+.searchButton {
+  position: absolute;
+  top: 17%;
+  left: 76%;
 }

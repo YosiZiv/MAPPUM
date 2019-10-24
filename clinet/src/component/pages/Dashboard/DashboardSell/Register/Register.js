@@ -15,6 +15,8 @@ import {
   switchRegisterMode,
   getAllEmailsStart,
   searchUserAutoComplate,
+  getUserByEmail,
+  resetRegisterState,
 } from '../../../../../redux/actions/register';
 import { changeSellStage } from '../../../../../redux/actions/sell';
 class Register extends Component {
@@ -22,6 +24,7 @@ class Register extends Component {
     const { getAllEmailsStart } = this.props;
     getAllEmailsStart();
   }
+
   switchMode = () => {
     const { switchRegisterMode } = this.props;
     switchRegisterMode();
@@ -31,12 +34,9 @@ class Register extends Component {
     setRegisterFields({ id, value, validation });
   };
   searchInputChange = ({ id, value, validation }) => {
-    const { setSearchFields, searchUserAutoComplate, searchForm } = this.props;
+    const { setSearchFields, searchUserAutoComplate } = this.props;
     setSearchFields({ id, value, validation });
-    if (searchForm['email']) {
-      const searchFormData = value;
-      searchUserAutoComplate(searchFormData);
-    }
+    searchUserAutoComplate(value);
   };
   registerSubmitHandler = async event => {
     const { registerStart, registerForm } = this.props;
@@ -50,6 +50,14 @@ class Register extends Component {
     };
     return registerStart(registerData);
   };
+  userSelect = email => {
+    const { getUserByEmail } = this.props;
+    console.log('email', email);
+    const data = {
+      email,
+    };
+    getUserByEmail(data);
+  };
   render() {
     const {
       user,
@@ -62,11 +70,11 @@ class Register extends Component {
       loading,
     } = this.props;
     return (
-      <div className="container create-user-page" style={{ width: ' 50vw' }}>
+      <div className="registerPage">
         {redirect && <Redirect to={redirect} />}
         <div className="modeContainer">
           <p>
-            Switch to
+            Switch to{' '}
             <label onClick={this.switchMode}>
               {mode ? 'Search User' : 'Register New'}
             </label>
@@ -85,7 +93,7 @@ class Register extends Component {
             changeSellStage={changeSellStage}
             inputChange={this.searchInputChange}
             user={user}
-            formSubmit={this.searcSubmitHandler}
+            userSelect={this.userSelect}
             searchForm={searchForm}
             autoComplateResult={autoComplateResult}
           />
@@ -131,5 +139,7 @@ export default connect(
     setSearchFields,
     switchRegisterMode,
     changeSellStage,
+    getUserByEmail,
+    resetRegisterState,
   },
 )(Register);
