@@ -34,7 +34,6 @@ class App extends Component {
       <div className="App">
         <Navigation />
         <main>{routes}</main>
-        <img src="https://mappum.s3.eu-west-3.amazonaws.com/yshi.jpg" />
       </div>
     );
   }
