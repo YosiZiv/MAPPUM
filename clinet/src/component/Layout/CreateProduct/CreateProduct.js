@@ -1,17 +1,27 @@
 import React from 'react';
 import Input from '../TextInput/TextInput';
 import TextArea from '../TextArea/TextArea';
+import DropZone from '../DropZone/DropZone';
+import Files from '../Files/Files';
 import './CreateProduct.css';
 const createProduct = props => {
   const {
     loading,
     productForm,
     redirect,
+    images,
     message,
     submit,
     inputChange,
+    onFilesAdded,
   } = props;
-  const { name = '', description = '', sellPrice = '' } = productForm;
+  const {
+    name = '',
+    description = '',
+    sellPrice = '',
+    productImage,
+  } = productForm;
+
   return (
     <div className="createProductContainer">
       <div className="createProductTitle">
@@ -72,7 +82,19 @@ const createProduct = props => {
             }}
           />
         </div>
-        <div className="fileUploadContainer"></div>
+        <div className="fileUploadContainer">
+          <div className="dropZoneContainer">
+            <div className="dropZoneContainerImgWrapper">
+              <DropZone
+                onFilesAdded={onFilesAdded}
+                // disabled={uploading || successfullUploaded}
+              />
+            </div>
+          </div>
+          <div className="dropZoneFiles">
+            <Files files={images} />
+          </div>
+        </div>
       </form>
       <div className="productSubmit">
         <button type="button" className="btn btn-primary" onClick={submit}>

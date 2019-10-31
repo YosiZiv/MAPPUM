@@ -1,0 +1,8 @@
+.invalid {
+  border: 1px solid red;
+  background-color: #fda49a;
+}
+.invalid:focus {
+  border: 1px solid red;
+  background-color: #fda49a;
+}

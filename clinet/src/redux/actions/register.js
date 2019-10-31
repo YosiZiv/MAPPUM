@@ -1,4 +1,4 @@
-export const RESET_STATE = '[register] Register Reset State';
+export const RESET_REGISTER_STATE = '[register] Register Reset State';
 export const REGISTER_START = '[register] Register Start';
 export const REGISTER_SUCCESS = '[register] Register Success';
 export const REGISTER_FAIL = '[register] Register Fail';
@@ -15,9 +15,6 @@ export const GET_USER_BY_EMAIL_START = '[register] Get User By Email Start';
 export const GET_USER_BY_EMAIL_SUCCESS = '[register] Get User By Email Success';
 export const GET_USER_BY_EMAIL_FAIL = '[register] Get User By Email Fail';
 
-export const resetRegisterState = () => ({
-  type: RESET_STATE,
-});
 export const getUserByEmail = payload => ({
   type: GET_USER_BY_EMAIL_START,
   payload,
@@ -52,4 +49,7 @@ export const switchRegisterMode = () => ({
 export const setEmails = payload => ({
   type: SET_EMAILS,
   payload,
+});
+export const resetRegisterState = () => ({
+  type: RESET_REGISTER_STATE,
 });

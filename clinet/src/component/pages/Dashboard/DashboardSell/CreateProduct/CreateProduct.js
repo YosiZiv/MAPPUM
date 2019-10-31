@@ -8,6 +8,10 @@ import {
   createProductStart,
   setProductFields,
 } from '../../../../../redux/actions/sell';
+import {
+  setImagesFiles,
+  uploadImages,
+} from '../../../../../redux/actions/file';
 import './CreateProduct.css';
 
 class createItem extends Component {
@@ -16,19 +20,43 @@ class createItem extends Component {
     setProductFields({ id, value, validation });
   };
   submitHandler = async event => {
-    const { createProductStart, productForm } = this.props;
-    const productData = {
-      name: productForm.name.value,
-      description: productForm.description.value,
-      sellPrice: productForm.sellPrice.value,
-    };
-    return createProductStart(productData);
+    const {
+      createProductStart,
+      productForm,
+      images,
+      uploadImages,
+    } = this.props;
+    const form = new FormData();
+    images.forEach(image => {
+      console.log(image, image.name);
+
+      form.append(image.name, image[0]);
+    });
+    console.log(form);
+
+    uploadImages(form);
+    // const productData = {
+    //   name: productForm.name.value,
+    //   description: productForm.description.value,
+    //   sellPrice: productForm.sellPrice.value,
+    // };
+    // return createProductStart(productData);
   };
+  onFilesAdded = async files => {
+    const { setImagesFiles } = this.props;
+    console.log(files);
+    setImagesFiles(files);
+  };
+
   render() {
-    const { redirect, message, productForm, loading } = this.props;
+    const { redirect, message, productForm, loading, images } = this.props;
+    console.log(images);
+
     return (
       <div className="createProductPage">
         <CreateProduct
+          images={images}
+          onFilesAdded={this.onFilesAdded}
           message={message}
           productForm={productForm}
           loading={loading}
@@ -55,9 +83,10 @@ const mapStateToProps = state => {
     message: state.ui.message,
     redirect: state.ui.redirect,
     productForm: state.sell.productForm,
+    images: state.file.images,
   };
 };
 export default connect(
   mapStateToProps,
-  { setProductFields, createProductStart },
+  { setProductFields, createProductStart, setImagesFiles, uploadImages },
 )(createItem);

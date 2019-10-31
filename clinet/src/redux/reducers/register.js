@@ -4,7 +4,7 @@ import {
   SWITCH_REGISTER_MODE,
   SET_SEARCH_FIELDS,
   SEARCH_USER_AUTO_COMPLATE,
-  RESET_STATE,
+  RESET_REGISTER_STATE,
   SET_EMAILS,
 } from '../actions/register';
 import { checkValidity } from '../../shared/utility';
@@ -19,7 +19,7 @@ const initState = {
 
 export function registerReducer(state = initState, action) {
   switch (action.type) {
-    case RESET_STATE:
+    case RESET_REGISTER_STATE:
       return {
         ...state,
         user: null,

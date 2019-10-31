@@ -20,8 +20,10 @@ export const api = ({ dispatch }) => next => action => {
         });
     }
     if (method === 'POST') {
+      console.log(action.payload);
+
       axios
-        .post(url, { ...action.payload })
+        .post(url, action.payload)
         .then(response => {
           dispatch(loadingFinish());
           dispatch({ type: onSuccess, payload: response.data });
