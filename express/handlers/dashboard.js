@@ -33,8 +33,6 @@ const makeMailMessage = ({
 };
 
 const compile = async function(tamplte, data) {
-  console.log('compiling and shit');
-
   const filePath = getPath + tamplte;
   const html = await fs.readFileSync(filePath, 'utf-8');
   return hbs.compile(html)(data);
@@ -61,13 +59,14 @@ async function pdf(url, data) {
 }
 
 exports.createProduct = async (req, res, next) => {
+  const errors = validateProductInput(req.body);
   try {
-    console.log(req.body);
-    const errors = validateProductInput(req.body);
     if (Object.keys(errors).length) {
       return res.status(403).json({ errors });
     }
     const productSavedToDatabase = await new Products(req.body);
+    console.log('look at productSaved', req.body, productSavedToDatabase);
+
     await productSavedToDatabase.save();
     res
       .status(200)
@@ -159,40 +158,6 @@ exports.getSaleById = async (req, res, next) => {
     next(errors);
   }
 };
-
-exports.getLastProduct = async (req, res, next) => {
-  try {
-    const errors = {};
-
-    const product = await Products.findOne().sort('-createAt');
-    if (!product) {
-      console.log('i fall to no product');
-      errors.global = 'product not found';
-      return res.status(403).json({ errors });
-    }
-    res.status(200).json({ product });
-  } catch (err) {
-    console.log('i fall to no product error', err);
-    errors.global = 'someting went wrong :/';
-    return res.status(500).json({ errors });
-  }
-};
-
-exports.getLastUser = async (req, res, next) => {
-  try {
-    const errors = {};
-    const user = await User.findOne({ role: 'user' }).sort('-createAt');
-    if (!user) {
-      errors.global = 'user not found please create new user';
-      return res.status(403).json({ errors });
-    }
-    res.status(200).json({ user });
-  } catch (err) {
-    errors.global = 'someting went wrong :/';
-    return res.status(500).json({ errors });
-  }
-};
-
 exports.sellComplate = async (req, res, next) => {
   try {
     const { productId, userId } = req.body;
@@ -225,22 +190,21 @@ exports.sellComplate = async (req, res, next) => {
         },
       },
     );
-    // const pdfData = {
-    //     orderId: sale._id,
-    //     firstName: updateUser.firstName,
-    //     lastName: updateUser.lastName,
-    //     phone: updateUser.phone1,
-    //     email: updateUser.email,
-    //     address: updateUser.address,
-    //     productName: sale.productName,
-    //     description: sale.description,
-    //     size: sale.size,
-    //     sellPrice: sale.sellPrice
-    // }
-    // const pathToPdf = getPath + '/' + pdfData.orderId + '.pdf';
-    // const pdfPath = await pdf(pathToPdf,pdfData)
-    // const pdfMessage = makeMailMessage(pdfData)
-    // const getPdf = await sendPdfToMail(pdfPath, pdfData.email, pdfMessage)
+    const pdfData = {
+      orderId: sale._id,
+      firstName: updateUser.firstName,
+      lastName: updateUser.lastName,
+      phone: updateUser.phone1,
+      email: updateUser.email,
+      address: updateUser.address,
+      productName: sale.productName,
+      description: sale.description,
+      sellPrice: sale.sellPrice,
+    };
+    const pathToPdf = getPath + '/' + pdfData.orderId + '.pdf';
+    const pdfPath = await pdf(pathToPdf, pdfData);
+    const pdfMessage = makeMailMessage(pdfData);
+    const getPdf = await sendPdfToMail(pdfPath, pdfData.email, pdfMessage);
     res.status(201).json({ message: 'רכישה בוצעה בהצלחה' });
   } catch (err) {
     console.log(err);
@@ -295,11 +259,11 @@ exports.register = async (req, res, next) => {
         newUser.password = hash;
         await newUser.save();
         console.log(newUser);
-        // await sendPasswordToMail(
-        //   newUser.firstName,
-        //   newUser.email,
-        //   initPassword,
-        // );
+        await sendPasswordToMail(
+          newUser.firstName,
+          newUser.email,
+          initPassword,
+        );
         return res
           .status(201)
           .json({ user: newUser, message: 'משתמש נרשם בהצלחה' });

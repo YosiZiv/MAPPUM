@@ -8,7 +8,7 @@ const { User } = require('../models');
 
 //  Login User Handle function
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
 

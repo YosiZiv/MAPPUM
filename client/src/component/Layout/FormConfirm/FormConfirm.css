@@ -1,0 +1,41 @@
+.formConfirmContainer {
+  width: 98%;
+  margin: 0 auto;
+}
+.userDetailes {
+  width: 100%;
+  height: 300px;
+}
+.userDetailes {
+  width: 50%;
+}
+.formConfirmFlex {
+  display: flex;
+}
+.formConfirmTitle {
+  padding: 20px;
+}
+.formConfirmSubtitle {
+  text-align: left;
+  margin-left: 2vw;
+  font-weight: 900;
+  padding-bottom: 30px;
+}
+.formConfirmWrapper label {
+  text-align: left;
+  width: 40%;
+}
+.formConfirmImages {
+  margin-top: 4vh;
+
+  width: 100%;
+}
+.formConfirmImages img {
+  width: 30%;
+  height: 30%;
+  padding: 5px;
+}
+.formConfirmImages h3 {
+  width: 100%;
+  text-align: left;
+}

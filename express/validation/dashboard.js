@@ -2,7 +2,9 @@ const Validator = require('validator');
 
 exports.validateProductInput = data => {
   const errors = {};
-  const { name = '', description = '', sellPrice = '' } = data;
+  const { name = '', description = '', sellPrice = '', images } = data;
+  console.log('nodejs image check ', images);
+
   //  first name validations
   if (!Validator.isLength(name, { min: 2, max: 256 })) {
     errors.name = 'product name must between 3- 40 char';
@@ -19,6 +21,14 @@ exports.validateProductInput = data => {
   if (!Validator.isNumeric(sellPrice)) {
     errors.sellPrice = 'price must be a valid number';
   }
+  // if (images.length) {
+  //   images.forEach(image => {
+  //     if (!Validator.isMimeType(image.mimeType)) {
+  //       return (errors.images = 'images is not valid file format');
+  //     }
+  //   });
+  // }
+
   //  company name validation
   return errors;
 };

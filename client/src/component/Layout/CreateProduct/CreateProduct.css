@@ -1,0 +1,54 @@
+.createProductContainer {
+  width: 95%;
+  height: 100%;
+  float: right;
+  margin-top: 10px;
+}
+.createProductForm {
+  width: 100%;
+  display: flex;
+}
+.productForm {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  text-align: left;
+}
+.fileUploadContainer {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  text-align: left;
+}
+.productDescription textarea {
+  height: 20vh;
+}
+.createItemForm input {
+  width: 70%;
+}
+.productSellPrice {
+  align-self: end;
+}
+.createProductTitle {
+  text-align: left;
+  color: #3d93df;
+}
+.productSubmit {
+  padding: 10px;
+  width: 41%;
+  text-align: right;
+}
+.dropZoneContainer {
+  width: 100%;
+}
+.dropZoneContainerImgWrapper {
+  width: 30%;
+  margin-left: 5vw;
+}
+.progressBar {
+  width: 50%;
+  margin-left: 3vw;
+  margin-top: 2vh;
+}
