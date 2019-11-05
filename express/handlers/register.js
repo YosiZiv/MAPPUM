@@ -120,22 +120,34 @@ exports.registerAdmin = async (req, res, next) => {
   newAdmin.token = jwt.sign({ _id, firstName, lastName, email }, EMAIL, {
     expiresIn: '7d',
   });
-  res.json(newAdmin);
   // GENERATE RANDOM 6 NUMBERS FOR INIT PASSWORD
   //  Hash the password
-  //   bcrypt.genSalt(10, (err, salt) => {
-  //     bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
-  //       if (e) {
-  //         errors.bcrypt = 'something went wrong :/';
-  //         return res.status(400).json({ errors });
-  //       }
-  //       newAdmin.password = hash;
-  //       newAdmin.save();
-  //       return res
-  //         .status(201)
-  //         .json({ admin: newAdmin, message: 'Admin Sign Up Success' });
-  //     });
-  //   });
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
+      if (e) {
+        errors.bcrypt = 'something went wrong :/';
+        return res.status(400).json({ errors });
+      }
+      newAdmin.password = hash;
+      newAdmin
+        .save()
+        .then(async createdAdmin => {
+          const { token } = createdAdmin;
+          await sendEmailVerificationToEmail(token, createdAdmin);
+          return res.status(200).json({ msg: 'Admin created' });
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.code === 11000) {
+            errors.global = 'Email already exists';
+            return res.status(400).json({ errors });
+          }
+          if (err) {
+            return res.status(400).json(err);
+          }
+        });
+    });
+  });
 };
 exports.emailConfirm = async (req, res, next) => {
   try {
