@@ -28,11 +28,10 @@ async function createHtmlPage(data) {
     console.log('i get an error', e);
   }
 }
-exports.sendEmailVerificationToEmail = async (emailToken, user) => {
-  const url = `http://localhost5001:/email/confirmation/${emailToken}`;
+exports.sendEmailVerificationToEmail = async user => {
+  const url = `http://localhost:5001/api/register/confirmed/${user.token}`;
   user.url = url;
   const test = await createHtmlPage(user);
-  console.log(test, user.email);
   transporter
     .sendMail({
       to: user.email,
