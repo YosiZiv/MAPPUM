@@ -2,7 +2,6 @@ import { LOGIN_ERROR, SET_LOGIN_FIELDS, SET_AUTH } from '../actions/auth';
 import { checkValidity } from '../../shared/utility';
 const initState = {
   errors: null,
-  token: null,
   loginForm: {},
   admin: false,
   user: false,
@@ -27,7 +26,6 @@ export function authReducer(state = initState, action) {
     case SET_AUTH:
       return {
         ...state,
-        token: action.payload ? action.payload.token : null,
         admin: action.payload ? action.payload.admin : null,
         user: action.payload ? action.payload.user : null,
       };

@@ -2,19 +2,21 @@
   height: 100vh;
   background: no-repeat center center fixed;
   -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
 }
 
 .MainPageContent {
   font-family: 'Roboto slab';
   padding-top: 20px;
-}
-.MainPageContent h2 {
-  text-shadow: 1px 1px white;
-  font-size: 68px;
+  color: #2874b7;
 }
 .MainPageContent p {
-  text-shadow: 1px 1px white;
-  font-size: 28px;
+  color: #ffffff;
+  text-shadow: 1px 1px #2a2d2c;
+  font-size: 3vw;
+}
+.MainPageContent h2 {
+  font-size: 6vw;
+}
+.MainPageContent button {
+  text-shadow: 1px 1px #2a2d2c;
 }

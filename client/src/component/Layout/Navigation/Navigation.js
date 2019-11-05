@@ -7,8 +7,8 @@ const navigation = props => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink activeClassName="NavSelect" to="/" className="navbar-brand">
-        MAPPUM
+      <NavLink activeClassName="NavLogo" to="/" className="navbar-brand">
+        MPPUM
       </NavLink>
       <button
         className="navbar-toggler"

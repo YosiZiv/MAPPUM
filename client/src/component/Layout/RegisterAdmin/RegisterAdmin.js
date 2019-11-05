@@ -1,28 +1,40 @@
 import React from 'react';
 import Input from '../TextInput/TextInput';
-import './RegisterUser.css';
-const registerUser = props => {
-  const { loading, registerUserForm, message, formSubmit, inputChange } = props;
+import './RegisterAdmin.css';
+const registerAdmin = props => {
+  const {
+    loading,
+    adminRegisterForm,
+    message,
+    formSubmit,
+    inputChange,
+    closeForm,
+  } = props;
   const {
     firstName = '',
     lastName = '',
-    zahot = '',
     phone = '',
-    address = '',
     email = '',
-  } = registerUserForm;
+    password = '',
+    passwordConfirm = '',
+  } = adminRegisterForm;
 
   return (
-    <div className="newUserContainer">
-      <div className="newUserTitle">
-        <h2>REGISTER</h2>
+    <div className="registerAdminContainer">
+      <div className="adminTitle">
+        <h2> BE ADMIN</h2>
+        <i
+          onClick={closeForm}
+          style={{ fontSize: '2vw', cursor: 'pointer' }}
+          className="fas fa-times"
+        ></i>
       </div>
-      <form className="registerForm" onSubmit={e => e.preventDefault()}>
+      <form className="adminRegisterForm" onSubmit={e => e.preventDefault()}>
         <Input
           isValid={firstName ? firstName.isValid : true}
           className="form-control"
           id="firstName"
-          name="firstName"
+          name="FIRST NAME"
           type="text"
           error={message && message.firstName}
           required
@@ -35,12 +47,11 @@ const registerUser = props => {
             maxLength: 256,
           }}
         />
-
         <Input
           isValid={lastName ? lastName.isValid : true}
           className="form-control"
           id="lastName"
-          name="lastName"
+          name="LAST NAME"
           type="text"
           error={message && message.lastName}
           required
@@ -55,24 +66,10 @@ const registerUser = props => {
         />
 
         <Input
-          isValid={zahot ? zahot.isValid : true}
-          className="form-control"
-          id="zahot"
-          name="zahot"
-          type="number"
-          error={message && message.zahot}
-          required
-          disabled={loading}
-          defaultValue={zahot && zahot.value}
-          inputChange={inputChange}
-          validation={{ isRequired: true, isNumeric: true }}
-        />
-
-        <Input
           isValid={phone ? phone.isValid : true}
           className="form-control"
           id="phone"
-          name="phone"
+          name="PHONE"
           type="text"
           error={message && message.phone}
           required
@@ -86,28 +83,10 @@ const registerUser = props => {
           }}
         />
         <Input
-          isValid={address ? address.isValid : true}
-          className="form-control"
-          id="address"
-          name="address"
-          type="text"
-          error={message && message.address}
-          required
-          disabled={loading}
-          defaultValue={address && address.value}
-          inputChange={inputChange}
-          validation={{
-            isRequired: true,
-            minLength: 2,
-            maxLength: 256,
-          }}
-        />
-
-        <Input
           isValid={email ? email.isValid : true}
           className="form-control"
           id="email"
-          name="email"
+          name="EMAIL"
           type="email"
           error={message && message.email}
           required
@@ -116,13 +95,41 @@ const registerUser = props => {
           inputChange={inputChange}
           validation={{ isRequired: true, isEmail: true }}
         />
+
+        <Input
+          isValid={password ? password.isValid : true}
+          className="form-control"
+          id="password"
+          name="PASSWORD"
+          type="password"
+          error={message && message.password}
+          required
+          disabled={loading}
+          defaultValue={password && password.value}
+          inputChange={inputChange}
+          validation={{ isRequired: true, minLength: 6 }}
+        />
+        <Input
+          isValid={password ? password.isValid : true}
+          className="form-control"
+          id="passwordConfirm"
+          name="RE PASSWORD"
+          type="password"
+          error={message && message.passwordConfirm}
+          required
+          disabled={loading}
+          defaultValue={passwordConfirm && passwordConfirm.value}
+          inputChange={inputChange}
+          validation={{ isRequired: true, minLength: 6 }}
+        />
+        <div className="registerSubmit">
+          <button className="btn btn-primary" onClick={formSubmit}>
+            BE ADMIN
+          </button>
+        </div>
       </form>
-      <div className="registerSubmit">
-        <button className="btn btn-primary" onClick={formSubmit}>
-          NEXT
-        </button>
-      </div>
     </div>
   );
 };
-export default registerUser;
+
+export default registerAdmin;

@@ -12,7 +12,7 @@ import {
   setRegisterFields,
   setSearchFields,
   switchRegisterMode,
-  getAllEmailsStart,
+  getAdminsUsers,
   searchUserAutoComplate,
   getUserByEmail,
   resetRegisterState,
@@ -20,8 +20,11 @@ import {
 import { changeSellStage } from '../../../../../redux/actions/sell';
 class Register extends Component {
   componentDidMount() {
-    const { getAllEmailsStart } = this.props;
-    getAllEmailsStart();
+    const { getAdminsUsers } = this.props;
+    const admin = localStorage.getItem('id');
+    if (admin) {
+      getAdminsUsers(admin);
+    }
   }
 
   switchMode = () => {
@@ -39,7 +42,9 @@ class Register extends Component {
   };
   registerSubmitHandler = async event => {
     const { registerStart, registerForm } = this.props;
+    const id = localStorage.getItem('id');
     const registerData = {
+      admin: id,
       firstName: registerForm['firstName'] ? registerForm.firstName.value : '',
       lastName: registerForm['lastName'] ? registerForm.lastName.value : '',
       zahot: registerForm['zahot'] ? registerForm.zahot.value : '',
@@ -47,7 +52,8 @@ class Register extends Component {
       address: registerForm['address'] ? registerForm.address.value : '',
       email: registerForm['email'] ? registerForm.email.value : '',
     };
-    return registerStart(registerData);
+
+    return registerStart(registerData, id);
   };
   userSelect = email => {
     const { getUserByEmail } = this.props;
@@ -131,7 +137,7 @@ export default connect(
   mapStateToProps,
   {
     registerStart,
-    getAllEmailsStart,
+    getAdminsUsers,
     searchUserAutoComplate,
     setRegisterFields,
     setSearchFields,

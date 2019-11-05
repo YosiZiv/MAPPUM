@@ -17,7 +17,7 @@ export const autoLogin = ({ dispatch }) => next => action => {
   if (action.type === AUTO_LOGIN) {
     const adminToken = localStorage.getItem('adminToken');
     const userToken = localStorage.getItem('userToken');
-
+    const id = localStorage.getItem('id');
     if (!adminToken && !userToken) {
       return dispatch(logout());
     } else {
@@ -26,7 +26,6 @@ export const autoLogin = ({ dispatch }) => next => action => {
         return dispatch(logout());
       } else {
         const user = {
-          token: adminToken ? adminToken : userToken ? userToken : null,
           admin: adminToken ? true : false,
           user: userToken ? true : false,
         };
@@ -51,33 +50,34 @@ export const loginStart = ({ dispatch }) => next => action => {
 export const loginSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGIN_SUCCESS) {
-    const { userToken = null, adminToken = null, expiresIn } = action.payload;
-    if (adminToken) {
-      const user = {
-        token: adminToken,
-        admin: true,
-      };
-      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-      localStorage.setItem('adminToken', adminToken);
-      localStorage.setItem('expirseIn', expirationDate);
-      dispatch(setAuthTime(expiresIn));
-      dispatch(setAuth(user));
-      dispatch(redirectTo('/'));
-      dispatch(clearUi());
-    }
-    if (userToken) {
-      const user = {
-        token: adminToken,
-        user: true,
-      };
-      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-      localStorage.setItem('userToken', userToken);
-      localStorage.setItem('expirseIn', expirationDate);
-      dispatch(setAuthTime(expiresIn));
-      dispatch(setAuth(user));
-      dispatch(redirectTo('/'));
-      dispatch(clearUi());
-    }
+    const { key, token, expiresIn, id = null } = action.payload;
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = {
+      admin: key === 'adminToken' ? true : false,
+      user: key === 'userToken' ? true : false,
+    };
+    console.log(action.payload);
+
+    localStorage.setItem(key, token);
+    localStorage.setItem('id', id);
+    localStorage.setItem('expirseIn', expirationDate);
+    dispatch(setAuthTime(expiresIn));
+    dispatch(setAuth(user));
+    dispatch(redirectTo('/'));
+    dispatch(clearUi());
+    // if (token) {
+    //   const user = {
+    //     token: adminToken,
+    //     user: true,
+    //   };
+    //   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    //   localStorage.setItem('userToken', userToken);
+    //   localStorage.setItem('expirseIn', expirationDate);
+    //   dispatch(setAuthTime(expiresIn));
+    //   dispatch(setAuth(user));
+    //   dispatch(redirectTo('/'));
+    //   dispatch(clearUi());
+    // }
   }
 };
 export const loginFail = ({ dispatch }) => next => action => {
@@ -93,6 +93,7 @@ export const onLogout = ({ dispatch }) => next => action => {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('userToken');
     localStorage.removeItem('expirseIn');
+    localStorage.removeItem('id');
     dispatch(setAuth(null));
   }
 };

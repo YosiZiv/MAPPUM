@@ -1,10 +1,13 @@
 import {
+  ADMIN_REGISTER_START,
+  ADMIN_REGISTER_SUCCESS,
+  ADMIN_REGISTER_FAIL,
   REGISTER_START,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  GET_ALL_EMAILS_START,
-  GET_ALL_EMAILS_SUCCESS,
-  GET_ALL_EMAILS_FAIL,
+  GET_ADMIN_USERS_START,
+  GET_ADMIN_USERS_SUCCESS,
+  GET_ADMIN_USERS_FAIL,
   GET_USER_BY_EMAIL_START,
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAIL,
@@ -15,15 +18,49 @@ import { changeSellStage } from '../actions/sell';
 import { apiRequest } from '../actions/api';
 import { setMessage, redirectTo, clearUi } from '../actions/ui';
 
+export const adminRegisterStart = ({ dispatch }) => next => action => {
+  next(action);
+  const URL = 'register/registeradmin';
+  if (action.type === ADMIN_REGISTER_START) {
+    dispatch(
+      apiRequest(
+        'POST',
+        URL,
+        action.payload,
+        ADMIN_REGISTER_SUCCESS,
+        ADMIN_REGISTER_FAIL,
+      ),
+    );
+  }
+};
+export const adminRegisterSuccess = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === ADMIN_REGISTER_SUCCESS) {
+    console.log(action.payload);
+
+    dispatch(redirectTo('login'));
+  }
+};
+
+export const adminRegisterFail = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === ADMIN_REGISTER_FAIL) {
+    dispatch(setMessage(action.payload));
+  }
+};
+
 export const registerStart = ({ dispatch }) => next => action => {
   next(action);
-  const URL = 'dashboard/register';
+  const URL = 'register/registeruser';
   if (action.type === REGISTER_START) {
+    console.log('middalware for user work', action.payload);
+
     dispatch(
       apiRequest('POST', URL, action.payload, REGISTER_SUCCESS, REGISTER_FAIL),
     );
   }
 };
+
 export const registerSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === REGISTER_SUCCESS) {
@@ -40,24 +77,30 @@ export const registerFail = ({ dispatch }) => next => action => {
     dispatch(setMessage(action.payload));
   }
 };
-export const getAllEmailsStart = ({ dispatch }) => next => action => {
+export const getAllAdminsUsersStart = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === GET_ALL_EMAILS_START) {
-    const URL = 'dashboard/getallemails';
+  if (action.type === GET_ADMIN_USERS_START) {
+    const URL = 'dashboard/getadminsusers';
     dispatch(
-      apiRequest('GET', URL, null, GET_ALL_EMAILS_SUCCESS, GET_ALL_EMAILS_FAIL),
+      apiRequest(
+        'GET',
+        URL,
+        null,
+        GET_ADMIN_USERS_SUCCESS,
+        GET_ADMIN_USERS_FAIL,
+      ),
     );
   }
 };
-export const getAllEmailsSuccess = ({ dispatch }) => next => action => {
+export const getAllAdminsUsersSuccess = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === GET_ALL_EMAILS_SUCCESS) {
+  if (action.type === GET_ADMIN_USERS_SUCCESS) {
     dispatch(setEmails(action.payload.emails));
   }
 };
-export const getAllEmailsFail = ({ dispatch }) => next => action => {
+export const getAllAdminsUsersFail = ({ dispatch }) => next => action => {
   next(action);
-  if (action.type === GET_ALL_EMAILS_FAIL) {
+  if (action.type === GET_ADMIN_USERS_FAIL) {
     dispatch(setMessage(action.payload));
   }
 };
@@ -94,12 +137,15 @@ export const getUserByEmailFail = ({ dispatch }) => next => action => {
   }
 };
 export const registerhMdl = [
+  adminRegisterStart,
+  adminRegisterSuccess,
+  adminRegisterFail,
   registerStart,
   registerSuccess,
   registerFail,
-  getAllEmailsStart,
-  getAllEmailsSuccess,
-  getAllEmailsFail,
+  getAllAdminsUsersStart,
+  getAllAdminsUsersSuccess,
+  getAllAdminsUsersFail,
   getUserByEmailStart,
   getUserByEmailSuccess,
   getUserByEmailFail,

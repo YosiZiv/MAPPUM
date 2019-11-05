@@ -1,5 +1,6 @@
 import {
   SET_USER,
+  ADMIN_SET_REGISTER_FIELDS,
   SET_REGISTER_FIELDS,
   SWITCH_REGISTER_MODE,
   SET_SEARCH_FIELDS,
@@ -11,6 +12,7 @@ import { checkValidity } from '../../shared/utility';
 const initState = {
   user: null,
   registerForm: {},
+  adminRegisterForm: {},
   searchForm: {},
   emails: [],
   autoComplateResult: [],
@@ -43,6 +45,21 @@ export function registerReducer(state = initState, action) {
         });
       }
       return { ...state, autoComplateResult };
+    case ADMIN_SET_REGISTER_FIELDS:
+      return {
+        ...state,
+        adminRegisterForm: {
+          ...state.adminRegisterForm,
+          [action.payload.id]: {
+            value: action.payload.value,
+            isValid: checkValidity(
+              action.payload.id,
+              action.payload.value,
+              action.payload.validation,
+            ),
+          },
+        },
+      };
     case SET_REGISTER_FIELDS:
       return {
         ...state,

@@ -1,9 +1,3 @@
-export const updateObject = (oldObject, updateProperties) => {
-  return {
-    ...oldObject,
-    ...updateProperties,
-  };
-};
 export const checkValidity = (value, rules) => {
   let isValid = true;
   if (!rules) {
@@ -31,6 +25,5 @@ export const checkValidity = (value, rules) => {
     const pattern = /^\d+$/;
     isValid = pattern.test(value) && isValid;
   }
-
   return isValid;
 };

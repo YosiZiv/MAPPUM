@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 //  Create Schema
-const UserSchema = new Schema({
+const AdminSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -14,23 +14,18 @@ const UserSchema = new Schema({
     required: true,
     maxlength: 40,
   },
-  zahot: {
-    type: Number,
-    unique: true,
-  },
   phone: {
     type: String,
     required: true,
-  },
-
-  address: {
-    type: String,
-    maxlength: 60,
   },
   email: {
     type: String,
     required: true,
     unique: true,
+  },
+  confirmed: {
+    type: Boolean,
+    default: false,
   },
   password: {
     type: String,
@@ -41,15 +36,11 @@ const UserSchema = new Schema({
   role: {
     type: String,
     required: true,
-    default: 'user',
+    default: 'admin',
   },
-  sales: {
+  users: {
     type: [Schema.Types.ObjectId],
-    ref: 'sales',
-  },
-  admins: {
-    type: [Schema.Types.ObjectId],
-    ref: 'admins',
+    ref: 'user',
   },
   isDelete: {
     type: Boolean,
@@ -62,5 +53,5 @@ const UserSchema = new Schema({
   },
 });
 
-const User = mongoose.model('user', UserSchema);
-module.exports = User;
+const Admin = mongoose.model('admin', AdminSchema);
+module.exports = Admin;

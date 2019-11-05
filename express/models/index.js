@@ -31,3 +31,4 @@ mongoose
 module.exports.User = require('./user');
 module.exports.Products = require('./product');
 module.exports.Sales = require('./sales');
+module.exports.Admin = require('./admin');

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { loginStart, setLoginFields } from '../../../redux/actions/auth';
 import { clearLoginState } from '../../../redux/actions/ui';
 import Input from '../../Layout/TextInput/TextInput';
+import Message from '../../Layout/Message/Message';
 import './Login.css';
 import PropTypes from 'prop-types';
 
@@ -78,11 +79,7 @@ class Login extends Component {
               </div>
             </div>
             {message
-              ? message.global && (
-                  <div className="globalError">
-                    <p>* {message.global.toUpperCase()}</p>
-                  </div>
-                )
+              ? message.global && <Message message={message.global} />
               : null}
           </form>
         </div>

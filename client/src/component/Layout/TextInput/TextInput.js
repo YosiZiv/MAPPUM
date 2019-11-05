@@ -34,11 +34,11 @@ const textInput = props => {
   return (
     <div className="text-input-container">
       {showTitle && (
-        <h3>
+        <h6>
           <strong>
             {name} {required && <span className="text-danger">*</span>}
           </strong>
-        </h3>
+        </h6>
       )}
       <input
         id={id}

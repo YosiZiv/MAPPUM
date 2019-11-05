@@ -213,68 +213,6 @@ exports.sellComplate = async (req, res, next) => {
   }
 };
 
-//  Register User Handle function
-exports.register = async (req, res, next) => {
-  const errors = validateRegisterInput(req.body);
-  try {
-    console.log('inside register', errors);
-
-    if (Object.keys(errors).length) {
-      return res.status(403).json({ errors });
-    }
-    const { firstName, lastName, zahot, phone, address, email } = req.body;
-    console.log(firstName, lastName, zahot, phone, address, email);
-    //  Check if email already exists
-    let user = await User.findOne({ email });
-    if (user) {
-      errors.global = 'email allready exsist';
-      return res.status(400).json({ errors });
-    }
-    user = await User.findOne({ zahot });
-    if (user) {
-      errors.global = 'id allready exsist';
-      return res.status(400).json({ errors });
-    }
-    // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
-    const initPassword = Math.floor(100000 + Math.random() * 900000);
-    console.log(initPassword);
-
-    //  Create new user
-    const newUser = await new User({
-      firstName,
-      lastName,
-      zahot,
-      phone,
-      address,
-      email,
-      password: initPassword,
-    });
-    //  Hash the password
-    await bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, async (e, hash) => {
-        if (e) {
-          errors.bcrypt = 'someting went wrong :/';
-          return res.status(400).json({ errors });
-        }
-        newUser.password = hash;
-        await newUser.save();
-        console.log(newUser);
-        await sendPasswordToMail(
-          newUser.firstName,
-          newUser.email,
-          initPassword,
-        );
-        return res
-          .status(201)
-          .json({ user: newUser, message: 'משתמש נרשם בהצלחה' });
-      });
-    });
-  } catch (err) {
-    errors.global = 'someting went wrong :/';
-    return res.status(500).json({ errors });
-  }
-};
-
 exports.getUserByEmail = (req, res, next) => {
   const { email } = req.body;
   console.log('function work ', email);
@@ -301,9 +239,12 @@ exports.getUserByEmail = (req, res, next) => {
     });
 };
 
-exports.getAllUserEmails = async (req, res, next) => {
+exports.getAdminsUsers = async (req, res, next) => {
   const errors = {};
   try {
+    const { admin } = req.body;
+    console.log(admin);
+
     const emails = [];
     const users = await User.find({}).select('email');
     users.forEach(user => {
