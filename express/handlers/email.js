@@ -34,12 +34,12 @@ exports.sendEmailVerficationToEmail = async (emailToken, user) => {
   const test = await createHtmlPage(user);
   console.log(test, user.email);
 
-  //   transporter.sendMail({
-  //     to: user.email,
-  //     from: 'admin@mppum.com',
-  //     subject: 'EMAIL Confirmation From MPPUM ',
-  //     html: test,
-  //   });
+  transporter.sendMail({
+    to: user.email,
+    from: 'admin@mppum.com',
+    subject: 'EMAIL Confirmation From MPPUM ',
+    html: test,
+  });
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
