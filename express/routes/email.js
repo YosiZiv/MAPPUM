@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 //  middleware
-const asyncMiddleware = require('../middlewares/async');
-const { adminCheckToken } = require('../middlewares/admin');
+const asyncMiddleware = require('../middleware/async');
+const { adminCheckToken } = require('../middleware/admin');
 
 const { sendPasswordToMail } = require('../handlers/email');
 

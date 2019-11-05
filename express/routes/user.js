@@ -4,8 +4,8 @@ const router = express.Router();
 const { getSell } = require('../handlers/user');
 
 //  middleware
-const asyncMiddleware = require('../middlewares/async');
-const { userCheckToken } = require('../middlewares/user');
+const asyncMiddleware = require('../middleware/async');
+const { userCheckToken } = require('../middleware/user');
 
 router.post('/getsellforuser', userCheckToken, asyncMiddleware(getSell));
 // router.post('/')

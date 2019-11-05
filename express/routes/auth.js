@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 //  middleware
-const asyncMiddleware = require('../middlewares/async');
+const asyncMiddleware = require('../middleware/async');
 
 // initalizing express router
 const router = express.Router();

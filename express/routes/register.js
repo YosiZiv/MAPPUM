@@ -7,8 +7,8 @@ const {
   emailConfirm,
 } = require('../handlers/register');
 //  middleware
-const { adminCheckToken } = require('../middlewares/admin');
-const asyncMiddleware = require('../middlewares/async');
+const { adminCheckToken } = require('../middleware/admin');
+const asyncMiddleware = require('../middleware/async');
 
 router.get('/confirmed/:token', asyncMiddleware(emailConfirm));
 router.post('/registeradmin', asyncMiddleware(registerAdmin));
