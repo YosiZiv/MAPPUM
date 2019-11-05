@@ -4,7 +4,7 @@ import {
   SET_REGISTER_FIELDS,
   SWITCH_REGISTER_MODE,
   SET_SEARCH_FIELDS,
-  SEARCH_USER_AUTO_COMPLATE,
+  SEARCH_USER_AUTO_COMPLETE,
   RESET_REGISTER_STATE,
   SET_EMAILS,
 } from '../actions/register';
@@ -15,7 +15,7 @@ const initState = {
   adminRegisterForm: {},
   searchForm: {},
   emails: [],
-  autoComplateResult: [],
+  autoCompleteResult: [],
   mode: true,
 };
 
@@ -28,23 +28,23 @@ export function registerReducer(state = initState, action) {
         registerForm: {},
         searchForm: {},
         emails: [],
-        autoComplateResult: [],
+        autoCompleteResult: [],
         mode: true,
       };
     case SET_USER:
       return { ...state, user: action.payload };
     case SET_EMAILS:
       return { ...state, emails: action.payload };
-    case SEARCH_USER_AUTO_COMPLATE:
-      const autoComplateResult = [];
+    case SEARCH_USER_AUTO_COMPLETE:
+      const autoCompleteResult = [];
       if (state.emails.length) {
         state.emails.forEach(email => {
           if (email.includes(action.payload) && action.payload !== '') {
-            autoComplateResult.push(email);
+            autoCompleteResult.push(email);
           }
         });
       }
-      return { ...state, autoComplateResult };
+      return { ...state, autoCompleteResult };
     case ADMIN_SET_REGISTER_FIELDS:
       return {
         ...state,

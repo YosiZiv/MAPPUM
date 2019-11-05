@@ -27,7 +27,7 @@ class createItem extends Component {
     const { setProductFields } = this.props;
     setProductFields({ id, value, validation });
   };
-  imageUploade = images =>
+  imageUpload = images =>
     new Promise((resolve, reject) => {
       const axiosApi = axios();
       console.log('test', images, images.length);
@@ -64,7 +64,7 @@ class createItem extends Component {
       const { createProductStart, productForm, images } = this.props;
       let imagesUrl;
       if (images.length) {
-        imagesUrl = await Promise.resolve(this.imageUploade(images));
+        imagesUrl = await Promise.resolve(this.imageUpload(images));
       }
       const productData = {
         name: productForm.name.value,

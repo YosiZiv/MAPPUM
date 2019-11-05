@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../TextInput/TextInput';
 import './SearchUser.css';
-import AutoComplate from '../AutoComplate/AutoComplate';
+import AutoComplete from '../AutoComplete/AutoComplete';
 const searchUser = props => {
   const {
     loading,
@@ -9,7 +9,7 @@ const searchUser = props => {
     message,
     userSelect,
     inputChange,
-    autoComplateResult,
+    autoCompleteResult,
   } = props;
   const { email = '' } = searchForm;
   return (
@@ -36,9 +36,9 @@ const searchUser = props => {
 
         {email['value'] ? (
           <div className="resultContainer">
-            <AutoComplate
+            <AutoComplete
               searchForm={searchForm}
-              autoComplateResult={autoComplateResult}
+              autoComplete={autoCompleteResult}
               userSelect={userSelect}
             />
           </div>

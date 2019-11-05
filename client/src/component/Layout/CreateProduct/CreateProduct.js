@@ -3,7 +3,7 @@ import Input from '../TextInput/TextInput';
 import TextArea from '../TextArea/TextArea';
 import DropZone from '../DropZone/DropZone';
 import Files from '../Files/Files';
-import FileProgressBar from '../FileUploadeProgressBar/FileUploadeProgressBar';
+import FileProgressBar from '../FileUploadedProgressBar/FileUploadedProgressBar';
 import './CreateProduct.css';
 const createProduct = props => {
   const {
@@ -82,7 +82,7 @@ const createProduct = props => {
             <div className="dropZoneContainerImgWrapper">
               <DropZone
                 onFilesAdded={onFilesAdded}
-                // disabled={uploading || successfullUploaded}
+                // disabled={uploading || successfullyUploaded}
               />
             </div>
           </div>

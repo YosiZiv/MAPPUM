@@ -1,11 +1,11 @@
-.AutoComplateContainer {
+.AutoCompleteContainer {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
   padding: 2px;
 }
-.AutoComplateContainer p {
+.AutoCompleteContainer p {
   width: 100%;
   margin: 0;
   font-size: 2.3vh;
@@ -18,6 +18,6 @@
   cursor: pointer;
   color: #495057;
 }
-.AutoComplateContainer p:hover {
+.AutoCompleteContainer p:hover {
   background: #5aacf3;
 }

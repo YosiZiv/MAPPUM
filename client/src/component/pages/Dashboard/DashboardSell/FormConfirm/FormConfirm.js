@@ -31,7 +31,7 @@ class FormConfirmPage extends Component {
             user={user}
           />
         ) : (
-          <p>user or product didnt found please create new sell</p>
+          <p>user or product didn't found please create new sell</p>
         )}
       </div>
     );
