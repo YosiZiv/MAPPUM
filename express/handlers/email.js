@@ -13,8 +13,8 @@ const transporter = nodemailer.createTransport(
     },
   }),
 );
-const compile = async function(tamplte, data) {
-  const filePath = getPath + tamplte;
+const compile = async function(template, data) {
+  const filePath = getPath + template;
   const html = await fs.readFileSync(filePath, 'utf-8');
   return hbs.compile(html)(data);
 };
@@ -28,18 +28,24 @@ async function createHtmlPage(data) {
     console.log('i get an error', e);
   }
 }
-exports.sendEmailVerficationToEmail = async (emailToken, user) => {
+exports.sendEmailVerificationToEmail = async (emailToken, user) => {
   const url = `http://localhost5001:/email/confirmation/${emailToken}`;
   user.url = url;
   const test = await createHtmlPage(user);
   console.log(test, user.email);
-
-  transporter.sendMail({
-    to: user.email,
-    from: 'admin@mppum.com',
-    subject: 'EMAIL Confirmation From MPPUM ',
-    html: test,
-  });
+  transporter
+    .sendMail({
+      to: user.email,
+      from: 'admin@mppum.com',
+      subject: 'EMAIL Confirmation From MPPUM ',
+      html: test,
+    })
+    .then(emailSent => {
+      console.log('email sent', emailSent);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
