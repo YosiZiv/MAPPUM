@@ -12,6 +12,8 @@ const textInput = props => {
     showTitle,
     className,
     validation,
+    inputChange,
+
     isValid,
   } = props;
   const isValidClass = !isValid ? ' invalid' : '';
@@ -24,10 +26,8 @@ const textInput = props => {
 
   const handleChange = event => {
     event.preventDefault();
-    const { type } = props;
     const { value } = event.currentTarget;
     const formattedValue = type === 'number' ? Number(value) : value;
-    const { id, inputChange } = props;
     inputChange({ id, value: formattedValue, validation });
   };
 

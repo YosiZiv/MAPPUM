@@ -52,11 +52,7 @@ export function registerReducer(state = initState, action) {
           ...state.adminRegisterForm,
           [action.payload.id]: {
             value: action.payload.value,
-            isValid: checkValidity(
-              action.payload.id,
-              action.payload.value,
-              action.payload.validation,
-            ),
+            isValid: action.payload.isValid,
           },
         },
       };

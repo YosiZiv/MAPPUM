@@ -7,7 +7,7 @@ import {
   LOADING_FINISH,
 } from '../actions/ui';
 const initState = {
-  message: null,
+  message: {},
   redirect: null,
   loading: false,
 };
@@ -19,8 +19,8 @@ export function uiReducer(state = initState, action) {
     case SET_MESSAGE:
       return { ...state, message: action.payload };
     case DELETE_MESSAGE:
-      const getMessage = this.state.message;
-      const message = delete getMessage[action.payload];
+      const message = state.message;
+      delete message[action.payload];
       return { ...state, message };
     case CLEAR_UI:
       return { ...state, message: null, redirect: null };

@@ -11,12 +11,27 @@ import {
   GET_USER_BY_EMAIL_START,
   GET_USER_BY_EMAIL_SUCCESS,
   GET_USER_BY_EMAIL_FAIL,
+  ADMIN_SET_FIELD_MID,
   setUser,
   setEmails,
+  setAdminRegisterFields,
 } from '../actions/register';
 import { changeSellStage } from '../actions/sell';
 import { apiRequest } from '../actions/api';
-import { setMessage, redirectTo, clearUi } from '../actions/ui';
+import { setMessage, redirectTo, clearUi, deleteMessage } from '../actions/ui';
+import { checkValidity } from '../../shared/utility';
+export const adminSetFieldMid = ({ dispatch }) => next => action => {
+  next(action);
+  if (action.type === ADMIN_SET_FIELD_MID) {
+    const { id, value, validation } = action.payload;
+
+    const isValid = checkValidity(value, validation);
+    if (isValid) {
+      dispatch(deleteMessage(id));
+    }
+    dispatch(setAdminRegisterFields({ id, value, isValid }));
+  }
+};
 
 export const adminRegisterStart = ({ dispatch }) => next => action => {
   next(action);
@@ -149,4 +164,5 @@ export const registerhMdl = [
   getUserByEmailStart,
   getUserByEmailSuccess,
   getUserByEmailFail,
+  adminSetFieldMid,
 ];

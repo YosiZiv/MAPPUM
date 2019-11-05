@@ -17,12 +17,18 @@ export const GET_ADMIN_USERS_FAIL = '[register] Get User By Email Fail';
 export const GET_USER_BY_EMAIL_START = '[register] Get User By Email Start';
 export const GET_USER_BY_EMAIL_SUCCESS = '[register] Get User By Email Success';
 export const GET_USER_BY_EMAIL_FAIL = '[register] Get User By Email Fail';
+export const ADMIN_SET_FIELD_MID = '[Register] Admin Set Field Mid';
 export const ADMIN_SET_REGISTER_FIELDS = '[register] Set Admin Register Fields';
 
+export const adminSetFieldsMid = payload => ({
+  type: ADMIN_SET_FIELD_MID,
+  payload,
+});
 export const setAdminRegisterFields = payload => ({
   type: ADMIN_SET_REGISTER_FIELDS,
   payload,
 });
+
 export const getUserByEmail = payload => ({
   type: GET_ADMIN_USERS_START,
   payload,

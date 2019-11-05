@@ -6,8 +6,8 @@ import MainPageImg from '../../../assets/images/MainPageImage.jpg';
 import RegisterAdmin from '../../Layout/RegisterAdmin/RegisterAdmin';
 import Message from '../../Layout/Message/Message';
 import {
+  adminSetFieldsMid,
   adminRegisterStart,
-  setAdminRegisterFields,
 } from '../../../redux/actions/register';
 class MainPage extends Component {
   state = {
@@ -17,8 +17,8 @@ class MainPage extends Component {
     this.setState({ open: !this.state.open });
   };
   adminRegisterInputChange = ({ id, value, validation }) => {
-    const { setAdminRegisterFields } = this.props;
-    setAdminRegisterFields({ id, value, validation });
+    const { adminSetFieldsMid } = this.props;
+    adminSetFieldsMid({ id, value, validation });
   };
 
   adminRegisterSubmitHandler = async event => {
@@ -87,5 +87,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { adminRegisterStart, setAdminRegisterFields },
+  { adminSetFieldsMid, adminRegisterStart },
 )(MainPage);
