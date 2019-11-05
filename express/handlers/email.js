@@ -33,13 +33,19 @@ exports.sendEmailVerificationToEmail = async (emailToken, user) => {
   user.url = url;
   const test = await createHtmlPage(user);
   console.log(test, user.email);
-
-  transporter.sendMail({
-    to: user.email,
-    from: 'admin@mppum.com',
-    subject: 'EMAIL Confirmation From MPPUM ',
-    html: test,
-  });
+  transporter
+    .sendMail({
+      to: user.email,
+      from: 'admin@mppum.com',
+      subject: 'EMAIL Confirmation From MPPUM ',
+      html: test,
+    })
+    .then(emailSent => {
+      console.log('email sent', emailSent);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
