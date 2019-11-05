@@ -1,5 +1,9 @@
 const express = require('express');
 
+//  middleware
+const asyncMiddleware = require('../middlewares/async');
+const { adminCheckToken } = require('../middlewares/admin');
+
 const router = express.Router();
 const {
   createProduct,
@@ -10,12 +14,23 @@ const {
   getUserByEmail,
   getAdminsUsers,
 } = require('../handlers/dashboard');
-const { adminCheckToken } = require('../middlewares/admin');
-router.post('/getadminsusers', adminCheckToken, getAdminsUsers);
-router.get('/getsale/:id', adminCheckToken, getSaleById);
-router.get('/getactivesale', adminCheckToken, getAllActiveSells);
-router.post('/getuserbyemail', adminCheckToken, getUserByEmail);
-router.post('/updatestage', adminCheckToken, changeSaleStage);
-router.post('/sellcomplate', adminCheckToken, sellComplate);
-router.post('/createitem', adminCheckToken, createProduct);
+router.post(
+  '/getadminsusers',
+  adminCheckToken,
+  asyncMiddleware(getAdminsUsers),
+);
+router.get('/getsale/:id', adminCheckToken, asyncMiddleware(getSaleById));
+router.get(
+  '/getactivesale',
+  adminCheckToken,
+  asyncMiddleware(getAllActiveSells),
+);
+router.post(
+  '/getuserbyemail',
+  adminCheckToken,
+  asyncMiddleware(getUserByEmail),
+);
+router.post('/updatestage', adminCheckToken, asyncMiddleware(changeSaleStage));
+router.post('/sellcomplate', adminCheckToken, asyncMiddleware(sellComplate));
+router.post('/createitem', adminCheckToken, asyncMiddleware(createProduct));
 module.exports = router;

@@ -1,9 +1,16 @@
 const express = require('express');
 
 const router = express.Router();
-const { sendPasswordToMail } = require('../handlers/email');
+//  middleware
+const asyncMiddleware = require('../middlewares/async');
 const { adminCheckToken } = require('../middlewares/admin');
 
-router.post('sendpasswordtoemail', adminCheckToken, sendPasswordToMail);
+const { sendPasswordToMail } = require('../handlers/email');
+
+router.post(
+  'sendpasswordtoemail',
+  adminCheckToken,
+  asyncMiddleware(sendPasswordToMail),
+);
 // router.post('/')
 module.exports = router;
