@@ -114,24 +114,14 @@ exports.registerAdmin = async (req, res, next) => {
     return res.status(403).json({ errors });
   }
   const { body } = req;
-  const { email } = body;
-
   //  Create new admin
-  // GENERATE RANDOM 6 NUMBERS FOR INIT PASSWORD
   const newAdmin = await new Admin({ ...body });
-  newAdmin.token = jwt.sign(
-    { userData: newAdmin },
-    EMAIL,
-    { expiresIn: '7d' },
-    (err, token) => {
-      if (err) {
-        errors.global = `Something went wrong while generating a token ${err}`;
-        return res.status(401).json({ errors });
-      }
-      console.log(token);
-    },
-  );
+  const { _id, firstName, lastName, email } = newAdmin;
+  newAdmin.token = jwt.sign({ _id, firstName, lastName, email }, EMAIL, {
+    expiresIn: '7d',
+  });
   res.json(newAdmin);
+  // GENERATE RANDOM 6 NUMBERS FOR INIT PASSWORD
   //  Hash the password
   //   bcrypt.genSalt(10, (err, salt) => {
   //     bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
