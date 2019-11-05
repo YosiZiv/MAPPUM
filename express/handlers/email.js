@@ -13,8 +13,8 @@ const transporter = nodemailer.createTransport(
     },
   }),
 );
-const compile = async function(tamplte, data) {
-  const filePath = getPath + tamplte;
+const compile = async function(template, data) {
+  const filePath = getPath + template;
   const html = await fs.readFileSync(filePath, 'utf-8');
   return hbs.compile(html)(data);
 };
@@ -28,7 +28,7 @@ async function createHtmlPage(data) {
     console.log('i get an error', e);
   }
 }
-exports.sendEmailVerficationToEmail = async (emailToken, user) => {
+exports.sendEmailVerificationToEmail = async (emailToken, user) => {
   const url = `http://localhost5001:/email/confirmation/${emailToken}`;
   user.url = url;
   const test = await createHtmlPage(user);

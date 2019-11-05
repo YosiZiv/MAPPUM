@@ -32,8 +32,8 @@ const makeMailMessage = ({
 `);
 };
 
-const compile = async function(tamplte, data) {
-  const filePath = getPath + tamplte;
+const compile = async function(template, data) {
+  const filePath = getPath + template;
   const html = await fs.readFileSync(filePath, 'utf-8');
   return hbs.compile(html)(data);
 };

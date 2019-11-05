@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User, Admin } = require('../models');
 const { EMAIL } = require('../../config/keys');
-const { sendPasswordToMail, sendEmailVerficationToEmail } = require('./email');
+const { sendPasswordToMail, sendEmailVerificationToEmail } = require('./email');
 const {
   validateRegisterInput,
   validateAdminRegisterInput,
@@ -53,7 +53,7 @@ exports.registerUser = async (req, res, next) => {
     await bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, async (e, hash) => {
         if (e) {
-          errors.bcrypt = 'someting went wrong :/';
+          errors.bcrypt = 'something went wrong :/';
           return res.status(400).json({ errors });
         }
         newUser.password = hash;
@@ -67,7 +67,7 @@ exports.registerUser = async (req, res, next) => {
         console.log(result);
 
         if (!result) {
-          errors.global = 'someting went wrong :/';
+          errors.global = 'something went wrong :/';
           return res.status(400).json({ errors });
         }
         return res
@@ -76,7 +76,7 @@ exports.registerUser = async (req, res, next) => {
       });
     });
   } catch (err) {
-    errors.global = 'someting went wrong :/';
+    errors.global = 'something went wrong :/';
     return res.status(500).json({ errors });
   }
 };
@@ -110,64 +110,42 @@ const makeAdminUserRelation = async (user, admin) => {
 };
 exports.registerAdmin = async (req, res, next) => {
   const errors = validateAdminRegisterInput(req.body);
-
   if (Object.keys(errors).length) {
     return res.status(403).json({ errors });
   }
-  const {
-    firstName,
-    lastName,
-    phone,
-    email,
-    password,
-    passwordConfirm,
-  } = req.body;
+  const { body } = req;
+  const { email } = body;
 
-  //  Check if email already exists
-  try {
-    let admin = await Admin.findOne({ email });
-    if (admin) {
-      errors.global = 'email allready exsist';
-      return res.status(400).json({ errors });
-    }
-    // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
-    //  Create new user
-    const newAdmin = await new Admin({
-      firstName,
-      lastName,
-      phone,
-      email,
-      password: password,
-    });
-    const secret = EMAIL;
-    jwt.sign(
-      { userData: newAdmin },
-      secret,
-      { expiresIn: '7d' },
-      (err, token) => {
-        sendEmailVerficationToEmail(token, newAdmin);
-      },
-    );
-    //  Hash the password
-    await bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
-        if (e) {
-          errors.bcrypt = 'someting went wrong :/';
-          return res.status(400).json({ errors });
-        }
-        newAdmin.password = hash;
-        await newAdmin.save();
-        return res
-          .status(201)
-          .json({ admin: newAdmin, message: 'Admin Sign Up Success' });
-      });
-    });
-  } catch (err) {
-    console.log(err);
-
-    errors.global = 'someting went wrong :/';
-    return res.status(500).json({ errors });
-  }
+  //  Create new admin
+  // GENERATE RANDOM 6 NUMBERS FOR INIT PASSWORD
+  const newAdmin = await new Admin({ ...body });
+  newAdmin.token = jwt.sign(
+    { userData: newAdmin },
+    EMAIL,
+    { expiresIn: '7d' },
+    (err, token) => {
+      if (err) {
+        errors.global = `Something went wrong while generating a token ${err}`;
+        return res.status(401).json({ errors });
+      }
+      console.log(token);
+    },
+  );
+  res.json(newAdmin);
+  //  Hash the password
+  //   bcrypt.genSalt(10, (err, salt) => {
+  //     bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
+  //       if (e) {
+  //         errors.bcrypt = 'something went wrong :/';
+  //         return res.status(400).json({ errors });
+  //       }
+  //       newAdmin.password = hash;
+  //       newAdmin.save();
+  //       return res
+  //         .status(201)
+  //         .json({ admin: newAdmin, message: 'Admin Sign Up Success' });
+  //     });
+  //   });
 };
 exports.emailConfirm = async (req, res, next) => {
   try {

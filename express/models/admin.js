@@ -51,6 +51,9 @@ const AdminSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  token: {
+    type: String,
+  },
 });
 
 const Admin = mongoose.model('admin', AdminSchema);
