@@ -6,7 +6,7 @@ const { Products, User, Sales } = require('../models');
 const puppeteer = require('puppeteer');
 const getPath = path.join(process.cwd(), 'public');
 
-const { sendPasswordToMail, sendPdfToMail } = require('./mail');
+const { sendPasswordToMail, sendPdfToMail } = require('./email');
 const { validateRegisterInput } = require('../validation/auth');
 const { validateProductInput } = require('../validation/dashboard');
 
@@ -58,6 +58,25 @@ async function pdf(url, data) {
   }
 }
 
+async function pdf(url, data) {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    const content = await compile('/sale.hbs', data);
+    await page.setContent(content);
+    await page.emulateMedia('screen');
+    await page.pdf({
+      path: url,
+      format: 'A4',
+      landscape: true,
+      printBackground: true,
+    });
+    await browser.close();
+    return url;
+  } catch (e) {
+    console.log('i get an error', e);
+  }
+}
 exports.createProduct = async (req, res, next) => {
   const errors = validateProductInput(req.body);
   try {

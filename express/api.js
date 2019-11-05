@@ -10,7 +10,7 @@ const fileRoutes = require('./routes/file');
 const registerRoutes = require('./routes/register');
 router.use('/auth', authRoutes);
 router.use('/dashboard', dashboardRoutes);
-router.use('/mail', emailRoutes);
+router.use('/email', emailRoutes);
 router.use('/user', userRoutes);
 router.use('/file', fileRoutes);
 router.use('/register', registerRoutes);

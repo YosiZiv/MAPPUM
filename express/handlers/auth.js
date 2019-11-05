@@ -36,6 +36,10 @@ exports.login = async (req, res, next) => {
     errors.global = 'email or password incorrect';
     return res.status(400).json({ errors });
   }
+  if (!user.confirmed) {
+    errors.global = 'please confirm your email first';
+    return res.status(403).json({ errors });
+  }
   bcrypt
     .compare(password, user.password)
     .then(isMatch => {

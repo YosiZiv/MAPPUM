@@ -100,7 +100,6 @@ exports.validateAdminRegisterInput = data => {
     password = '',
     passwordConfirm = '',
   } = data;
-  console.log(data);
   //  first name validations
   if (!Validator.isLength(firstName, { min: 2, max: 256 })) {
     errors.firstName = 'first name must be between 2 - 256 char ';

@@ -1,9 +1,10 @@
 //  Register User Handle function
 const path = require('path');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { User, Admin } = require('../models');
-
-const { sendPasswordToMail } = require('./mail');
+const { EMAIL } = require('../../config/keys');
+const { sendPasswordToMail, sendEmailVerficationToEmail } = require('./email');
 const {
   validateRegisterInput,
   validateAdminRegisterInput,
@@ -57,11 +58,11 @@ exports.registerUser = async (req, res, next) => {
         }
         newUser.password = hash;
         await newUser.save();
-        await sendPasswordToMail(
-          newUser.firstName,
-          newUser.email,
-          initPassword,
-        );
+        // await sendPasswordToMail(
+        //   newUser.firstName,
+        //   newUser.email,
+        //   initPassword,
+        // );
         const result = await makeAdminUserRelation(newUser._id, admin);
         console.log(result);
 
@@ -121,7 +122,7 @@ exports.registerAdmin = async (req, res, next) => {
     password,
     passwordConfirm,
   } = req.body;
-  console.log(firstName, lastName, phone, email, password, passwordConfirm);
+
   //  Check if email already exists
   try {
     let admin = await Admin.findOne({ email });
@@ -138,8 +139,15 @@ exports.registerAdmin = async (req, res, next) => {
       email,
       password: password,
     });
-    console.log(newAdmin);
-
+    const secret = EMAIL;
+    jwt.sign(
+      { userData: newAdmin },
+      secret,
+      { expiresIn: '7d' },
+      (err, token) => {
+        sendEmailVerficationToEmail(token, newAdmin);
+      },
+    );
     //  Hash the password
     await bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
@@ -155,7 +163,19 @@ exports.registerAdmin = async (req, res, next) => {
       });
     });
   } catch (err) {
+    console.log(err);
+
     errors.global = 'someting went wrong :/';
     return res.status(500).json({ errors });
+  }
+};
+exports.emailConfirm = async (req, res, next) => {
+  try {
+    const {
+      user: { id },
+    } = jwt.verfiy(req.params.token, EMAIL);
+    await Admin.updateOne({ confirmed: true }).where({ id });
+  } catch (err) {
+    console.log(er);
   }
 };
