@@ -2,8 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 const { getSell } = require('../handlers/user');
-const { userCheckToken } = require('../middlewares/user');
 
-router.post('/getsellforuser', userCheckToken, getSell);
+//  middleware
+const asyncMiddleware = require('../middleware/async');
+const { userCheckToken } = require('../middleware/user');
+
+router.post('/getsellforuser', userCheckToken, asyncMiddleware(getSell));
 // router.post('/')
 module.exports = router;
