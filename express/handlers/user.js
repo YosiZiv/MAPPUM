@@ -54,65 +54,21 @@ exports.createUser = async (req, res, next) => {
     });
   });
 };
-
-exports.createCustomer = async (req, res, next) => {
-  const errors = validateRegisterInput(req.body);
+exports.getUserCustomers = async (req, res, next) => {
+  const errors = {};
   try {
-    if (Object.keys(errors).length) {
-      return res.status(403).json({ errors });
-    }
-    const { firstName, lastName, phone, address, email, admin } = req.body;
-    //  Check if email already exists
-    let user = await User.findOne({ email });
-    if (user) {
-      errors.global = 'email already exists';
-      return res.status(400).json({ errors });
-    }
-    user = await User.findOne({ zahot });
-    if (user) {
-      errors.global = 'id already exist';
-      return res.status(400).json({ errors });
-    }
-    // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
-    const initPassword = Math.floor(100000 + Math.random() * 900000);
+    const { user } = req.body;
 
-    //  Create new user
-    const newUser = await new User({
-      firstName,
-      lastName,
-      zahot,
-      phone,
-      address,
-      email,
-      password: initPassword,
+    const emails = [];
+    const customers = await Customer.find({
+      _id: { $in: user.customer },
+    }).select('email');
+    customers.forEach(customer => {
+      emails.push(user['email']);
     });
-    //  Hash the password
-    await bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, async (e, hash) => {
-        if (e) {
-          errors.bcrypt = 'something went wrong :/';
-          return res.status(400).json({ errors });
-        }
-        newUser.password = hash;
-        await newUser.save();
-        // await sendPasswordToMail(
-        //   newUser.firstName,
-        //   newUser.email,
-        //   initPassword,
-        // );
-        const result = await makeAdminUserRelation(newUser._id, admin);
-
-        if (!result) {
-          errors.global = 'something went wrong :/';
-          return res.status(400).json({ errors });
-        }
-        return res
-          .status(201)
-          .json({ user: newUser, message: 'משתמש נרשם בהצלחה' });
-      });
-    });
+    res.status(200).json({ emails });
   } catch (err) {
-    errors.global = 'something went wrong :/';
-    return res.status(500).json({ errors });
+    errors.global = 'Something went wrong :/';
+    return res.status(400).json({ errors });
   }
 };

@@ -3,8 +3,6 @@ import { checkValidity } from '../../shared/utility';
 const initState = {
   errors: null,
   loginForm: {},
-  admin: false,
-  user: false,
 };
 
 export function authReducer(state = initState, action) {
@@ -22,12 +20,6 @@ export function authReducer(state = initState, action) {
             ),
           },
         },
-      };
-    case SET_AUTH:
-      return {
-        ...state,
-        admin: action.payload ? action.payload.admin : null,
-        user: action.payload ? action.payload.user : null,
       };
     case LOGIN_ERROR:
       return { ...state, message: action.payload.errors };
