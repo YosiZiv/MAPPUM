@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SearchUser from '../../../../Layout/SearchUser/SeachUser';
+import SearchUser from '../../../../Layout/SearchUser/SearchUser';
 import RegisterUser from '../../../../Layout/RegisterUser/RegisterUser';
 import './Register.css';
 import {
@@ -13,7 +13,7 @@ import {
   setSearchFields,
   switchRegisterMode,
   getAdminsUsers,
-  searchUserAutoComplate,
+  searchUserAutoComplete,
   getUserByEmail,
   resetRegisterState,
 } from '../../../../../redux/actions/register';
@@ -36,9 +36,9 @@ class Register extends Component {
     setRegisterFields({ id, value, validation });
   };
   searchInputChange = ({ id, value, validation }) => {
-    const { setSearchFields, searchUserAutoComplate } = this.props;
+    const { setSearchFields, searchUserAutoComplete } = this.props;
     setSearchFields({ id, value, validation });
-    searchUserAutoComplate(value);
+    searchUserAutoComplete(value);
   };
   registerSubmitHandler = async event => {
     const { registerStart, registerForm } = this.props;
@@ -67,7 +67,7 @@ class Register extends Component {
       user,
       registerForm,
       searchForm,
-      autoComplateResult,
+      autoCompleteResult,
       redirect,
       message,
       mode,
@@ -99,7 +99,7 @@ class Register extends Component {
             user={user}
             userSelect={this.userSelect}
             searchForm={searchForm}
-            autoComplateResult={autoComplateResult}
+            autoCompleteResult={autoCompleteResult}
           />
         )}
         {message
@@ -124,7 +124,7 @@ const mapStateToProps = state => {
   return {
     registerForm: state.register.registerForm,
     searchForm: state.register.searchForm,
-    autoComplateResult: state.register.autoComplateResult,
+    autoCompleteResult: state.register.autoCompleteResult,
     user: state.register.user,
     message: state.ui.message,
     redirect: state.ui.redirect,
@@ -138,7 +138,7 @@ export default connect(
   {
     registerStart,
     getAdminsUsers,
-    searchUserAutoComplate,
+    searchUserAutoComplete,
     setRegisterFields,
     setSearchFields,
     switchRegisterMode,

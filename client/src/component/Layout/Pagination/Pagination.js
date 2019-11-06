@@ -5,16 +5,15 @@ const pagination = props => {
     hasNextPage,
     hasPreviewPage,
     nextPageHandler,
-    previewPageHandler
-    } = props;
-    console.log(props);
+    previewPageHandler,
+  } = props;
   return (
     <div className={classes.Pagination}>
       <button
         type="button"
         style={{
           background: 'none',
-          border: 'none'
+          border: 'none',
         }}
         onClick={nextPageHandler}
         onKeyUp={nextPageHandler}
@@ -33,7 +32,7 @@ const pagination = props => {
         type="button"
         style={{
           background: 'none',
-          border: 'none'
+          border: 'none',
         }}
         onClick={previewPageHandler}
         onKeyUp={previewPageHandler}

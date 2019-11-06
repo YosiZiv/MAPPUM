@@ -43,7 +43,7 @@ export const createProductFail = ({ dispatch }) => next => action => {
 };
 export const formSubmitStart = ({ dispatch }) => next => action => {
   next(action);
-  const URL = 'dashboard/sellcomplate';
+  const URL = 'dashboard/sellcomplete';
   if (action.type === FORM_SUBMIT_START) {
     dispatch(
       apiRequest(

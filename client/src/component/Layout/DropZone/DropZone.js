@@ -9,7 +9,7 @@ import img from '../../../assets/images/baseline-cloud_upload-24px.svg';
 class Dropzone extends Component {
   constructor(props) {
     super(props);
-    this.state = { hightlight: false };
+    this.state = { highlight: false };
     this.fileInputRef = React.createRef();
     this.openFileDialog = this.openFileDialog.bind(this);
     this.filesAdded = this.filesAdded.bind(this);
@@ -30,7 +30,6 @@ class Dropzone extends Component {
     if (disabled) return;
     const { files } = evt.target;
     const array = this.fileListToArray(files);
-    console.log(array);
     onFilesAdded(array);
   }
 
@@ -38,11 +37,11 @@ class Dropzone extends Component {
     const { disabed } = this.props;
     event.preventDefault();
     if (disabed) return;
-    this.setState({ hightlight: true });
+    this.setState({ highlight: true });
   }
 
   onDragLeave() {
-    this.setState({ hightlight: false });
+    this.setState({ highlight: false });
   }
 
   onDrop(event) {
@@ -53,28 +52,24 @@ class Dropzone extends Component {
     const array = this.fileListToArray(files);
     onFilesAdded(array);
 
-    this.setState({ hightlight: false });
+    this.setState({ highlight: false });
   }
 
   fileListToArray(list) {
-    console.log(list);
-
     const array = [];
     for (let i = 0; i < list.length; i += 1) {
-      console.log('element?', list[i]);
       array.push(list[i]);
     }
-    console.log(array);
 
     return array;
   }
 
   render() {
-    const { hightlight } = this.state;
+    const { highlight } = this.state;
     const { disabled } = this.props;
     return (
       <div
-        className={`${classes.Dropzone} ${hightlight ? 'Highlight' : ''}`}
+        className={`${classes.Dropzone} ${highlight ? 'Highlight' : ''}`}
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}

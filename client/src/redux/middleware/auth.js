@@ -56,7 +56,6 @@ export const loginSuccess = ({ dispatch }) => next => action => {
       admin: key === 'adminToken' ? true : false,
       user: key === 'userToken' ? true : false,
     };
-    console.log(action.payload);
 
     localStorage.setItem(key, token);
     localStorage.setItem('id', id);

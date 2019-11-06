@@ -7,7 +7,7 @@ const { adminCheckToken } = require('../middleware/admin');
 const router = express.Router();
 const {
   createProduct,
-  sellComplate,
+  sellComplete,
   getAllActiveSells,
   getSaleById,
   changeSaleStage,
@@ -31,6 +31,6 @@ router.post(
   asyncMiddleware(getUserByEmail),
 );
 router.post('/updatestage', adminCheckToken, asyncMiddleware(changeSaleStage));
-router.post('/sellcomplate', adminCheckToken, asyncMiddleware(sellComplate));
+router.post('/sellcomplete', adminCheckToken, asyncMiddleware(sellComplete));
 router.post('/createitem', adminCheckToken, asyncMiddleware(createProduct));
 module.exports = router;

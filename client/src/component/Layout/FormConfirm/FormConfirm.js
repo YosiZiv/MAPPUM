@@ -6,9 +6,9 @@ const formConfirm = ({ user, product, submit }) => (
       <h1>Sale Summary</h1>
     </div>
     <div className="formConfirmFlex">
-      <div className="userDetailes">
+      <div className="userDetailed">
         <div className="formConfirmSubtitle">
-          <h3>Customars Summary</h3>
+          <h3>Customers Summary</h3>
         </div>
 
         <div className="formConfirmWrapper">
@@ -31,7 +31,7 @@ const formConfirm = ({ user, product, submit }) => (
           <label>{user.phone}</label>
         </div>
       </div>
-      <div className="userDetailes">
+      <div className="userDetailed">
         <div className="formConfirmSubtitle">
           <h3>Product Summary</h3>
         </div>

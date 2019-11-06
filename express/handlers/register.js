@@ -28,12 +28,12 @@ exports.registerUser = async (req, res, next) => {
     //  Check if email already exists
     let user = await User.findOne({ email });
     if (user) {
-      errors.global = 'email allready exsist';
+      errors.global = 'email already exists';
       return res.status(400).json({ errors });
     }
     user = await User.findOne({ zahot });
     if (user) {
-      errors.global = 'id allready exsist';
+      errors.global = 'id already exist';
       return res.status(400).json({ errors });
     }
     // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
@@ -64,7 +64,6 @@ exports.registerUser = async (req, res, next) => {
         //   initPassword,
         // );
         const result = await makeAdminUserRelation(newUser._id, admin);
-        console.log(result);
 
         if (!result) {
           errors.global = 'something went wrong :/';
@@ -81,8 +80,6 @@ exports.registerUser = async (req, res, next) => {
   }
 };
 const makeAdminUserRelation = async (user, admin) => {
-  console.log(user, admin);
-
   const updateAdmin = await Admin.updateOne(
     {
       _id: admin,
@@ -137,7 +134,6 @@ exports.registerAdmin = async (req, res, next) => {
           return res.status(200).json({ msg: 'Admin created' });
         })
         .catch(err => {
-          console.log(err);
           if (err.code === 11000) {
             errors.global = 'Email already exists';
             return res.status(400).json({ errors });
@@ -153,9 +149,7 @@ exports.emailConfirm = async (req, res, next) => {
   try {
     const {
       user: { id },
-    } = jwt.verfiy(req.params.token, EMAIL);
+    } = jwt.verify(req.params.token, EMAIL);
     await Admin.updateOne({ confirmed: true }).where({ id });
-  } catch (err) {
-    console.log(er);
-  }
+  } catch (err) {}
 };

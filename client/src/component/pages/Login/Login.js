@@ -22,7 +22,6 @@ class Login extends Component {
 
   submitHandler = async event => {
     const { loginStart, loginForm } = this.props;
-    console.log(loginForm);
     const userData = {
       email: loginForm['email'] ? loginForm.email.value : '',
       password: loginForm['password'] ? loginForm.password.value : '',

@@ -1,7 +1,7 @@
 const express = require('express');
 let upload = require('../../config/multer');
 const router = express.Router();
-const { fileUploade } = require('../handlers/file');
+const { fileUpload } = require('../handlers/file');
 
 //  middleware
 const asyncMiddleware = require('../middleware/async');
@@ -11,6 +11,6 @@ router.post(
   '/uploadfile',
   adminCheckToken,
   upload.array('file'),
-  asyncMiddleware(fileUploade),
+  asyncMiddleware(fileUpload),
 );
 module.exports = router;

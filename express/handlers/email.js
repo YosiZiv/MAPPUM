@@ -20,19 +20,14 @@ const compile = async function(template, data) {
 };
 async function createHtmlPage(data) {
   try {
-    console.log(data);
-
-    const content = await compile('/emailVerfication.hbs', data);
+    const content = await compile('/emailVerification.hbs', data);
     return content;
-  } catch (e) {
-    console.log('i get an error', e);
-  }
+  } catch (e) {}
 }
 exports.sendEmailVerificationToEmail = async (emailToken, user) => {
   const url = `http://localhost5001:/email/confirmation/${emailToken}`;
   user.url = url;
   const test = await createHtmlPage(user);
-  console.log(test, user.email);
   transporter
     .sendMail({
       to: user.email,
@@ -40,12 +35,8 @@ exports.sendEmailVerificationToEmail = async (emailToken, user) => {
       subject: 'EMAIL Confirmation From MPPUM ',
       html: test,
     })
-    .then(emailSent => {
-      console.log('email sent', emailSent);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    .then(emailSent => {})
+    .catch(err => {});
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
@@ -64,12 +55,9 @@ exports.sendPasswordToMail = async (name, email, initPassword) => {
     </table>
     `,
     });
-    console.log(sendMail);
 
     return sendMail;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
@@ -88,12 +76,9 @@ exports.sendPasswordToMail = async (name, email, initPassword) => {
     </table>
     `,
     });
-    console.log(sendMail);
 
     return sendMail;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 exports.sendPdfToMail = async (pdf, email, message) => {
@@ -110,7 +95,5 @@ exports.sendPdfToMail = async (pdf, email, message) => {
       html: message,
     });
     return sendMail;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };

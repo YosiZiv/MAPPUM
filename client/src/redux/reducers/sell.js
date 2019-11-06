@@ -13,8 +13,6 @@ const initState = {
 export function sellReducer(state = initState, action) {
   switch (action.type) {
     case CHANGE_SELL_STAGE:
-      console.log(action);
-
       return { ...state, stage: action.payload };
     case SET_PRODUCT_FIELDS:
       return {

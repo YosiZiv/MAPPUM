@@ -7,7 +7,7 @@ export const REGISTER_SUCCESS = '[register] Register Success';
 export const REGISTER_FAIL = '[register] Register Fail';
 export const SET_USER = '[register] Set User';
 export const SET_EMAILS = '[Register] Set Emails';
-export const SEARCH_USER_AUTO_COMPLATE = '[register] Search User Auto Complate';
+export const SEARCH_USER_AUTO_COMPLETE = '[register] Search User Auto Complete';
 export const SET_REGISTER_FIELDS = '[register] Set Register Fields';
 export const SET_SEARCH_FIELDS = '[register] Set Search Fields';
 export const SWITCH_REGISTER_MODE = '[register] Switch Register Mode';
@@ -34,8 +34,8 @@ export const getUserByEmail = payload => ({
   payload,
 });
 
-export const searchUserAutoComplate = payload => ({
-  type: SEARCH_USER_AUTO_COMPLATE,
+export const searchUserAutoComplete = payload => ({
+  type: SEARCH_USER_AUTO_COMPLETE,
   payload,
 });
 export const setRegisterFields = payload => ({
