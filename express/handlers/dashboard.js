@@ -53,9 +53,7 @@ async function pdf(url, data) {
     });
     await browser.close();
     return url;
-  } catch (e) {
-    console.log('i get an error', e);
-  }
+  } catch (e) {}
 }
 
 async function pdf(url, data) {
@@ -73,9 +71,7 @@ async function pdf(url, data) {
     });
     await browser.close();
     return url;
-  } catch (e) {
-    console.log('i get an error', e);
-  }
+  } catch (e) {}
 }
 exports.createProduct = async (req, res, next) => {
   const errors = validateProductInput(req.body);
@@ -84,14 +80,12 @@ exports.createProduct = async (req, res, next) => {
       return res.status(403).json({ errors });
     }
     const productSavedToDatabase = await new Products(req.body);
-    console.log('look at productSaved', req.body, productSavedToDatabase);
 
     await productSavedToDatabase.save();
     res
       .status(200)
       .json({ product: productSavedToDatabase, message: 'מוצר נרשם בהצלחה' });
   } catch (err) {
-    console.log(err);
     errors.global = 'something went wrong :/';
     return res.status(500).json({ errors });
   }
@@ -111,21 +105,19 @@ exports.getAllActiveSells = async (req, res, next) => {
       .equals(true);
     query.skip = +itemPerPage * (currentPage - 1);
     query.limit = +itemPerPage;
-    console.log(query);
+
     const sales = await Sales.find({}, {}, query)
       .where('active')
       .equals(true);
-    console.log(sales);
+
     return res.status(200).json({ sales, countSales });
   } catch (err) {
-    console.log(err);
     const error = new Error('אופס משהו השתבש');
     error.status = 400;
     return next(error);
   }
 };
 exports.changeSaleStage = async (req, res, next) => {
-  console.log(req.body);
   await Sales.findByIdAndUpdate(
     {
       _id: req.body.params,
@@ -167,7 +159,6 @@ exports.getSaleById = async (req, res, next) => {
     });
     res.status(200).json({ sale });
   } catch (err) {
-    console.log(err);
     const errors = {};
     errors.message = new Error('אופס משהו השתבש :/ ');
     errors.status = 400;
@@ -188,7 +179,7 @@ exports.sellComplete = async (req, res, next) => {
       },
     );
     const getProduct = await Products.findById({ _id: productId });
-    console.log(getProduct);
+
     const sale = await new Sales({
       user: userId,
       productName: getProduct.name,
@@ -223,7 +214,6 @@ exports.sellComplete = async (req, res, next) => {
     const getPdf = await sendPdfToMail(pdfPath, pdfData.email, pdfMessage);
     res.status(201).json({ message: 'רכישה בוצעה בהצלחה' });
   } catch (err) {
-    console.log(err);
     const error = new Error('אופס משהו השתבש נסו שוב מאוחר יותר');
     return next(error);
   }
@@ -231,7 +221,6 @@ exports.sellComplete = async (req, res, next) => {
 
 exports.getUserByEmail = (req, res, next) => {
   const { email } = req.body;
-  console.log('function work ', email);
 
   const errors = {};
   // const errors = validateLoginInput(req.body);
@@ -249,7 +238,6 @@ exports.getUserByEmail = (req, res, next) => {
       return res.status(200).json({ user: dbUser });
     })
     .catch(err => {
-      console.log(err);
       errors.global = 'Something went wrong :/';
       return res.status(400).json({ errors });
     });
@@ -259,7 +247,6 @@ exports.getAdminsUsers = async (req, res, next) => {
   const errors = {};
   try {
     const { admin } = req.body;
-    console.log(admin);
 
     const emails = [];
     const users = await User.find({}).select('email');
@@ -268,7 +255,6 @@ exports.getAdminsUsers = async (req, res, next) => {
     });
     res.status(200).json({ emails });
   } catch (err) {
-    console.log(err);
     errors.global = 'Something went wrong :/';
     return res.status(400).json({ errors });
   }

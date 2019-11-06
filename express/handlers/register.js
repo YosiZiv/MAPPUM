@@ -148,7 +148,6 @@ exports.registerAdmin = async (req, res, next) => {
 exports.emailConfirm = async (req, res, next) => {
   try {
     const { token } = req.params;
-    console.log('function work', token);
     const {
       user: { id },
     } = jwt.verify(req.params.token, EMAIL);
