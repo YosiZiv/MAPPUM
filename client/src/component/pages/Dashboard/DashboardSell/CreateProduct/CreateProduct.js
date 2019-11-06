@@ -30,7 +30,6 @@ class createItem extends Component {
   imageUpload = images =>
     new Promise((resolve, reject) => {
       const axiosApi = axios();
-      console.log('test', images, images.length);
       const form = new FormData();
       images.forEach(image => {
         form.append('file', image);
@@ -41,8 +40,6 @@ class createItem extends Component {
             'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: progressEvent => {
-            console.log(progressEvent);
-
             this.setState({
               progress: parseInt(
                 Math.round((progressEvent.loaded * 100) / progressEvent.total),
@@ -51,11 +48,9 @@ class createItem extends Component {
           },
         })
         .then(response => {
-          console.log(response.data.images);
           resolve(response.data.images);
         })
         .catch(error => {
-          console.log(error.response.data.errors);
           reject(error.response.data.errors);
         });
     });
@@ -74,12 +69,10 @@ class createItem extends Component {
       };
       return createProductStart(productData);
     } catch (err) {
-      console.log(err);
     }
   };
   onFilesAdded = files => {
     const { setImagesFiles } = this.props;
-    console.log(files);
     setImagesFiles(files);
   };
 

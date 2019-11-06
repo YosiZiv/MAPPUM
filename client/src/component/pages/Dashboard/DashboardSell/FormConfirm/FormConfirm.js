@@ -16,8 +16,6 @@ class FormConfirmPage extends Component {
   };
   render() {
     const { product, user, loading, redirect } = this.props;
-    console.log(product, user);
-
     return (
       <div className="formConfirmPage">
         {redirect && <Redirect to={redirect} />}

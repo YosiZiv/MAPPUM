@@ -64,7 +64,6 @@ exports.registerUser = async (req, res, next) => {
         //   initPassword,
         // );
         const result = await makeAdminUserRelation(newUser._id, admin);
-        console.log(result);
 
         if (!result) {
           errors.global = 'something went wrong :/';
@@ -81,8 +80,6 @@ exports.registerUser = async (req, res, next) => {
   }
 };
 const makeAdminUserRelation = async (user, admin) => {
-  console.log(user, admin);
-
   const updateAdmin = await Admin.updateOne(
     {
       _id: admin,
@@ -137,7 +134,6 @@ exports.registerAdmin = async (req, res, next) => {
           return res.status(200).json({ msg: 'Admin created' });
         })
         .catch(err => {
-          console.log(err);
           if (err.code === 11000) {
             errors.global = 'Email already exists';
             return res.status(400).json({ errors });
@@ -155,7 +151,5 @@ exports.emailConfirm = async (req, res, next) => {
       user: { id },
     } = jwt.verify(req.params.token, EMAIL);
     await Admin.updateOne({ confirmed: true }).where({ id });
-  } catch (err) {
-    console.log(er);
-  }
+  } catch (err) {}
 };

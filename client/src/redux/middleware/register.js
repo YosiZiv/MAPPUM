@@ -51,8 +51,6 @@ export const adminRegisterStart = ({ dispatch }) => next => action => {
 export const adminRegisterSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === ADMIN_REGISTER_SUCCESS) {
-    console.log(action.payload);
-
     dispatch(redirectTo('login'));
   }
 };
@@ -68,8 +66,6 @@ export const registerStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'register/registeruser';
   if (action.type === REGISTER_START) {
-    console.log('middalware for user work', action.payload);
-
     dispatch(
       apiRequest('POST', URL, action.payload, REGISTER_SUCCESS, REGISTER_FAIL),
     );

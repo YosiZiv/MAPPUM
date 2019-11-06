@@ -25,7 +25,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 app.use(function(error, req, res, next) {
-  console.log('inside error handler', error);
   res.status(error.status || 500).json({ error: error.message });
 });
 

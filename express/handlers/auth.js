@@ -25,8 +25,6 @@ const checkEmail = async email => {
 //  Login User Handle function
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
-
   const errors = validateLoginInput(req.body);
   if (Object.keys(errors).length) {
     return res.status(400).json({ errors });
@@ -43,7 +41,6 @@ exports.login = async (req, res, next) => {
   bcrypt
     .compare(password, user.password)
     .then(isMatch => {
-      console.log(isMatch);
       if (!isMatch) {
         errors.global = 'email or password incorrect';
         return res.status(400).json({ errors });
@@ -58,7 +55,6 @@ exports.login = async (req, res, next) => {
         };
         const secret = user.role === 'admin' ? ADMIN : SECRET;
         const key = user.role === 'admin' ? 'adminToken' : 'userToken';
-        console.log(user, secret, key);
         return jwt.sign(
           userData,
           secret,
@@ -77,7 +73,6 @@ exports.login = async (req, res, next) => {
       return res.status(400).json({ errors });
     })
     .catch(err => {
-      console.log(err);
       errors.global = 'Something went wrong :/';
       return res.status(400).json({ errors });
     });

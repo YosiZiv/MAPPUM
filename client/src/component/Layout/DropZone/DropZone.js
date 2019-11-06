@@ -30,7 +30,6 @@ class Dropzone extends Component {
     if (disabled) return;
     const { files } = evt.target;
     const array = this.fileListToArray(files);
-    console.log(array);
     onFilesAdded(array);
   }
 
@@ -57,14 +56,10 @@ class Dropzone extends Component {
   }
 
   fileListToArray(list) {
-    console.log(list);
-
     const array = [];
     for (let i = 0; i < list.length; i += 1) {
-      console.log('element?', list[i]);
       array.push(list[i]);
     }
-    console.log(array);
 
     return array;
   }

@@ -10,7 +10,6 @@ export const uploadImagesStart = ({ dispatch }) => next => action => {
   next(action);
   const URL = 'file/uploadfile';
   if (action.type === UPLOADE_IMAGES_START) {
-    console.log(action.payload);
     dispatch(
       apiRequest(
         'POST',

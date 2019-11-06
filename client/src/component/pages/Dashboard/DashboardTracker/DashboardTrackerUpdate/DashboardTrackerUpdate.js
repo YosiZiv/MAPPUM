@@ -9,8 +9,6 @@ class DashboardTrackerUpdate extends Component {
   };
   componentDidMount() {
     const { match } = this.props;
-    console.log(match.params.id);
-
     const bodyData = {
       saleId: match.params.id,
     };
@@ -19,22 +17,14 @@ class DashboardTrackerUpdate extends Component {
       .get(`/dashboard/getsale/${bodyData.saleId}`)
       .then(response => {
         const sale = response.data.sale;
-        console.log(sale);
-
         this.setState({
           sale,
         });
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => {});
   }
   onChangeHandler = event => {
-    console.log(event.target.value);
-
     const api = axios();
-    console.log(this.state);
-
     const sale = this.state.sale;
     api
       .post('/dashboard/updatestage', {
@@ -43,8 +33,6 @@ class DashboardTrackerUpdate extends Component {
       })
       .then(response => {
         const stage = response.data.newSale;
-        console.log(stage);
-
         this.setState(prevState => ({
           sale: {
             // object that we want to update
@@ -53,9 +41,7 @@ class DashboardTrackerUpdate extends Component {
           },
         }));
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => {});
   };
   render() {
     let sales;

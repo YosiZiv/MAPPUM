@@ -22,7 +22,6 @@ const fileUploadToS3 = file =>
     params.Body = file.buffer;
     const req = s3Client.upload(params, (err, data) => {
       if (err) {
-        console.log(err);
         reject(err);
       }
       resolve(data.Location);

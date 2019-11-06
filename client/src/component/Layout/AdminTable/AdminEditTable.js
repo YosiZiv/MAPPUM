@@ -11,16 +11,15 @@ export default function MaterialTableDemo() {
       { title: 'size', field: 'size' },
       { title: 'buyPrice', field: 'buy Price' },
       { title: 'sellPrice', field: 'sell Price' },
-      { title: 'createAt', field: 'createAt' }
+      { title: 'createAt', field: 'createAt' },
     ],
     data: [],
-    loadingFinish: false
+    loadingFinish: false,
   });
   useEffect(() => {
     axios
       .get('/dashboard/getpitem') // NEED TO MAKE ROUTE FOR ADMIN GET ALL ITEM
       .then(response => {
-        console.log(response);
         // const updatedState = response.data.posts.map(post => {
         //   return {
         //     title: post.title,
@@ -62,9 +61,11 @@ export default function MaterialTableDemo() {
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
               setState({ ...state, data });
-              axios.put(`/dashboard/editItem/${newData.postId}`, newData).then(() => {
-                resolve();
-              });
+              axios
+                .put(`/dashboard/editItem/${newData.postId}`, newData)
+                .then(() => {
+                  resolve();
+                });
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
@@ -79,16 +80,16 @@ export default function MaterialTableDemo() {
                 .catch(() => {
                   resolve();
                 });
-            })
+            }),
         }}
       />
     );
   }
   return (
     <MaterialTable
-    title="no Item Found"
-    columns={state.columns}
-    data={state.data}
-  />
-  )
+      title="no Item Found"
+      columns={state.columns}
+      data={state.data}
+    />
+  );
 }

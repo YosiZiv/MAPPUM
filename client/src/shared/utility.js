@@ -1,7 +1,5 @@
 export const checkValidity = (value, rules) => {
   let isValid = true;
-  console.log(value);
-
   if (!rules) {
     return true;
   }
