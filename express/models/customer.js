@@ -41,6 +41,9 @@ const CustomerSchema = new Schema({
     ref: 'user',
     required: true,
   },
+  token: {
+    type: String,
+  },
   isDelete: {
     type: Boolean,
     default: false,

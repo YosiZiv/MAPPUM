@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { SECRET, TOKEN_EXPIRES_IN, ADMIN } = require('../../config/keys');
 const { validateLoginInput } = require('../core/validation/auth');
 //  Load user model
-const { User } = require('../models');
+const { User, Customer } = require('../models');
 
 //  Login
 exports.login = async (req, res, next) => {
@@ -59,31 +59,41 @@ exports.login = async (req, res, next) => {
 };
 
 exports.emailConfirm = async (req, res, next) => {
+  const errors = {};
   const { token } = req.params;
-  User.findOneAndUpdate(
+  console.log(token);
+
+  Customer.findOneAndUpdate(
     { token },
     {
       $set: { confirmed: true },
     },
     (err, confirmedEmail) => {
       if (err) {
+        console.log('error', err);
+
         errors.global = 'Error while confirming user email';
-        return res.status(400).json({ errors });
+        return err;
       }
-      confirmedEmail.save().then(() => {
-        return res.status(201).json({ msg: 'User confirmed successfully' });
-      });
+      console.log(confirmedEmail);
+
+      return confirmedEmail;
     },
   )
     .then(userConfirmed => {
+      console.log(userConfirmed);
       if (!userConfirmed) {
         errors.global =
-          'The verification Email has been expired, to resend an email please go to http://localhost:3000/api/v1/auth/resend';
-        logger.info('com.moverbird.endpoint.auth.post.confirm.mongo', { meta });
+          'The verification Email has been expired, to resend an email';
         return res.status(400).json({ errors });
       }
+      console.log(userConfirmed, 'right before returns');
+
+      return res.status(201).json({ msg: 'email confirmed success' });
     })
     .catch(err => {
+      console.log(err);
+
       errors.global = 'Something went wrong while confirming user';
       return res.status(400).json({ errors, err });
     });
