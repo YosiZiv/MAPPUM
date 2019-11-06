@@ -63,11 +63,17 @@ exports.createCustomer = async (req, res, next) => {
 
   //  Create new admin
   const customer = await new Customer({ ...body });
-
+  const { _id, firstName, lastName, email } = customer;
+  customer.token = jwt.sign({ _id, firstName, lastName, email }, EMAIL, {
+    expiresIn: '7d',
+  });
+  await sendEmailVerificationToEmail(customer);
   customer
     .save()
-    .then(async createdCustomer => {
-      return res.status(200).json({ msg: 'Customer created', createCustomer });
+    .then(createdCustomer => {
+      console.log('test');
+
+      return res.status(200).json({ msg: 'Customer created', createdCustomer });
     })
     .catch(err => {
       if (err.code === 11000) {
@@ -75,6 +81,8 @@ exports.createCustomer = async (req, res, next) => {
         return res.status(400).json({ errors });
       }
       if (err) {
+        console.log(err);
+
         errors.global = 'something went wrong :/';
         return res.status(500).json(err);
       }
