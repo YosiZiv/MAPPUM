@@ -117,8 +117,7 @@ exports.registerAdmin = async (req, res, next) => {
   newAdmin.token = jwt.sign({ _id, firstName, lastName, email }, EMAIL, {
     expiresIn: '7d',
   });
-  // GENERATE RANDOM 6 NUMBERS FOR INIT PASSWORD
-  //  Hash the password
+
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newAdmin.password, salt, async (e, hash) => {
       if (e) {
@@ -130,7 +129,7 @@ exports.registerAdmin = async (req, res, next) => {
         .save()
         .then(async createdAdmin => {
           const { token } = createdAdmin;
-          await sendEmailVerificationToEmail(token, createdAdmin);
+          await sendEmailVerificationToEmail(createdAdmin);
           return res.status(200).json({ msg: 'Admin created' });
         })
         .catch(err => {
@@ -139,7 +138,8 @@ exports.registerAdmin = async (req, res, next) => {
             return res.status(400).json({ errors });
           }
           if (err) {
-            return res.status(400).json(err);
+            errors.global = 'something went wrong :/';
+            return res.status(500).json(err);
           }
         });
     });
@@ -147,6 +147,8 @@ exports.registerAdmin = async (req, res, next) => {
 };
 exports.emailConfirm = async (req, res, next) => {
   try {
+    const { token } = req.params;
+    console.log('function work', token);
     const {
       user: { id },
     } = jwt.verify(req.params.token, EMAIL);
