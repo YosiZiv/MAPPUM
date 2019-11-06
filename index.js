@@ -1,9 +1,15 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const passport = require('passport');
+const passport = require('passport');
 const cors = require('cors');
 require('dotenv').config();
+
+// Modules
+const passportConfig = require('./config/passport');
+
+// INITIALIZING PASSPORT CONFIG
+passportConfig(passport);
 
 const api = require('./express/api');
 //  Express App initalizing
@@ -16,6 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 //  API
 app.use('/api', api);
+
+// Global error handler
+process.on('unhandledRejection', ex => {
+  throw ex;
+});
 
 const port = process.env.PORT || 5001;
 if (process.env.NODE_ENV === 'production') {
