@@ -58,68 +58,33 @@ exports.login = async (req, res, next) => {
     });
 };
 
-//  Legacy
-// //  Login User Handle function
-// exports.loginLegacy = async (req, res, next) => {
-//   const { email, password } = req.body;
-//   const errors = validateLoginInput(req.body);
-//   if (Object.keys(errors).length) {
-//     return res.status(400).json({ errors });
-//   }
-//   const user = await checkEmail(email);
-//   if (!user) {
-//     errors.global = 'email or password incorrect';
-//     return res.status(400).json({ errors });
-//   }
-//   if (!user.confirmed) {
-//     errors.global = 'please confirm your email first';
-//     return res.status(403).json({ errors });
-//   }
-//   bcrypt
-//     .compare(password, user.password)
-//     .then(isMatch => {
-//       if (!isMatch) {
-//         errors.global = 'email or password incorrect';
-//         return res.status(400).json({ errors });
-//       }
-//       if (isMatch) {
-//         const userData = {
-//           id: user._id,
-//           firstName: user.firstName,
-//           lastName: user.lastName,
-//           email: user.email,
-//           role: user.role,
-//         };
-//         const secret = user.role === 'admin' ? ADMIN : SECRET;
-//         const key = user.role === 'admin' ? 'adminToken' : 'userToken';
-//         return jwt.sign(
-//           userData,
-//           secret,
-//           { expiresIn: TOKEN_EXPIRES_IN },
-//           (err, token) => {
-//             return res.json({
-//               key,
-//               token: `Bearer ${token}`,
-//               expiresIn: TOKEN_EXPIRES_IN,
-//               id: userData.id,
-//             });
-//           },
-//         );
-//       }
-//       errors.global = 'email or password incorrect';
-//       return res.status(400).json({ errors });
-//     })
-//     .catch(err => {
-//       errors.global = 'Something went wrong :/';
-//       return res.status(400).json({ errors });
-//     });
-// };
 exports.emailConfirm = async (req, res, next) => {
-  try {
-    const { token } = req.params;
-    const {
-      user: { id },
-    } = jwt.verify(req.params.token, EMAIL);
-    await User.updateOne({ confirmed: true }).where({ id });
-  } catch (err) {}
+  const { token } = req.params;
+  User.findOneAndUpdate(
+    { token },
+    {
+      $set: { confirmed: true },
+    },
+    (err, confirmedEmail) => {
+      if (err) {
+        errors.global = 'Error while confirming user email';
+        return res.status(400).json({ errors });
+      }
+      confirmedEmail.save().then(() => {
+        return res.status(201).json({ msg: 'User confirmed successfully' });
+      });
+    },
+  )
+    .then(userConfirmed => {
+      if (!userConfirmed) {
+        errors.global =
+          'The verification Email has been expired, to resend an email please go to http://localhost:3000/api/v1/auth/resend';
+        logger.info('com.moverbird.endpoint.auth.post.confirm.mongo', { meta });
+        return res.status(400).json({ errors });
+      }
+    })
+    .catch(err => {
+      errors.global = 'Something went wrong while confirming user';
+      return res.status(400).json({ errors, err });
+    });
 };
