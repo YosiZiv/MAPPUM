@@ -23,7 +23,7 @@ export function uiReducer(state = initState, action) {
       delete message[action.payload];
       return { ...state, message };
     case CLEAR_UI:
-      return { ...state, message: null, redirect: null };
+      return { ...state, loading: false, message: {}, redirect: null };
     case LOADING_START:
       return { ...state, loading: true };
     case LOADING_FINISH:

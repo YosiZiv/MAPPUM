@@ -64,11 +64,7 @@ export const loginFail = ({ dispatch }) => next => action => {
 export const onLogout = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGOUT) {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('expirseIn');
-    localStorage.removeItem('id');
-    dispatch(setAuth(null));
+    localStorage.removeItem('jwtToken');
   }
 };
 
