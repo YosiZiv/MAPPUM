@@ -16,8 +16,10 @@ exports.createUser = async (req, res, next) => {
     return res.status(403).json({ errors });
   }
   const { body } = req;
+
   //  Create new admin
   const newUser = await new User({ ...body });
+
   const { _id, firstName, lastName, email } = newUser;
   newUser.token = jwt.sign({ _id, firstName, lastName, email }, EMAIL, {
     expiresIn: '7d',
@@ -34,7 +36,9 @@ exports.createUser = async (req, res, next) => {
         .save()
         .then(async createdUser => {
           const { token } = createdUser;
-          await sendEmailVerificationToEmail(createdUser);
+          console.log(createdUser);
+
+          //await sendEmailVerificationToEmail(createdUser);
           return res.status(200).json({ msg: 'User created' });
         })
         .catch(err => {

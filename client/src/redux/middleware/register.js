@@ -35,8 +35,10 @@ export const adminSetFieldMid = ({ dispatch }) => next => action => {
 
 export const adminRegisterStart = ({ dispatch }) => next => action => {
   next(action);
-  const URL = 'register/registeradmin';
+  const URL = 'user/';
   if (action.type === ADMIN_REGISTER_START) {
+    console.log(action.payload);
+
     dispatch(
       apiRequest(
         'POST',

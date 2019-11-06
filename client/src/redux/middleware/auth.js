@@ -39,7 +39,7 @@ export const autoLogin = ({ dispatch }) => next => action => {
 };
 export const loginStart = ({ dispatch }) => next => action => {
   next(action);
-  const URL = 'auth/login';
+  const URL = 'auth/';
   if (action.type === LOGIN_START) {
     dispatch(
       apiRequest('POST', URL, action.payload, LOGIN_SUCCESS, LOGIN_ERROR),
