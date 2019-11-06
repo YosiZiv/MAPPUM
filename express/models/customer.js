@@ -35,8 +35,8 @@ const CustomerSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'sale',
   },
-  users: {
-    type: [Schema.Types.ObjectId],
+  user: {
+    type: Schema.Types.ObjectId,
     ref: 'user',
   },
   isDelete: {

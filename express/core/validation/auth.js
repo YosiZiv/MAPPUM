@@ -18,34 +18,11 @@ exports.validateLoginInput = data => {
   return errors;
 };
 
-function IsValidIsrGovId(sInputId, nCustomIdLen) {
-  if (+sInputId === 0) return false;
-
-  var defaultIdLen = 9;
-  (requiredIdLen = !isNaN(+nCustomIdLen) ? +nCustomIdLen : defaultIdLen),
-    (sumDigs = 0);
-
-  //pad leading zeros if missing
-  for (
-    sInputId = sInputId.toString();
-    sInputId.length < requiredIdLen;
-    sInputId = '0' + sInputId
-  );
-
-  for (var i = 0; i < sInputId.length; i++) {
-    //determine if Current Digit should be multiply by '1' or by '2', and mult' it
-    var currCalcIdDig = +sInputId[i] * (i % 2 == 0 ? 1 : 2);
-    sumDigs += currCalcIdDig > 9 ? (currCalcIdDig % 10) + 1 : currCalcIdDig;
-  }
-  // valid ID if divided by 10 without remainder
-  return sumDigs % 10 == 0;
-}
-exports.validateRegisterInput = data => {
+exports.validateCustomerInput = data => {
   const errors = {};
   const {
     firstName = '',
     lastName = '',
-    zahot = '',
     phone = '',
     address = '',
     email = '',
@@ -63,9 +40,6 @@ exports.validateRegisterInput = data => {
   }
   if (Validator.isEmpty(lastName)) {
     errors.lastName = 'last name must be fill';
-  }
-  if (!IsValidIsrGovId(zahot, 9)) {
-    errors.zahot = 'id must be valid israel id';
   }
   if (!Validator.isLength(phone, { min: 6, max: 256 })) {
     errors.phone = 'phone must be between 6 - 256 char only';

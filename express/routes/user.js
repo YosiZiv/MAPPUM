@@ -11,6 +11,6 @@ const asyncMiddleware = require('../core/middleware/async');
 const { authMiddleware } = require('../core/middleware/auth');
 
 router.post('/', asyncMiddleware(createUser));
-router.post('/customer', authMiddleware, asyncMiddleware(createCustomer));
+router.post('/customer', asyncMiddleware(createCustomer));
 router.get('/customers', authMiddleware, asyncMiddleware(getUserCustomers));
 module.exports = router;

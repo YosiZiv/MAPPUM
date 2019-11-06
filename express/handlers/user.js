@@ -6,7 +6,7 @@ const { User, Customer } = require('../models');
 const { EMAIL } = require('../../config/keys');
 const { sendPasswordToMail, sendEmailVerificationToEmail } = require('./email');
 const {
-  validateRegisterInput,
+  validateCustomerInput,
   validateAdminRegisterInput,
 } = require('../core/validation/auth');
 
@@ -54,14 +54,40 @@ exports.createUser = async (req, res, next) => {
     });
   });
 };
+exports.createCustomer = async (req, res, next) => {
+  const errors = validateCustomerInput(req.body);
+  if (Object.keys(errors).length) {
+    return res.status(403).json({ errors });
+  }
+  const { body } = req;
+
+  //  Create new admin
+  const customer = await new Customer({ ...body });
+
+  customer
+    .save()
+    .then(async createdCustomer => {
+      return res.status(200).json({ msg: 'Customer created', createCustomer });
+    })
+    .catch(err => {
+      if (err.code === 11000) {
+        errors.global = 'Email already exists';
+        return res.status(400).json({ errors });
+      }
+      if (err) {
+        errors.global = 'something went wrong :/';
+        return res.status(500).json(err);
+      }
+    });
+};
 exports.getUserCustomers = async (req, res, next) => {
   const errors = {};
   try {
-    const { user } = req.body;
+    const { customers } = req.body;
 
     const emails = [];
-    const customers = await Customer.find({
-      _id: { $in: user.customer },
+    const getCustomers = await Customer.find({
+      _id: { $in: customers },
     }).select('email');
     customers.forEach(customer => {
       emails.push(user['email']);
