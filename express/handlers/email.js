@@ -22,7 +22,7 @@ async function createHtmlPage(data) {
   try {
     console.log(data);
 
-    const content = await compile('/emailVerfication.hbs', data);
+    const content = await compile('/emailVerification.hbs', data);
     return content;
   } catch (e) {
     console.log('i get an error', e);

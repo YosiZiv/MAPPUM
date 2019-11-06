@@ -33,7 +33,7 @@ function IsValidIsrGovId(sInputId, nCustomIdLen) {
   );
 
   for (var i = 0; i < sInputId.length; i++) {
-    //determine if Currend Digit should be multiply by '1' or by '2', and mult' it
+    //determine if Current Digit should be multiply by '1' or by '2', and mult' it
     var currCalcIdDig = +sInputId[i] * (i % 2 == 0 ? 1 : 2);
     sumDigs += currCalcIdDig > 9 ? (currCalcIdDig % 10) + 1 : currCalcIdDig;
   }

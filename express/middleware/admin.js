@@ -9,7 +9,7 @@ module.exports.adminCheckToken = function(req, res, next) {
     const bearerToken = bearer[1];
     jwt.verify(bearerToken, ADMIN, (err, result) => {
       if (err) {
-        errors.global = 'UNAUTHORIZE';
+        errors.global = 'UNAUTHORIZED';
         console.log(err);
         return res.status(403).json({ errors });
       } else {

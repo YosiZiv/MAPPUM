@@ -59,13 +59,13 @@ const registerUser = props => {
           className="form-control"
           id="zahot"
           name="zahot"
-          type="number"
+          type="text"
           error={message && message.zahot}
           required
           disabled={loading}
           defaultValue={zahot && zahot.value}
           inputChange={inputChange}
-          validation={{ isRequired: true, isNumeric: true }}
+          validation={{ isRequired: true }}
         />
 
         <Input

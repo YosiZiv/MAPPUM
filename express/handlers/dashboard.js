@@ -92,7 +92,7 @@ exports.createProduct = async (req, res, next) => {
       .json({ product: productSavedToDatabase, message: 'מוצר נרשם בהצלחה' });
   } catch (err) {
     console.log(err);
-    errors.global = 'someting went wrong :/';
+    errors.global = 'something went wrong :/';
     return res.status(500).json({ errors });
   }
 };
@@ -100,8 +100,6 @@ exports.createProduct = async (req, res, next) => {
 exports.getAllActiveSells = async (req, res, next) => {
   const { currentPage, itemPerPage } = req.query;
   const query = {};
-  console.log('inside getposts handler', currentPage, itemPerPage);
-
   if (currentPage <= 0) {
     const error = new Error('דף נוכחי לא נמצא');
     error.status = 302;
@@ -162,7 +160,6 @@ exports.changeSaleStage = async (req, res, next) => {
     });
 };
 exports.getSaleById = async (req, res, next) => {
-  console.log('inside new function sales', req.params.id);
   try {
     const sale = await Sales.findById({
       _id: req.params.id,
@@ -177,7 +174,7 @@ exports.getSaleById = async (req, res, next) => {
     next(errors);
   }
 };
-exports.sellComplate = async (req, res, next) => {
+exports.sellComplete = async (req, res, next) => {
   try {
     const { productId, userId } = req.body;
     const updateProduct = await Products.updateOne(

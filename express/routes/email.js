@@ -8,7 +8,7 @@ const { adminCheckToken } = require('../middleware/admin');
 const { sendPasswordToMail } = require('../handlers/email');
 
 router.post(
-  'sendpasswordtoemail',
+  '/sendpasswordtoemail',
   adminCheckToken,
   asyncMiddleware(sendPasswordToMail),
 );

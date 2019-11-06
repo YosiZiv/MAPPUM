@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     maxlength: 40,
   },
   zahot: {
-    type: Number,
+    type: String,
     unique: true,
   },
   phone: {

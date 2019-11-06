@@ -28,12 +28,12 @@ exports.registerUser = async (req, res, next) => {
     //  Check if email already exists
     let user = await User.findOne({ email });
     if (user) {
-      errors.global = 'email allready exsist';
+      errors.global = 'email already exists';
       return res.status(400).json({ errors });
     }
     user = await User.findOne({ zahot });
     if (user) {
-      errors.global = 'id allready exsist';
+      errors.global = 'id already exist';
       return res.status(400).json({ errors });
     }
     // GENERETE RANDOM 6 NUMBERS FOR INIT PASSWORD
@@ -153,7 +153,7 @@ exports.emailConfirm = async (req, res, next) => {
   try {
     const {
       user: { id },
-    } = jwt.verfiy(req.params.token, EMAIL);
+    } = jwt.verify(req.params.token, EMAIL);
     await Admin.updateOne({ confirmed: true }).where({ id });
   } catch (err) {
     console.log(er);
