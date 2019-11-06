@@ -38,7 +38,7 @@ exports.createUser = async (req, res, next) => {
           const { token } = createdUser;
           console.log(createdUser);
 
-          //await sendEmailVerificationToEmail(createdUser);
+          await sendEmailVerificationToEmail(createdUser);
           return res.status(200).json({ msg: 'User created' });
         })
         .catch(err => {

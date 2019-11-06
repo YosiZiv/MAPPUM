@@ -25,6 +25,7 @@ async function createHtmlPage(data) {
   } catch (e) {}
 }
 exports.sendEmailVerificationToEmail = async user => {
+  console.log('inside a send email func');
   const url = `http://localhost:5001/api/register/confirmed/${user.token}`;
   user.url = url;
   const test = await createHtmlPage(user);
@@ -35,8 +36,12 @@ exports.sendEmailVerificationToEmail = async user => {
       subject: 'EMAIL Confirmation From MPPUM ',
       html: test,
     })
-    .then(emailSent => {})
-    .catch(err => {});
+    .then(emailSent => {
+      console.log('Email sent');
+    })
+    .catch(err => {
+      console.log({ msg: 'Something went wrong while sending an email' });
+    });
 };
 exports.sendPasswordToMail = async (name, email, initPassword) => {
   try {
