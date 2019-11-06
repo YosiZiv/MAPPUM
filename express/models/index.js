@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 // DB Config key (credentials)
-const { MongoURI, AWS } = require('../../config/keys');
+const { MongoURI } = require('../../config/keys');
 const MONGOOSE_DEBUG = false;
 
 mongoose.set('debug', MONGOOSE_DEBUG);
@@ -31,4 +31,4 @@ mongoose
 module.exports.User = require('./user');
 module.exports.Products = require('./product');
 module.exports.Sales = require('./sales');
-module.exports.Admin = require('./admin');
+module.exports.Customer = require('./customer');

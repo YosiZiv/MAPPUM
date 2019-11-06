@@ -2,9 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { SECRET, TOKEN_EXPIRES_IN, ADMIN } = require('../../config/keys');
-const { validateLoginInput } = require('../validation/auth');
+const { validateLoginInput } = require('../core/validation/auth');
 //  Load user model
-const { User, Admin } = require('../models');
+const { User, Cu } = require('../models');
 
 const checkEmail = async email => {
   try {
@@ -76,4 +76,13 @@ exports.login = async (req, res, next) => {
       errors.global = 'Something went wrong :/';
       return res.status(400).json({ errors });
     });
+};
+exports.emailConfirm = async (req, res, next) => {
+  try {
+    const { token } = req.params;
+    const {
+      user: { id },
+    } = jwt.verify(req.params.token, EMAIL);
+    await User.updateOne({ confirmed: true }).where({ id });
+  } catch (err) {}
 };

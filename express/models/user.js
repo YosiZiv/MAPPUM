@@ -14,18 +14,9 @@ const UserSchema = new Schema({
     required: true,
     maxlength: 40,
   },
-  zahot: {
-    type: String,
-    unique: true,
-  },
   phone: {
     type: String,
     required: true,
-  },
-
-  address: {
-    type: String,
-    maxlength: 60,
   },
   email: {
     type: String,
@@ -42,18 +33,9 @@ const UserSchema = new Schema({
     minlength: 6,
     maxlength: 256,
   },
-  role: {
-    type: String,
-    required: true,
-    default: 'user',
-  },
-  sales: {
+  customers: {
     type: [Schema.Types.ObjectId],
-    ref: 'sales',
-  },
-  admins: {
-    type: [Schema.Types.ObjectId],
-    ref: 'admins',
+    ref: 'customer',
   },
   isDelete: {
     type: Boolean,
@@ -63,6 +45,9 @@ const UserSchema = new Schema({
   createAt: {
     type: Date,
     default: Date.now,
+  },
+  token: {
+    type: String,
   },
 });
 
