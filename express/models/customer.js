@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 //  Create Schema
-const AdminSchema = new Schema({
+const CustomerSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -18,25 +18,22 @@ const AdminSchema = new Schema({
     type: String,
     required: true,
   },
+
+  address: {
+    type: String,
+    maxlength: 60,
+  },
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   confirmed: {
     type: Boolean,
     default: false,
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 256,
-  },
-  role: {
-    type: String,
-    required: true,
-    default: 'admin',
+  sales: {
+    type: [Schema.Types.ObjectId],
+    ref: 'sale',
   },
   users: {
     type: [Schema.Types.ObjectId],
@@ -51,10 +48,7 @@ const AdminSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  token: {
-    type: String,
-  },
 });
 
-const Admin = mongoose.model('admin', AdminSchema);
-module.exports = Admin;
+const Customer = mongoose.model('customer', CustomerSchema);
+module.exports = Customer;

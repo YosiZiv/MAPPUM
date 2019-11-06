@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
-const { SECRET } = require('../../config/keys');
+const { ADMIN } = require('../../../config/keys');
 
-module.exports.userCheckToken = function(req, res, next) {
-  const errors = {};
+module.exports.adminCheckToken = function(req, res, next) {
   var bearerHeader = req.headers['authorization'];
+  const errors = {};
   if (typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split('Bearer ');
     const bearerToken = bearer[1];
-    jwt.verify(bearerToken, SECRET, (err, result) => {
+    jwt.verify(bearerToken, ADMIN, (err, result) => {
       if (err) {
         errors.global = 'UNAUTHORIZED';
         return res.status(403).json({ errors });

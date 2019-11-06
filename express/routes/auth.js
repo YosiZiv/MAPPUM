@@ -1,17 +1,16 @@
 const express = require('express');
-const passport = require('passport');
 
 //  middleware
-const asyncMiddleware = require('../middleware/async');
+const asyncMiddleware = require('../core/middleware/async');
 
 // initalizing express router
 const router = express.Router();
 
-const { login } = require('../handlers/auth');
+const { login, emailConfirm } = require('../handlers/auth');
 
 //  @route POST api/auth/login
 //  @desc Login User / Returning JWT Token
 //  @access Public
-router.post('/login', asyncMiddleware(login));
-
+router.post('/', asyncMiddleware(login));
+router.get('/confirm/:token', asyncMiddleware(emailConfirm));
 module.exports = router;

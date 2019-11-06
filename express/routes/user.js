@@ -1,12 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const { getSell } = require('../handlers/user');
-
+const { createUser, createCustomer } = require('../handlers/user');
 //  middleware
-const asyncMiddleware = require('../middleware/async');
-const { userCheckToken } = require('../middleware/user');
+const { adminCheckToken } = require('../core/middleware/admin');
+const asyncMiddleware = require('../core/middleware/async');
 
-router.post('/getsellforuser', userCheckToken, asyncMiddleware(getSell));
-// router.post('/')
+router.post('/', asyncMiddleware(createUser));
+router.post('/customer', adminCheckToken, asyncMiddleware(createCustomer));
+
 module.exports = router;
