@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 const axiosConfig = () => {
-  const adminToken = localStorage.getItem('adminToken');
-  const userToken = localStorage.getItem('userToken');
-  const token = adminToken ? adminToken : userToken ? userToken : null;
+  const token = localStorage.getItem('jwtToken');
+
   // Helper functions
   const instance = axios.create({
     // baseURL:   'https://' + window.location.host + '/api',

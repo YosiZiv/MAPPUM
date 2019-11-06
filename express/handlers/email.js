@@ -26,7 +26,7 @@ async function createHtmlPage(data) {
 }
 exports.sendEmailVerificationToEmail = async user => {
   console.log('inside a send email func');
-  const url = `http://localhost:5001/api/register/confirmed/${user.token}`;
+  const url = `http://localhost:5001/api/auth/confirm/${user.token}`;
   user.url = url;
   const test = await createHtmlPage(user);
   transporter

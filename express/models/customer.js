@@ -39,6 +39,7 @@ const CustomerSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',
+    required: true,
   },
   isDelete: {
     type: Boolean,
