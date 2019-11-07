@@ -36,7 +36,6 @@ exports.createUser = async (req, res, next) => {
         .save()
         .then(async createdUser => {
           const { token } = createdUser;
-          console.log(createdUser);
 
           await sendEmailVerificationToEmail(createdUser);
           return res.status(200).json({ msg: 'User created' });
@@ -71,8 +70,6 @@ exports.createCustomer = async (req, res, next) => {
   customer
     .save()
     .then(createdCustomer => {
-      console.log('test');
-
       return res.status(200).json({ msg: 'Customer created', createdCustomer });
     })
     .catch(err => {
@@ -81,8 +78,6 @@ exports.createCustomer = async (req, res, next) => {
         return res.status(400).json({ errors });
       }
       if (err) {
-        console.log(err);
-
         errors.global = 'something went wrong :/';
         return res.status(500).json(err);
       }

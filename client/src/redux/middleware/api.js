@@ -27,7 +27,6 @@ export const api = ({ dispatch }) => next => action => {
           dispatch({ type: onSuccess, payload: response.data });
         })
         .catch(error => {
-          console.log(error);
 
           dispatch(loadingFinish());
           dispatch({ type: onError, payload: error.response.data.errors });
