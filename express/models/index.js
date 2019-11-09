@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 // DB Config key (credentials)
-const { MongoURI } = require('../../config/keys');
 const MONGOOSE_DEBUG = false;
 
 mongoose.set('debug', MONGOOSE_DEBUG);
@@ -15,7 +14,7 @@ const connectionSettings = {
 };
 // Connect to MongoDB
 mongoose
-  .connect(MongoURI, connectionSettings)
+  .connect('mongodb://localhost:27017/mppum', connectionSettings)
   .then(
     () => {
       console.log(chalk.white('MongoDB is Connected'));

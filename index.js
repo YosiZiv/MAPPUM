@@ -24,9 +24,9 @@ app.use(cors());
 app.use('/api', api);
 
 // Global error handler
-process.on('unhandledRejection', ex => {
-  throw ex;
-});
+// process.on('unhandledRejection', ex => {
+//   throw ex;
+// });
 
 const port = process.env.PORT || 5001;
 if (process.env.NODE_ENV === 'production') {

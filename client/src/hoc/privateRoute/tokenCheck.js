@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 // eslint-disable-next-line import/prefer-default-export
-const userPrivateRoute = ({ component: Component, ...rest }) => (
+const tokenCheck = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      localStorage.getItem('userToken') ? (
+      localStorage.getItem('jwtToken') ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: '/' }} />
@@ -14,4 +14,4 @@ const userPrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
-export default userPrivateRoute;
+export default tokenCheck;
