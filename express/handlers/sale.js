@@ -1,6 +1,6 @@
 const { Sales, Products, User } = require('../models');
 
-exports.getAdminActiveSales = async (req, res, next) => {
+exports.getUserActiveSales = async (req, res, next) => {
   try {
     const ObjectId = require('mongoose').Types.ObjectId;
     const sales = await Sales.find({ user: new ObjectId(req.body.id) });
@@ -77,6 +77,7 @@ exports.sellComplete = async (req, res, next) => {
     return next(error);
   }
 };
+
 exports.changeSaleStage = async (req, res, next) => {
   await Sales.findByIdAndUpdate(
     {
