@@ -7,12 +7,16 @@ const SalesSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',
-    required: false,
+    required: true,
+  },
+  customer: {
+    type: Schema.Types.ObjectId,
+    ref: 'customer',
+    required: true,
   },
   productName: {
     type: String,
     required: true,
-    maxlength: 30,
   },
   description: {
     type: String,

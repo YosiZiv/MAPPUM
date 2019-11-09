@@ -10,7 +10,7 @@ const fileRoutes = require('./routes/file');
 const customerRoutes = require('./routes/customer');
 router.use('/auth', authRoutes);
 router.use('/customer', customerRoutes);
-// router.use('/sale', saleRoutes);
+router.use('/sale', saleRoutes);
 router.use('/product');
 router.use('/email', emailRoutes);
 router.use('/user', userRoutes);

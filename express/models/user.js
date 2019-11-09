@@ -33,6 +33,10 @@ const UserSchema = new Schema({
     minlength: 6,
     maxlength: 256,
   },
+  sales: {
+    type: [Schema.Types.ObjectId],
+    ref: 'sale',
+  },
   customers: {
     type: [Schema.Types.ObjectId],
     ref: 'customer',
