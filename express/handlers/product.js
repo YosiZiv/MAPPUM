@@ -60,14 +60,20 @@ exports.getProductById = (req, res, next) => {
     params: { productId },
   } = req;
   const errors = {};
-  findById(productId)
+  const query = { _id: productId, userId };
+  Product.findOne(query)
     .then(product => {
-      if (!product) {
+      if (product === null) {
         errors.global = 'No such product';
+        return res.status(400).json({ errors });
       }
       return res.status(200).json({ product });
     })
-    .catch(err => {});
+    .catch(err => {
+      if (err) {
+        return res.status(400).json({ err });
+      }
+    });
 };
 
 exports.deleteProduct = async (req, res, next) => {

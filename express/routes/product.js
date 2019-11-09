@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   createProduct,
   getProductsByUserId,
+  getProductById,
   deleteProduct,
 } = require('../handlers/product');
 const { authMiddleware } = require('../core/middleware/auth');
@@ -14,6 +15,7 @@ const { adminCheckToken } = require('../core/middleware/admin');
 
 router.post('/', authMiddleware, asyncMiddleware(createProduct));
 router.get('/', authMiddleware, asyncMiddleware(getProductsByUserId));
+router.get('/:productId', authMiddleware, asyncMiddleware(getProductById));
 router.delete('/:productId', authMiddleware, asyncMiddleware(deleteProduct));
 
 //deleteProduct
