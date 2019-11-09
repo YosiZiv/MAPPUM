@@ -15,6 +15,8 @@ exports.createProduct = async (req, res, next) => {
       .status(200)
       .json({ product: product, message: 'product create success' });
   } catch (err) {
+    console.log(err);
+
     errors.global = 'something went wrong :/';
     return res.status(500).json({ errors });
   }

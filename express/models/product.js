@@ -20,7 +20,7 @@ const ProductSchema = new Schema({
     maxlength: 256,
   },
   sellPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
   images: {
