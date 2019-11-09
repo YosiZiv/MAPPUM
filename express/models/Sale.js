@@ -4,19 +4,19 @@ const { Schema } = mongoose;
 
 //  Create Schema
 const SaleSchema = new Schema({
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'User',
     required: true,
   },
-  customer: {
+  customerId: {
     type: Schema.Types.ObjectId,
-    ref: 'customer',
+    ref: 'Customer',
     required: true,
   },
-  product: {
+  productId: {
     type: Schema.Types.ObjectId,
-    ref: 'product',
+    ref: 'Product',
     required: true,
   },
   active: {
@@ -35,5 +35,5 @@ const SaleSchema = new Schema({
   },
 });
 
-const Sale = mongoose.model('sale', SaleSchema);
+const Sale = mongoose.model('Sale', SaleSchema);
 module.exports = Sale;

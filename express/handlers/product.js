@@ -1,23 +1,34 @@
-const { Products } = require('../models');
+const { Product } = require('../models');
 const { validateProductInput } = require('../core/validation/product');
 exports.createProduct = async (req, res, next) => {
-  console.log('inside create product');
-
+  const {
+    user: { _id: userId },
+    body,
+  } = req;
   const errors = validateProductInput(req.body);
-  try {
-    if (Object.keys(errors).length) {
-      return res.status(403).json({ errors });
-    }
-    const product = await new Products(req.body);
 
-    await product.save();
-    res
-      .status(200)
-      .json({ product: product, message: 'product create success' });
-  } catch (err) {
-    console.log(err);
-
-    errors.global = 'something went wrong :/';
-    return res.status(500).json({ errors });
+  if (Object.keys(errors).length) {
+    return res.status(403).json({ errors });
   }
+  const newProduct = await new Product({
+    ...body,
+    userId,
+  });
+
+  await newProduct
+    .save()
+    .then(dbProduct => {
+      if (!dbProduct) {
+        errors.global = 'something went wrong :/';
+        return res.status(400).json();
+      }
+      res
+        .status(200)
+        .json({ product: newProduct, message: 'product create success' });
+    })
+    .catch(error => {
+      console.log(error);
+      errors.global = 'something went wrong :/';
+      return res.status(500).json({ errors });
+    });
 };

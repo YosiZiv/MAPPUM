@@ -34,11 +34,11 @@ const UserSchema = new Schema({
   },
   customers: {
     type: [Schema.Types.ObjectId],
-    ref: 'customer',
+    ref: 'Customer',
   },
   products: {
     type: [Schema.Types.ObjectId],
-    ref: 'product',
+    ref: 'Product',
   },
   isDelete: {
     type: Boolean,
@@ -55,5 +55,5 @@ const UserSchema = new Schema({
   },
 });
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('User', UserSchema);
 module.exports = User;

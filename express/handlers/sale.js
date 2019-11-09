@@ -1,73 +1,20 @@
 const { Sale, Product, User, Customer } = require('../models');
 
-// const updateUser = (user, sale) => {
-//   return new Promise((resolve, reject) => {
-//     Customer.update(
-//       {
-//         _id: customer,
-//       },
-//       {
-//         $push: {
-//           sales: sale,
-//         },
-//       },
-//     )
-//       .then(result => {
-//         console.log(result);
-//         resolve(true);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         reject(false);
-//       });
-//   });
-// };
-// const updateCustomer = (customer, sale) => {
-//   return new Promise((resolve, reject) => {
-//     Customer.update(
-//       {
-//         _id: customer,
-//       },
-//       {
-//         $push: {
-//           sales: sale,
-//         },
-//       },
-//     )
-//       .then(result => {
-//         console.log(result);
-//         resolve(true);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         reject(false);
-//       });
-//   });
-// };
-
 exports.createNewSale = async (req, res, next) => {
-  try {
-    const errors = {};
-    const { product, user, customer } = req.body;
-    const sale = await new Sale({
-      user,
-      customer,
-      product,
-    });
-    await sale.save();
-    const saleId = sale._id;
-    console.log(saleId);
-
-    if (!sale) {
-      errors.global = 'sale create fail please try later';
-      return res.json(400).json({ errors });
+  const errors = {};
+  const { product, user, customer } = req.body;
+  const sale = await new Sale({
+    user,
+    customer,
+    product,
+  });
+  await sale.save().then(newSale => {
+    if (!newSale) {
+      errors.global = 'Something went wrong while saving the sale';
+      return res.status(400).json({ errors });
     }
-    return res.status(201).json({ message: 'new sale was created' });
-  } catch (err) {
-    console.log(err);
-    errors = 'something went wrong :/';
-    return res.json(400).json({ errors });
-  }
+    return res.status(201).json({ newSale, message: 'new sale was created' });
+  });
 };
 // const pdfData = {
 //   orderId: sale._id,
