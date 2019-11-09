@@ -32,3 +32,41 @@ exports.createProduct = async (req, res, next) => {
       return res.status(500).json({ errors });
     });
 };
+
+exports.getProductsByUserId = (req, res, next) => {
+  const {
+    user: { _id: userId },
+  } = req;
+  const errors = {};
+  Product.find({ userId })
+    .then(products => {
+      if (!products) {
+        errors.global = 'User Has No Products';
+        return res.status(400).json({ errors });
+      }
+      return res.status(201).json({ products });
+    })
+    .catch(err => {
+      if (err) {
+        errors.global = 'something went wrong';
+        return res.status(400).json({ errors });
+      }
+    });
+};
+
+exports.deleteProduct = async (req, res, next) => {
+  const {
+    params: { productId },
+    user: { _id: userId },
+  } = req;
+  const errors = {};
+  const condition = { _id: productId, userId };
+  const update = { $set: { isDelete: true } };
+  Product.findOneAndUpdate(condition, update, (err, deletedProduct) => {
+    if (err) {
+      errors.global = 'Something went wrong while deleting the product';
+      return res.status(400).json({ errors });
+    }
+    return res.status(200).json({ msg: 'Product is deleted', deletedProduct });
+  });
+};
