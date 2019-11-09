@@ -26,12 +26,11 @@ const UserSchema = new Schema({
   confirmed: {
     type: Boolean,
     default: false,
+    required: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 6,
-    maxlength: 256,
   },
   sales: {
     type: [Schema.Types.ObjectId],
@@ -41,6 +40,10 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'customer',
   },
+  products: {
+    type: [Schema.Types.ObjectId],
+    ref: 'product',
+  },
   isDelete: {
     type: Boolean,
     default: false,
@@ -49,6 +52,7 @@ const UserSchema = new Schema({
   createAt: {
     type: Date,
     default: Date.now,
+    required: true,
   },
   token: {
     type: String,

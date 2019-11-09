@@ -14,17 +14,8 @@ const SalesSchema = new Schema({
     ref: 'customer',
     required: true,
   },
-  productName: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  sellPrice: {
-    type: Number,
-    required: true,
+  product: {
+    type: { type: Schema.Types.ObjectId, ref: 'product' },
   },
   active: {
     required: true,
