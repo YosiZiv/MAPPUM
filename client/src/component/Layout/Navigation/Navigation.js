@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+
 import './Navigation.css';
 const navigation = props => {
-  const { admin, user } = props;
+  const { isAuth } = props;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,7 +33,7 @@ const navigation = props => {
               Home{' '}
             </NavLink>
           </li>
-          {!admin && !user ? (
+          {!isAuth && (
             <li className="nav-item">
               <NavLink
                 activeClassName="NavSelect"
@@ -43,8 +43,8 @@ const navigation = props => {
                 Login
               </NavLink>
             </li>
-          ) : null}
-          {admin ? (
+          )}
+          {isAuth && (
             <li className="nav-item">
               <NavLink
                 activeClassName="NavSelect"
@@ -54,19 +54,8 @@ const navigation = props => {
                 Admin Area
               </NavLink>
             </li>
-          ) : null}
-          {user ? (
-            <li className="nav-item">
-              <NavLink
-                activeClassName="NavSelect"
-                to="/userarea"
-                className="navLink"
-              >
-                User Area
-              </NavLink>
-            </li>
-          ) : null}
-          {user || admin ? (
+          )}
+          {isAuth && (
             <li className="nav-item">
               <NavLink
                 activeClassName="NavSelect"
@@ -76,21 +65,11 @@ const navigation = props => {
                 Logout
               </NavLink>
             </li>
-          ) : null}
+          )}
         </ul>
       </div>
     </nav>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    admin: state.auth.admin,
-    user: state.auth.user,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null,
-)(navigation);
+export default navigation;

@@ -15,26 +15,11 @@ import { setMessage, clearUi, redirectTo } from '../actions/ui';
 export const autoLogin = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === AUTO_LOGIN) {
-    const adminToken = localStorage.getItem('adminToken');
-    const userToken = localStorage.getItem('userToken');
-    const id = localStorage.getItem('id');
-    if (!adminToken && !userToken) {
+    const jwtToken = localStorage.getItem('jwtToken');
+    if (!jwtToken) {
       return dispatch(logout());
-    } else {
-      const expirationDate = new Date(localStorage.getItem('expirseIn'));
-      if (expirationDate <= new Date()) {
-        return dispatch(logout());
-      } else {
-        const user = {
-          admin: adminToken ? true : false,
-          user: userToken ? true : false,
-        };
-        const updateDate =
-          (expirationDate.getTime() - new Date().getTime()) / 1000;
-        dispatch(setAuthTime(updateDate));
-        dispatch(setAuth(user));
-      }
     }
+    dispatch(setAuth(true));
   }
 };
 export const loginStart = ({ dispatch }) => next => action => {
@@ -51,6 +36,7 @@ export const loginSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGIN_SUCCESS) {
     localStorage.setItem('jwtToken', action.payload.token);
+    dispatch(setAuth(true));
     dispatch(redirectTo('/'));
   }
 };
@@ -65,6 +51,8 @@ export const onLogout = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === LOGOUT) {
     localStorage.removeItem('jwtToken');
+    dispatch(setAuth(false));
+    dispatch(redirectTo('/'));
   }
 };
 

@@ -3,6 +3,7 @@ import { checkValidity } from '../../shared/utility';
 const initState = {
   errors: null,
   loginForm: {},
+  isAuth: false,
 };
 
 export function authReducer(state = initState, action) {
@@ -21,6 +22,8 @@ export function authReducer(state = initState, action) {
           },
         },
       };
+    case SET_AUTH:
+      return { ...state, isAuth: action.payload };
     case LOGIN_ERROR:
       return { ...state, message: action.payload.errors };
     default:
