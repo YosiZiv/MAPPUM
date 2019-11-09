@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 //  Create Schema
 const ProductSchema = new Schema({
-  users: {
-    type: [Schema.Types.ObjectId],
+  user: {
+    type: Schema.Types.ObjectId,
     ref: 'user',
-    required: false,
+    required: true,
   },
   name: {
     type: String,
