@@ -55,15 +55,19 @@ exports.getProductsByUserId = (req, res, next) => {
 };
 
 exports.getProductById = (req, res, next) => {
-  const { user: { _id: userId }, params:{ productId } }
+  const {
+    user: { _id: userId },
+    params: { productId },
+  } = req;
   const errors = {};
-  findById(productId).then((product) => { 
-    if (!product) {
-      errors.global = 'No such product';
-      
-    }
-    return res.status(200).json({ product });
-   }).catch((err) => { });
+  findById(productId)
+    .then(product => {
+      if (!product) {
+        errors.global = 'No such product';
+      }
+      return res.status(200).json({ product });
+    })
+    .catch(err => {});
 };
 
 exports.deleteProduct = async (req, res, next) => {
