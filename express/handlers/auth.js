@@ -20,10 +20,10 @@ exports.login = async (req, res, next) => {
     errors.global = 'email or password incorrect';
     return res.status(400).json({ errors });
   }
-  if (!user.confirmed) {
-    errors.global = 'please confirm your email first';
-    return res.status(403).json({ errors });
-  }
+  // if (!user.confirmed) {
+  //   errors.global = 'please confirm your email first';
+  //   return res.status(403).json({ errors });
+  // }
   bcrypt
     .compare(password, user.password)
     .then(isMatch => {
@@ -62,7 +62,6 @@ exports.emailConfirm = async (req, res, next) => {
   const errors = {};
   const { token } = req.params;
 
-
   Customer.findOneAndUpdate(
     { token },
     {
@@ -85,7 +84,6 @@ exports.emailConfirm = async (req, res, next) => {
       return res.status(201).json({ msg: 'email confirmed success' });
     })
     .catch(err => {
-    
       errors.global = 'Something went wrong while confirming user';
       return res.status(400).json({ errors, err });
     });

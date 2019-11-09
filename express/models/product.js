@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 //  Create Schema
 const ProductSchema = new Schema({
-  users: {
-    type: [Schema.Types.ObjectId],
-    ref: 'user',
-    required: false,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   },
   name: {
     type: String,
@@ -20,7 +20,7 @@ const ProductSchema = new Schema({
     maxlength: 256,
   },
   sellPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
   images: {
@@ -37,5 +37,5 @@ const ProductSchema = new Schema({
   },
 });
 
-const Products = mongoose.model('products', ProductSchema);
-module.exports = Products;
+const Product = mongoose.model('Product', ProductSchema);
+module.exports = Product;

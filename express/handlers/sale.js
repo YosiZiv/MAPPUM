@@ -1,82 +1,36 @@
-const { Sales, Products, User } = require('../models');
+const { Sale, Product, User, Customer } = require('../models');
 
-exports.getAdminActiveSales = async (req, res, next) => {
-  try {
-    const ObjectId = require('mongoose').Types.ObjectId;
-    const sales = await Sales.find({ user: new ObjectId(req.body.id) });
-    res.status(200).json({ sales });
-  } catch (err) {
-    const error = new Error('אופס משהו השתבש נסו שוב מאוחר יותר');
-    return next(error);
-  }
+exports.createNewSale = async (req, res, next) => {
+  const errors = {};
+  const { product, user, customer } = req.body;
+  const sale = await new Sale({
+    user,
+    customer,
+    product,
+  });
+  await sale.save().then(newSale => {
+    if (!newSale) {
+      errors.global = 'Something went wrong while saving the sale';
+      return res.status(400).json({ errors });
+    }
+    return res.status(201).json({ newSale, message: 'new sale was created' });
+  });
 };
-exports.getSaleById = async (req, res, next) => {
-  try {
-    const sale = await Sales.findById({
-      _id: req.params.id,
-      active: true,
-    });
-    res.status(200).json({ sale });
-  } catch (err) {
-    const errors = {};
-    errors.message = new Error('אופס משהו השתבש :/ ');
-    errors.status = 400;
-    next(errors);
-  }
-};
-exports.sellComplete = async (req, res, next) => {
-  try {
-    const { productId, userId } = req.body;
-    const updateProduct = await Products.updateOne(
-      {
-        _id: productId,
-      },
-      {
-        $push: {
-          users: userId,
-        },
-      },
-    );
-    const getProduct = await Products.findById({ _id: productId });
-
-    const sale = await new Sales({
-      user: userId,
-      productName: getProduct.name,
-      description: getProduct.description,
-      sellPrice: getProduct.sellPrice,
-    });
-    await sale.save();
-    const updateUser = await User.updateOne(
-      {
-        _id: userId,
-      },
-      {
-        $push: {
-          sales: sale._id,
-        },
-      },
-    );
-    const pdfData = {
-      orderId: sale._id,
-      firstName: updateUser.firstName,
-      lastName: updateUser.lastName,
-      phone: updateUser.phone1,
-      email: updateUser.email,
-      address: updateUser.address,
-      productName: sale.productName,
-      description: sale.description,
-      sellPrice: sale.sellPrice,
-    };
-    const pathToPdf = getPath + '/' + pdfData.orderId + '.pdf';
-    const pdfPath = await pdf(pathToPdf, pdfData);
-    const pdfMessage = makeMailMessage(pdfData);
-    const getPdf = await sendPdfToMail(pdfPath, pdfData.email, pdfMessage);
-    res.status(201).json({ message: 'רכישה בוצעה בהצלחה' });
-  } catch (err) {
-    const error = new Error('אופס משהו השתבש נסו שוב מאוחר יותר');
-    return next(error);
-  }
-};
+// const pdfData = {
+//   orderId: sale._id,
+//   firstName: updateUser.firstName,
+//   lastName: updateUser.lastName,
+//   phone: updateUser.phone1,
+//   email: updateUser.email,
+//   address: updateUser.address,
+//   productName: sale.productName,
+//   description: sale.description,
+//   sellPrice: sale.sellPrice,
+// };
+// const pathToPdf = getPath + '/' + pdfData.orderId + '.pdf';
+// const pdfPath = await pdf(pathToPdf, pdfData);
+// const pdfMessage = makeMailMessage(pdfData);
+// const getPdf = await sendPdfToMail(pdfPath, pdfData.email, pdfMessage);
 exports.changeSaleStage = async (req, res, next) => {
   await Sales.findByIdAndUpdate(
     {
@@ -111,6 +65,33 @@ exports.changeSaleStage = async (req, res, next) => {
       return next(error);
     });
 };
+exports.getUserActiveSales = async (req, res, next) => {
+  try {
+    const { user } = req.body;
+    const sales = await Sales.find({ user });
+    console.log(userSales);
+    res.status(200).json({ sales });
+  } catch (err) {
+    const error = new Error('אופס משהו השתבש נסו שוב מאוחר יותר');
+    return next(error);
+  }
+};
+
+exports.getSaleById = async (req, res, next) => {
+  try {
+    const sale = await Sales.findById({
+      _id: req.params.id,
+      active: true,
+    });
+    res.status(200).json({ sale });
+  } catch (err) {
+    const errors = {};
+    errors.message = new Error('אופס משהו השתבש :/ ');
+    errors.status = 400;
+    next(errors);
+  }
+};
+
 exports.getAllActiveSells = async (req, res, next) => {
   const { currentPage, itemPerPage } = req.query;
   const query = {};

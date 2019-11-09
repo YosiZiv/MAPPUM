@@ -32,13 +32,9 @@ const CustomerSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  sales: {
-    type: [Schema.Types.ObjectId],
-    ref: 'sale',
-  },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'User',
     required: true,
   },
   token: {
@@ -55,5 +51,5 @@ const CustomerSchema = new Schema({
   },
 });
 
-const Customer = mongoose.model('customer', CustomerSchema);
+const Customer = mongoose.model('Customer', CustomerSchema);
 module.exports = Customer;

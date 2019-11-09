@@ -3,23 +3,20 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 //  Create Schema
-const SalesSchema = new Schema({
-  user: {
+const SaleSchema = new Schema({
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: false,
-  },
-  productName: {
-    type: String,
-    required: true,
-    maxlength: 30,
-  },
-  description: {
-    type: String,
+    ref: 'User',
     required: true,
   },
-  sellPrice: {
-    type: Number,
+  customerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Customer',
+    required: true,
+  },
+  productId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Product',
     required: true,
   },
   active: {
@@ -38,5 +35,5 @@ const SalesSchema = new Schema({
   },
 });
 
-const Sales = mongoose.model('sales', SalesSchema);
-module.exports = Sales;
+const Sale = mongoose.model('Sale', SaleSchema);
+module.exports = Sale;

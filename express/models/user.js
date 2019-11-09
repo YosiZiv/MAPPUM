@@ -26,16 +26,19 @@ const UserSchema = new Schema({
   confirmed: {
     type: Boolean,
     default: false,
+    required: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 6,
-    maxlength: 256,
   },
   customers: {
     type: [Schema.Types.ObjectId],
-    ref: 'customer',
+    ref: 'Customer',
+  },
+  products: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Product',
   },
   isDelete: {
     type: Boolean,
@@ -45,11 +48,12 @@ const UserSchema = new Schema({
   createAt: {
     type: Date,
     default: Date.now,
+    required: true,
   },
   token: {
     type: String,
   },
 });
 
-const User = mongoose.model('user', UserSchema);
+const User = mongoose.model('User', UserSchema);
 module.exports = User;
