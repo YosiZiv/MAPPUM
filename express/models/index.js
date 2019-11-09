@@ -29,6 +29,6 @@ mongoose
   .catch(err => console.log(err));
 // Exports
 module.exports.User = require('./user');
-module.exports.Products = require('./product');
-module.exports.Sales = require('./sales');
+module.exports.Product = require('./product');
+module.exports.Sale = require('./sales');
 module.exports.Customer = require('./customer');

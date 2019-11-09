@@ -32,10 +32,6 @@ const CustomerSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  sales: {
-    type: [Schema.Types.ObjectId],
-    ref: 'sale',
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',

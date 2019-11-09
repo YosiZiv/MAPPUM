@@ -32,10 +32,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  sales: {
-    type: [Schema.Types.ObjectId],
-    ref: 'sale',
-  },
   customers: {
     type: [Schema.Types.ObjectId],
     ref: 'customer',

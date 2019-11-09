@@ -1,73 +1,65 @@
-const { Sales, Products, User, Customer } = require('../models');
+const { Sale, Product, User, Customer } = require('../models');
 
-const updateUser = async ({ user, sale }) => {
-  const errors = {};
-  await User.updateOne(
-    {
-      _id: user,
-    },
-    {
-      $push: {
-        sales: sale,
-      },
-    },
-  )
-    .then(result => {
-      if (!result) {
-        errors.global = 'someting went Wrong';
-        return errors;
-      }
-      return true;
-    })
-    .catch(err => {
-      console.log(err);
-      errors.global = 'someting went Wrong';
-      return errors;
-    });
-};
-const updateCustomer = async ({ customer, sale }) => {
-  await Customer.updateOne(
-    {
-      _id: customer,
-    },
-    {
-      $push: {
-        sales: sale,
-      },
-    },
-  )
-    .then(result => {
-      if (!result) {
-        errors.global = 'someting went Wrong';
-        return errors;
-      }
-      return true;
-    })
-    .catch(err => {
-      console.log(err);
-      errors.global = 'someting went Wrong';
-      return errors;
-    });
-};
+// const updateUser = (user, sale) => {
+//   return new Promise((resolve, reject) => {
+//     Customer.update(
+//       {
+//         _id: customer,
+//       },
+//       {
+//         $push: {
+//           sales: sale,
+//         },
+//       },
+//     )
+//       .then(result => {
+//         console.log(result);
+//         resolve(true);
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         reject(false);
+//       });
+//   });
+// };
+// const updateCustomer = (customer, sale) => {
+//   return new Promise((resolve, reject) => {
+//     Customer.update(
+//       {
+//         _id: customer,
+//       },
+//       {
+//         $push: {
+//           sales: sale,
+//         },
+//       },
+//     )
+//       .then(result => {
+//         console.log(result);
+//         resolve(true);
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         reject(false);
+//       });
+//   });
+// };
 
 exports.createNewSale = async (req, res, next) => {
   try {
     const errors = {};
     const { product, user, customer } = req.body;
-    const sale = await new Sales({
+    const sale = await new Sale({
       user,
       customer,
       product,
     });
     await sale.save();
+    const saleId = sale._id;
+    console.log(saleId);
+
     if (!sale) {
       errors.global = 'sale create fail please try later';
-      return res.json(400).json({ errors });
-    }
-    const updateUser = await updateUser({ user, sale });
-    const updateCustomer = await updateCustomer({ customer, sale });
-    if (!updateUser === true && !updateCustomer === true) {
-      errors.global = 'something went wrong :/';
       return res.json(400).json({ errors });
     }
     return res.status(201).json({ message: 'new sale was created' });
