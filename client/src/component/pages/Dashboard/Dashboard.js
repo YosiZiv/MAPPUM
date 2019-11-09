@@ -10,7 +10,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import AdminPrivateRoute from '../../../hoc/privateRoute/adminPrivateRoute';
+import tokenCheck from '../../../hoc/privateRoute/tokenCheck';
 import { mainListItems } from '../../Layout/DashboardNavigation/DashboardNavigation';
 import DashboardMain from '../Dashboard/DashboardMain/DashboardMain';
 import DashboardSell from './DashboardSell/DashboardSell';
@@ -20,10 +20,10 @@ import Logout from '../Logout/Logout';
 const drawerWidth = 240;
 const routes = (
   <React.Fragment>
-    <AdminPrivateRoute path="/dashboard" exact component={DashboardMain} />
-    <AdminPrivateRoute path="/dashboard/sell" component={DashboardSell} />
-    <AdminPrivateRoute path="/dashboard/tracker" component={DashboardTracker} />
-    <AdminPrivateRoute path="/dashboard/logout" component={Logout} />
+    <tokenCheck path="/dashboard" exact component={DashboardMain} />
+    <tokenCheck path="/dashboard/sell" component={DashboardSell} />
+    <tokenCheck path="/dashboard/tracker" component={DashboardTracker} />
+    <tokenCheck path="/dashboard/logout" component={Logout} />
   </React.Fragment>
 );
 const styles = theme => ({
