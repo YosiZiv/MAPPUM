@@ -16,7 +16,7 @@ export const store = createStore(
       api,
       ...authMdl,
       ...registerhMdl,
-      customerMdl,
+      ...customerMdl,
       ...sellMdl,
       ...fileMdl,
     ),
