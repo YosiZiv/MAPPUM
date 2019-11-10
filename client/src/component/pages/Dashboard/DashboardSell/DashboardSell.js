@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import tokenCheck from '../../../../hoc/privateRoute/tokenCheck';
 import ProgressBar from '../../../Layout/ProgressBar/ProgressBar';
-import Register from './Register/Register';
+import CustomerCreate from './CustomerCreate/CustomerCreate';
 import CreateProduct from './CreateProduct/CreateProduct';
 import FormConfirm from './FormConfirm/FormConfirm';
 import FormSuccess from './FormSuccess/FormSuccess';
@@ -18,7 +18,7 @@ class dashboardSell extends Component {
     const routes = (
       <React.Fragment>
         <Switch>
-          <tokenCheck path="/dashboard/sell" exact component={Register} />
+          <tokenCheck path="/dashboard/sell" exact component={CustomerCreate} />
           <tokenCheck
             path="/dashboard/sell/createproduct"
             component={CreateProduct}

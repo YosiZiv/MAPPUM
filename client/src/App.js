@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import tokenCheck from './hoc/privateRoute/tokenCheck';
 import Login from './component/pages/Login/Login';
 import Logout from './component/pages/Logout/Logout';
-// import Dashboard from './component/pages/Dashboard/Dashboard';
+import Dashboard from './component/pages/Dashboard/Dashboard';
 import Navigation from './component/Layout/Navigation/Navigation';
 import MainPage from './component/pages/MainPage/MainPage';
 import { autoLogin } from './redux/actions/auth';
@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
         </Switch>
-        {/* <tokenCheck path="/dashboard" component={Dashboard} /> */}
+        <tokenCheck path="/dashboard" component={Dashboard} />
       </React.Fragment>
     );
 

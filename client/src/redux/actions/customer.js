@@ -15,7 +15,8 @@ export const CUSTOMER_SET_INPUT = '[customer] Set Input';
 export const CUSTOMER_REGISTER_START = '[customer] Register Customer Start';
 export const CUSTOMER_REGISTER_SUCCESS = '[customer] Register Customer Success';
 export const CUSTOMER_REGISTER_FAIL = '[customer] Register Customer Fail';
-export const RESET_CUSTOMER_STATE = '[customer] Reset Customer State'
+export const RESET_CUSTOMER_STATE = '[customer] Reset Customer State';
+export const GET_USER_CUSTOMERS = '[customer] get user customers';
 export const inputHandle = payload => ({
   type: CUSTOMER_INPUT_HANDLE_MID,
   payload,
@@ -32,6 +33,9 @@ export const customerRegisterStart = payload => ({
 
 export const resetRegisterState = () => ({
   type: RESET_CUSTOMER_STATE,
+});
+export const getUserCustomers = () => ({
+  type: GET_USER_CUSTOMERS,
 });
 
 // export const getUserByEmail = payload => ({

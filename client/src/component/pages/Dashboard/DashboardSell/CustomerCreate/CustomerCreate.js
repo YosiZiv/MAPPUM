@@ -4,36 +4,29 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SearchUser from '../../../../Layout/SearchUser/SearchUser';
-import RegisterUser from '../../../../Layout/RegisterCustomer/RegisterCustomer';
-import './Register.css';
+import SearchCustomer from '../../../../Layout/SearchUser/SearchUser';
+import RegisterCustomer from '../../../../Layout/RegisterCustomer/RegisterCustomer';
+import './CustomerCreate.css';
 import {
-  registerStart,
-  setRegisterFields,
-  setSearchFields,
-  switchRegisterMode,
-  getAdminsUsers,
-  searchUserAutoComplete,
-  getUserByEmail,
-  resetRegisterState,
-} from '../../../../../redux/actions/register';
+  getUserCustomers,
+  customerRegisterStart,
+  inputHandle,
+} from '../../../../../redux/actions/customer';
 import { changeSellStage } from '../../../../../redux/actions/sell';
-class Register extends Component {
+
+class CustomerCreate extends Component {
   componentDidMount() {
-    const { getAdminsUsers } = this.props;
-    const admin = localStorage.getItem('id');
-    if (admin) {
-      getAdminsUsers(admin);
-    }
+    const { getUserCustomers } = this.props;
+    getUserCustomers();
   }
 
   switchMode = () => {
     const { switchRegisterMode } = this.props;
     switchRegisterMode();
   };
-  registerInputChange = ({ id, value, validation }) => {
-    const { setRegisterFields } = this.props;
-    setRegisterFields({ id, value, validation });
+  customerInputChange = ({ id, value, validation }) => {
+    const { inputHandle } = this.props;
+    inputHandle({ id, value, validation });
   };
   searchInputChange = ({ id, value, validation }) => {
     const { setSearchFields, searchUserAutoComplete } = this.props;
@@ -41,19 +34,18 @@ class Register extends Component {
     searchUserAutoComplete(value);
   };
   registerSubmitHandler = async event => {
-    const { registerStart, registerForm } = this.props;
+    const { customerRegisterStart, customerForm } = this.props;
     const id = localStorage.getItem('id');
-    const registerData = {
+    const customerData = {
       admin: id,
-      firstName: registerForm['firstName'] ? registerForm.firstName.value : '',
-      lastName: registerForm['lastName'] ? registerForm.lastName.value : '',
-      zahot: registerForm['zahot'] ? registerForm.zahot.value : '',
-      phone: registerForm['phone'] ? registerForm.phone.value : '',
-      address: registerForm['address'] ? registerForm.address.value : '',
-      email: registerForm['email'] ? registerForm.email.value : '',
+      firstName: customerForm['firstName'] ? customerForm.firstName.value : '',
+      lastName: customerForm['lastName'] ? customerForm.lastName.value : '',
+      phone: customerForm['phone'] ? customerForm.phone.value : '',
+      address: customerForm['address'] ? customerForm.address.value : '',
+      email: customerForm['email'] ? customerForm.email.value : '',
     };
 
-    return registerStart(registerData, id);
+    return customerRegisterStart(customerData, id);
   };
   userSelect = email => {
     const { getUserByEmail } = this.props;
@@ -85,7 +77,7 @@ class Register extends Component {
           </p>
         </div>
         {mode ? (
-          <RegisterUser
+          <RegisterCustomer
             loading={loading}
             message={message}
             formSubmit={this.registerSubmitHandler}
@@ -93,7 +85,7 @@ class Register extends Component {
             registerUserForm={registerForm}
           />
         ) : (
-          <SearchUser
+          <SearchCustomer
             changeSellStage={changeSellStage}
             inputChange={this.searchInputChange}
             user={user}
@@ -113,37 +105,24 @@ class Register extends Component {
     );
   }
 }
-Register.prop = {
-  registerForm: PropTypes.object,
+CustomerCreate.prop = {
+  customerForm: PropTypes.object,
   loading: PropTypes.bool,
   message: PropTypes.string,
-  user: PropTypes.object,
+  customer: PropTypes.object,
 };
 
 const mapStateToProps = state => {
   return {
-    registerForm: state.register.registerForm,
-    searchForm: state.register.searchForm,
-    autoCompleteResult: state.register.autoCompleteResult,
-    user: state.register.user,
+    customerForm: state.customer.customerForm,
+    customer: state.customer.customer,
     message: state.ui.message,
     redirect: state.ui.redirect,
     loading: state.ui.loading,
-    mode: state.register.mode,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    registerStart,
-    getAdminsUsers,
-    searchUserAutoComplete,
-    setRegisterFields,
-    setSearchFields,
-    switchRegisterMode,
-    changeSellStage,
-    getUserByEmail,
-    resetRegisterState,
-  },
-)(Register);
+  { getUserCustomers, customerRegisterStart, inputHandle },
+)(CustomerCreate);

@@ -1,12 +1,11 @@
 import React from 'react';
 import Input from '../TextInput/TextInput';
-import './RegisterUser.css';
-const registerUser = props => {
+import './RegisterCustomer.css';
+const registerCustomer = props => {
   const { loading, registerUserForm, message, formSubmit, inputChange } = props;
   const {
     firstName = '',
     lastName = '',
-    zahot = '',
     phone = '',
     address = '',
     email = '',
@@ -52,20 +51,6 @@ const registerUser = props => {
             minLength: 2,
             maxLength: 256,
           }}
-        />
-
-        <Input
-          isValid={zahot ? zahot.isValid : true}
-          className="form-control"
-          id="zahot"
-          name="zahot"
-          type="text"
-          error={message && message.zahot}
-          required
-          disabled={loading}
-          defaultValue={zahot && zahot.value}
-          inputChange={inputChange}
-          validation={{ isRequired: true }}
         />
 
         <Input
@@ -125,4 +110,4 @@ const registerUser = props => {
     </div>
   );
 };
-export default registerUser;
+export default registerCustomer;
