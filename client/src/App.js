@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
         </Switch>
-        <tokenCheck path="/dashboard" component={Dashboard} />
+        {/* <tokenCheck path="/dashboard" component={Dashboard} /> */}
       </React.Fragment>
     );
 
