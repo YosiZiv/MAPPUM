@@ -45,7 +45,7 @@ class dashboardSell extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.register.user,
+    customer: state.customer.customer,
     item: state.sell.product,
     stage: state.sell.stage,
   };

@@ -1,22 +1,23 @@
-import { SET_INPUT, RESET_REGISTER_STATE } from '../actions/register';
+import { CUSTOMER_SET_INPUT, RESET_CUSTOMER_STATE } from '../actions/customer';
 import { checkValidity } from '../../shared/utility';
 const initState = {
-  registerForm: {},
+  customerForm: {},
+  customer: null,
 };
 
-export function registerReducer(state = initState, action) {
+export function customerReducer(state = initState, action) {
   switch (action.type) {
-    case RESET_REGISTER_STATE:
+    case RESET_CUSTOMER_STATE:
       return {
         ...state,
-        registerForm: {},
+        customerForm: {},
+        customer: null,
       };
-
-    case SET_INPUT:
+    case CUSTOMER_SET_INPUT:
       return {
         ...state,
-        registerForm: {
-          ...state.registerForm,
+        customerForm: {
+          ...state.customerForm,
           [action.payload.id]: {
             value: action.payload.value,
             isValid: checkValidity(

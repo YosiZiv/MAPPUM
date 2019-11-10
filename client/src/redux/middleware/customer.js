@@ -24,7 +24,7 @@ const inputHandler = ({ dispatch }) => next => action => {
 
 const customerRegisterStart = ({ dispatch }) => next => action => {
   next(action);
-  const URL = 'user/';
+  const URL = 'customer/';
   if (action.type === CUSTOMER_REGISTER_START) {
     dispatch(
       apiRequest(
@@ -40,7 +40,7 @@ const customerRegisterStart = ({ dispatch }) => next => action => {
 const customerRegisterSuccess = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === CUSTOMER_REGISTER_SUCCESS) {
-    dispatch(redirectTo('login'));
+    dispatch(redirectTo('/dashboard/createitem'));
   }
 };
 const customerRegisterFail = ({ dispatch }) => next => action => {
@@ -50,7 +50,7 @@ const customerRegisterFail = ({ dispatch }) => next => action => {
   }
 };
 
-export const customerMid = [
+export const customerMdl = [
   inputHandler,
   customerRegisterStart,
   customerRegisterSuccess,
