@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchUser from '../../../../Layout/SearchUser/SearchUser';
-import RegisterUser from '../../../../Layout/RegisterUser/RegisterUser';
+import RegisterUser from '../../../../Layout/RegisterCustomer/RegisterCustomer';
 import './Register.css';
 import {
   registerStart,

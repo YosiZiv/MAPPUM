@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SlideIn from '../../Layout/SlideIn/SlideIn';
 import './MainPage.css';
 import MainPageImg from '../../../assets/images/MainPageImage.jpg';
-import RegisterAdmin from '../../Layout/RegisterAdmin/RegisterAdmin';
+import RegisterAdmin from '../../Layout/RegisterUser/RegisterUser';
 import Message from '../../Layout/Message/Message';
 import {
   inputHandle,
@@ -16,33 +16,27 @@ class MainPage extends Component {
   popupToggle = () => {
     this.setState({ open: !this.state.open });
   };
-  adminRegisterInputChange = ({ id, value, validation }) => {
-    const { inputHandle } = this.props;
-    inputHandle({ id, value, validation });
+  userInputChange = ({ id, value, validation }) => {
+    const { inputHandle, message } = this.props;
+    inputHandle({ id, value, validation, message });
   };
 
-  adminRegisterSubmitHandler = async event => {
-    const { userRegisterStart, adminRegisterForm } = this.props;
+  formSubmit = async event => {
+    const { userRegisterStart, registerForm } = this.props;
     const registerData = {
-      firstName: adminRegisterForm['firstName']
-        ? adminRegisterForm.firstName.value
-        : '',
-      lastName: adminRegisterForm['lastName']
-        ? adminRegisterForm.lastName.value
-        : '',
-      phone: adminRegisterForm['phone'] ? adminRegisterForm.phone.value : '',
-      email: adminRegisterForm['email'] ? adminRegisterForm.email.value : '',
-      password: adminRegisterForm['password']
-        ? adminRegisterForm.password.value
-        : '',
-      passwordConfirm: adminRegisterForm['passwordConfirm']
-        ? adminRegisterForm.passwordConfirm.value
+      firstName: registerForm['firstName'] ? registerForm.firstName.value : '',
+      lastName: registerForm['lastName'] ? registerForm.lastName.value : '',
+      phone: registerForm['phone'] ? registerForm.phone.value : '',
+      email: registerForm['email'] ? registerForm.email.value : '',
+      password: registerForm['password'] ? registerForm.password.value : '',
+      passwordConfirm: registerForm['passwordConfirm']
+        ? registerForm.passwordConfirm.value
         : '',
     };
     return userRegisterStart(registerData);
   };
   render() {
-    const { adminRegisterForm, redirect, message, loading } = this.props;
+    const { registerForm, redirect, message, loading } = this.props;
     const { open } = this.state;
     return (
       <div
@@ -67,9 +61,9 @@ class MainPage extends Component {
             closeForm={this.popupToggle}
             loading={loading}
             message={message}
-            formSubmit={this.adminRegisterSubmitHandler}
-            inputChange={this.adminRegisterInputChange}
-            adminRegisterForm={adminRegisterForm}
+            formSubmit={this.formSubmit}
+            inputChange={this.userInputChange}
+            registerForm={registerForm}
           />
           <Message message={message} />
         </SlideIn>
@@ -79,7 +73,7 @@ class MainPage extends Component {
 }
 const mapStateToProps = state => {
   return {
-    adminRegisterForm: state.register.adminRegisterForm,
+    registerForm: state.register.registerForm,
     message: state.ui.message,
     redirect: state.ui.redirect,
     loading: state.ui.loading,

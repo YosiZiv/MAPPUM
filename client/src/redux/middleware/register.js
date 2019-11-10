@@ -12,10 +12,10 @@ import { checkValidity } from '../../shared/utility';
 const inputHandler = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === INPUT_HANDLE_MID) {
-    const { id, value, validation } = action.payload;
+    const { id, value, validation, message } = action.payload;
 
     const isValid = checkValidity(value, validation);
-    if (isValid) {
+    if (isValid && message[id]) {
       dispatch(deleteMessage(id));
     }
     dispatch(setInput({ id, value, isValid }));
