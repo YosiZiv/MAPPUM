@@ -1,7 +1,7 @@
+import { combineReducers } from 'redux';
 import { uiReducer } from './ui';
 import { authReducer } from './auth';
 import { registerReducer } from './register';
-import { combineReducers } from 'redux';
 import { sellReducer } from './sell';
 import { fileReducer } from './file';
 import { customerReducer } from './customer';
