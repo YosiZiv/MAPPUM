@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginStart, setLoginFields } from '../../../redux/actions/auth';
-import { clearLoginState } from '../../../redux/actions/ui';
+import { clearLoginState } from '../../../redux/actions/auth';
 import Input from '../../Layout/TextInput/TextInput';
 import Message from '../../Layout/Message/Message';
 import './Login.css';

@@ -16,9 +16,6 @@ export const redirectTo = url => ({
   type: REDIRECT,
   payload: url,
 });
-export const clearLoginState = () => ({
-  type: CLEAR_UI,
-});
 export const loadingStart = () => ({
   type: LOADING_START,
 });

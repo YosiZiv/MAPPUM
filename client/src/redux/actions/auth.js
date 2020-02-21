@@ -6,6 +6,7 @@ export const SET_AUTH = '[auth] set Auth';
 export const SET_AUTH_TIME = '[auth] set Auth Time';
 export const LOGOUT = '[auth] logout';
 export const SET_LOGIN_FIELDS = '[Auth] Set Login Fields';
+export const CLEAR_LOGIN_STATE = '[Auth] Clear Login Fields'
 
 export const loginStart = userData => ({
   type: LOGIN_START,
@@ -31,3 +32,7 @@ export const setLoginFields = payload => ({
   type: SET_LOGIN_FIELDS,
   payload,
 });
+export const clearLoginState = payload => ({
+  type: CLEAR_LOGIN_STATE,
+  payload
+})

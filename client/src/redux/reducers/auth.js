@@ -1,4 +1,9 @@
-import { LOGIN_ERROR, SET_LOGIN_FIELDS, SET_AUTH } from '../actions/auth';
+import {
+  LOGIN_ERROR,
+  SET_LOGIN_FIELDS,
+  SET_AUTH,
+  CLEAR_LOGIN_STATE,
+} from '../actions/auth';
 import { checkValidity } from '../../shared/utility';
 const initState = {
   errors: null,
@@ -26,6 +31,8 @@ export function authReducer(state = initState, action) {
       return { ...state, isAuth: action.payload };
     case LOGIN_ERROR:
       return { ...state, message: action.payload.errors };
+    case CLEAR_LOGIN_STATE:
+      return { errors: null, loginForm: {}, isAuth: false };
     default:
       return state;
   }
