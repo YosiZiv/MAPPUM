@@ -1,8 +1,14 @@
-import { CUSTOMER_SET_INPUT, RESET_CUSTOMER_STATE } from '../actions/customer';
+import {
+  CUSTOMER_SET_INPUT,
+  RESET_CUSTOMER_STATE,
+  SET_SEARCH_FIELDS,
+} from '../actions/customer';
 import { checkValidity } from '../../shared/utility';
 const initState = {
   customerForm: {},
+  searchForm: {},
   customer: null,
+  mode: true,
 };
 
 export function customerReducer(state = initState, action) {
@@ -27,23 +33,25 @@ export function customerReducer(state = initState, action) {
           },
         },
       };
+    case SET_SEARCH_FIELDS:
+      return {
+        ...state,
+        searchForm: {
+          ...state.searchForm,
+          [action.payload.id]: {
+            value: action.payload.value,
+            isValid: checkValidity(
+              action.payload.value,
+              action.payload.validation,
+            ),
+          },
+        },
+      };
     default:
       return state;
   }
 }
-// case SET_SEARCH_FIELDS:
-//   return {
-//     ...state,
-//     searchForm: {
-//       ...state.searchForm,
-//       [action.payload.id]: {
-//         value: action.payload.value,
-//         isValid: checkValidity(
-//           action.payload.value,
-//           action.payload.validation,
-//         ),
-//       },
-//     },
+
 // case SET_USER:
 //   return { ...state, user: action.payload };
 // case SET_EMAILS:

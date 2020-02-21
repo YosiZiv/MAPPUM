@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import tokenCheck from './hoc/privateRoute/tokenCheck';
+import TokenCheck from './hoc/privateRoute/TokenCheck';
 import Login from './component/pages/Login/Login';
 import Logout from './component/pages/Logout/Logout';
 import Dashboard from './component/pages/Dashboard/Dashboard';
@@ -16,15 +16,16 @@ class App extends Component {
     autoLogin();
   }
   render() {
-    const { isAuth } = this.props;
+    const { isAuth, redirect } = this.props;
+    console.log(redirect, isAuth);
     const routes = (
       <React.Fragment>
         <Switch>
           <Route path="/" component={MainPage} exact />
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
-        <tokenCheck path="/dashboard" component={Dashboard} />
       </React.Fragment>
     );
 
@@ -39,6 +40,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   isAuth: state.auth.isAuth,
   loading: state.ui.loading,
+  redirect: state.ui.redirect,
 });
 export default connect(
   mapStateToProps,

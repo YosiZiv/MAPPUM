@@ -57,7 +57,7 @@ class CustomerCreate extends Component {
   render() {
     const {
       user,
-      registerForm,
+      customerForm,
       searchForm,
       autoCompleteResult,
       redirect,
@@ -65,6 +65,8 @@ class CustomerCreate extends Component {
       mode,
       loading,
     } = this.props;
+    console.log(customerForm);
+
     return (
       <div className="registerPage">
         {redirect && <Redirect to={redirect} />}
@@ -82,7 +84,7 @@ class CustomerCreate extends Component {
             message={message}
             formSubmit={this.registerSubmitHandler}
             inputChange={this.registerInputChange}
-            registerUserForm={registerForm}
+            customerForm={customerForm}
           />
         ) : (
           <SearchCustomer
@@ -94,6 +96,7 @@ class CustomerCreate extends Component {
             autoCompleteResult={autoCompleteResult}
           />
         )}
+        }
         {message
           ? message.global && (
               <div className="globalError">
@@ -116,6 +119,7 @@ const mapStateToProps = state => {
   return {
     customerForm: state.customer.customerForm,
     customer: state.customer.customer,
+    mode: state.customer.mode,
     message: state.ui.message,
     redirect: state.ui.redirect,
     loading: state.ui.loading,

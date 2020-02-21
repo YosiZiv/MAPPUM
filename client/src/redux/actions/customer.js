@@ -1,7 +1,7 @@
 // export const SET_EMAILS = '[Register] Set Emails';
 // export const SEARCH_USER_AUTO_COMPLETE = '[register] Search User Auto Complete';
 // export const SET_USER = '[register] Set User';
-// export const SET_SEARCH_FIELDS = '[register] Set Search Fields';
+export const SET_SEARCH_FIELDS = '[register] Set Search Fields';
 // export const SWITCH_REGISTER_MODE = '[register] Switch Register Mode';
 // export const GET_USER_USERS_START = '[register] Get User By Email Start';
 // export const GET_USER_USERS_SUCCESS = '[register] Get User By Email Success';

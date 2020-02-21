@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 // eslint-disable-next-line import/prefer-default-export
-const tokenCheck = ({ component: Component, ...rest }) => (
+const TokenCheck = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -14,4 +14,4 @@ const tokenCheck = ({ component: Component, ...rest }) => (
     }
   />
 );
-export default tokenCheck;
+export default TokenCheck;

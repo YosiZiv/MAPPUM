@@ -30,11 +30,13 @@ class Login extends Component {
   };
 
   render() {
-    const { loading, loginForm, redirectPath, message } = this.props;
+    const { loading, loginForm, isAuth, message } = this.props;
+    console.log(isAuth);
+
     const { email, password } = loginForm;
     return (
       <div className="loginPage">
-        {redirectPath && <Redirect to={redirectPath} />}
+        {isAuth && <Redirect to="/" />}
         <div className="form-group loginForm">
           <h2 className="logintitle">Login</h2>
           <form className="form" onSubmit={e => e.preventDefault()}>
@@ -94,6 +96,7 @@ Login.prop = {
 };
 const mapStateToProps = state => {
   return {
+    isAuth: state.auth.isAuth,
     loading: state.ui.loading,
     message: state.ui.message,
     redirectPath: state.ui.redirect,

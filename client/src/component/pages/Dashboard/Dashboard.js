@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +11,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import tokenCheck from '../../../hoc/privateRoute/tokenCheck';
+import tokenCheck from '../../../hoc/privateRoute/TokenCheck';
 import { mainListItems } from '../../Layout/DashboardNavigation/DashboardNavigation';
 import DashboardMain from '../Dashboard/DashboardMain/DashboardMain';
 import DashboardSell from './DashboardSell/DashboardSell';
@@ -20,10 +21,10 @@ import Logout from '../Logout/Logout';
 const drawerWidth = 240;
 const routes = (
   <React.Fragment>
-    <tokenCheck path="/dashboard" exact component={DashboardMain} />
-    <tokenCheck path="/dashboard/sell" component={DashboardSell} />
-    <tokenCheck path="/dashboard/tracker" component={DashboardTracker} />
-    <tokenCheck path="/dashboard/logout" component={Logout} />
+    <Route path="/dashboard" exact component={DashboardMain} />
+    <Route path="/dashboard/sell" component={DashboardSell} />
+    <Route path="/dashboard/tracker" component={DashboardTracker} />
+    <Route path="/dashboard/logout" component={Logout} />
   </React.Fragment>
 );
 const styles = theme => ({

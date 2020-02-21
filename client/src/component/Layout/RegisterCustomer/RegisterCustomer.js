@@ -2,14 +2,14 @@ import React from 'react';
 import Input from '../TextInput/TextInput';
 import './RegisterCustomer.css';
 const registerCustomer = props => {
-  const { loading, registerUserForm, message, formSubmit, inputChange } = props;
+  const { loading, customerForm, message, formSubmit, inputChange } = props;
   const {
     firstName = '',
     lastName = '',
     phone = '',
     address = '',
     email = '',
-  } = registerUserForm;
+  } = customerForm;
 
   return (
     <div className="newUserContainer">

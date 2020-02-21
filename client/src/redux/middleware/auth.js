@@ -16,10 +16,7 @@ export const autoLogin = ({ dispatch }) => next => action => {
   next(action);
   if (action.type === AUTO_LOGIN) {
     const jwtToken = localStorage.getItem('jwtToken');
-    if (!jwtToken) {
-      return dispatch(logout());
-    }
-    dispatch(setAuth(true));
+    if (jwtToken) dispatch(setAuth(true));
   }
 };
 export const loginStart = ({ dispatch }) => next => action => {

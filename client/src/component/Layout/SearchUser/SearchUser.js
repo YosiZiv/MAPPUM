@@ -12,6 +12,8 @@ const searchUser = props => {
     autoCompleteResult,
   } = props;
   const { email = '' } = searchForm;
+  console.log(email);
+
   return (
     <div className="searchUserContainer">
       <div className="searchUserTitle">

@@ -56,7 +56,7 @@ class MainPage extends Component {
             Become A Manager
           </button>
         </div>
-        <SlideIn open={open}>
+        {/* <SlideIn open={open}>
           <RegisterAdmin
             closeForm={this.popupToggle}
             loading={loading}
@@ -66,7 +66,7 @@ class MainPage extends Component {
             registerForm={registerForm}
           />
           <Message message={message} />
-        </SlideIn>
+        </SlideIn> */}
       </div>
     );
   }
